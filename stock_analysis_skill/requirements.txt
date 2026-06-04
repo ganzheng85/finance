@@ -1,0 +1,10 @@
+# Stock Analysis Skill Dependencies
+
+# Market data fetching
+yfinance>=0.2.40
+
+# Optional: Enhanced data sources
+# pandas>=2.0.0  # Usually installed with yfinance
+# requests>=2.31.0  # For web scraping if needed
+# beautifulsoup4>=4.12.0  # For parsing HTML data
+# sec-edgar-downloader>=5.0.0  # For SEC filings
