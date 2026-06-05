@@ -1,0 +1,17 @@
+# Core dependencies
+gridstatus>=0.25.0
+pandas>=2.0.0
+requests>=2.31.0
+python-dateutil>=2.8.2
+
+# Timezone support (Python 3.9+ has zoneinfo built-in)
+# tzdata is needed on Windows for ZoneInfo to work
+tzdata>=2024.1
+
+# Optional: visualization
+plotly>=5.0.0
+matplotlib>=3.7.0
+
+# Optional: Jupyter notebook support
+ipykernel>=6.0.0
+jupyter>=1.0.0
