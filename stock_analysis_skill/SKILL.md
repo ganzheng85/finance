@@ -34,6 +34,13 @@ Produces tactical stock analysis focusing on current price levels, moat strength
 5. **Produce the analysis**
    Use the template in `references/analysis-template.md`.
 
+6. **If asked about strategic investment productivity** (AI, R&D, capex effectiveness):
+   - Create a **multi-quarter comparison CSV file** with quantitative metrics
+   - Include 4-8 quarters of historical data (minimum 2 years)
+   - Define clear thresholds for success/failure
+   - Provide quick assessment checklist
+   - Save to `references/[COMPANY]-[THEME]-productivity-metrics.csv`
+
 ## Analysis Components
 
 ### 1. Price Level Assessment
@@ -175,6 +182,84 @@ Articulate the complete investment case:
 
 Output: **Clear, actionable investment thesis with defined catalysts, risks, and expected returns**
 
+### 7. Strategic Investment Productivity Analysis (AI, R&D, Capex)
+
+When asked to prove whether strategic investments (AI, R&D, new products, capex) are productive:
+
+**Approach**:
+1. **Identify the investment theme**: AI infrastructure, R&D spending, geographic expansion, M&A, etc.
+2. **Define quantitative metrics** that would prove productivity:
+   - **Revenue metrics**: Growth rate, ARPU, pricing power
+   - **Profitability metrics**: Operating margin, FCF margin, ROIC
+   - **Efficiency metrics**: Revenue per employee, revenue per $ invested
+   - **Product metrics**: User growth, engagement, conversion rates
+   - **Return metrics**: Incremental revenue / investment, payback period
+3. **Gather historical data**: Pull metrics from last 4-8 quarters (2 years)
+4. **Create comparison table**: Show quarter-over-quarter or year-over-year trends
+5. **Identify inflection points**: When did metrics start improving after investment?
+6. **Calculate ROI**: Quantify investment amount vs benefit generated
+7. **Save to CSV**: Create structured table for easy analysis
+
+**Output Requirements**:
+- **CSV file** with columns: Metric, Q1 YYYY, Q2 YYYY, Q3 YYYY, Q4 YYYY, ..., Status (PASS/CAUTION/FAIL), Notes
+- **Critical metrics section** (top 5-7 most important)
+- **Supporting metrics section** (10-15 additional metrics)
+- **Quick assessment checklist** (YES/NO questions for rapid evaluation)
+- **Thresholds**: Define "good" vs "bad" values for each metric
+- **Data sources**: Where to find each metric in earnings reports/filings
+- **Verdict logic**: How to combine metrics into overall BUY/WATCH/AVOID decision
+
+**Example Use Cases**:
+- "Prove Meta's AI investments are productive" → Compare ARPU, operating margin, revenue growth, DAU growth, Reels engagement across 8 quarters
+- "Is Amazon's AWS capex paying off?" → Compare AWS revenue growth, operating margin, revenue/capex ratio across quarters
+- "Did Netflix's content spending work?" → Compare subscriber growth, engagement hours, revenue/subscriber, content ROI
+
+**File Naming Convention**:
+- `references/[COMPANY]-[INVESTMENT_THEME]-productivity-metrics.csv` (comprehensive)
+- `references/[COMPANY]-[INVESTMENT_THEME]-quick-checklist.csv` (rapid assessment)
+
+**Template Structure** (save as CSV):
+```
+Category,Metric,Formula,What to Look For,Q1 2023,Q2 2023,Q3 2023,Q4 2023,Q1 2024,Q2 2024,Q3 2024,Q4 2024,Good Threshold,Bad Threshold,Where to Find
+Revenue,Revenue Growth % Y/Y,...,...,Fill,Fill,Fill,Fill,Fill,Fill,Fill,Fill,>15%,<5%,Income statement
+Profitability,Operating Margin %,...,...,Fill,Fill,Fill,Fill,Fill,Fill,Fill,Fill,>30%,<20%,Income statement
+...
+```
+
+This allows **data-driven analysis** of whether strategic investments are creating value, using concrete numbers from financial reports rather than management promises.
+
+## Output Structure
+
+All analysis outputs are organized by ticker symbol for easy access:
+
+```
+analyses/
+├── [TICKER]/                           # Folder per stock ticker
+│   ├── [TICKER]-YYYY-MM-DD.md          # Stock analysis report (markdown)
+│   ├── [TICKER]-YYYY-MM-DD.pdf         # PDF version
+│   ├── [ticker]-[theme]-YYYY-MM-DD.csv # Investment productivity analysis
+│   └── ...                             # Multiple analyses over time
+│
+└── Example: META/
+    ├── META-2026-06-04.md              # General stock analysis
+    ├── META-2026-06-04.pdf
+    ├── META-AI-Productivity-2026-06-07.md  # AI investment analysis
+    ├── META-AI-Productivity-2026-06-07.pdf
+    ├── meta-ai-productivity-analysis-2026-06-07.csv
+    └── meta-ai-investment-returns-2026-06-07.csv
+
+data/
+├── [TICKER]/                           # Raw quarterly data per ticker
+│   ├── [ticker]_quarterly_income.csv   # Income statements
+│   ├── [ticker]_quarterly_balance.csv  # Balance sheets
+│   └── [ticker]_quarterly_cashflow.csv # Cash flow statements
+│
+└── Example: META/
+    ├── meta_quarterly_income.csv
+    ├── meta_quarterly_balance.csv
+    └── meta_quarterly_cashflow.csv
+```
+
 ## Output Format
 
 Use the structure in `references/analysis-template.md`:
@@ -252,6 +337,22 @@ Confidence: [High/Medium/Low]
 
 ## 7. Recommendation
 [BUY / WATCH / AVOID] with reasoning
+
+## 8. Strategic Investment Productivity Analysis (Optional)
+**If analyzing AI/R&D/Capex effectiveness**:
+
+See separate CSV file: `references/[COMPANY]-[THEME]-productivity-metrics.csv`
+
+**Quick Assessment**:
+- Critical metrics improving: [X/5] PASS
+- Supporting metrics improving: [X/10] PASS
+- Overall verdict: [Investment is PRODUCTIVE (PASS) / UNCERTAIN (CAUTION) / FAILING (FAIL)]
+- Key evidence: [1-2 sentence summary]
+
+**Implications for Investment Thesis**:
+- If productive → [How this strengthens/weakens the investment case]
+- If uncertain → [What to monitor, when to reassess]
+- If failing → [Impact on moat, margins, competitive position]
 
 ## Sources
 [Links to data, filings, news]

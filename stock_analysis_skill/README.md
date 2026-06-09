@@ -27,6 +27,28 @@ python scripts/price_analysis.py "MSFT" --period 2y
 python scripts/price_analysis.py "GOOGL" --json
 ```
 
+### 3. Fetch Quarterly Financial Data
+
+```bash
+# Fetch quarterly financials for any stock
+python scripts/fetch_quarterly_data.py META
+
+# Fetch for Microsoft
+python scripts/fetch_quarterly_data.py MSFT
+
+# Fetch more quarters (default is 13)
+python scripts/fetch_quarterly_data.py AAPL --quarters 8
+
+# Export to CSV files
+python scripts/fetch_quarterly_data.py NVDA --export
+```
+
+This script pulls **real quarterly data** from Yahoo Finance including:
+- Income statement (revenue, operating income, net income, margins)
+- Balance sheet (debt, equity, tangible book value)
+- Cash flow (free cash flow, capex, buybacks)
+- Key metrics (P/E, EPS, market cap)
+
 ### 3. Invoke via Claude Code
 
 If this skill is installed in your Claude Code skills directory:
@@ -41,13 +63,23 @@ Claude will use this skill to perform comprehensive analysis.
 
 ```
 stock_analysis_skill/
-├── SKILL.md                    # Main skill definition
-├── README.md                   # This file
+├── SKILL.md                                        # Main skill definition
+├── README.md                                       # This file
 ├── references/
-│   ├── analysis-framework.md   # Detailed scoring frameworks
-│   └── analysis-template.md    # Output template
-└── scripts/
-    └── price_analysis.py       # Price data fetching script
+│   ├── analysis-framework.md                       # Detailed scoring frameworks
+│   ├── analysis-template.md                        # Output template
+│   └── strategic-investment-productivity-template.csv  # Template for AI/R&D/capex analysis
+├── scripts/
+│   ├── price_analysis.py                           # Price data fetching script
+│   └── fetch_quarterly_data.py                     # Fetch quarterly financials
+├── data/                                           # Raw quarterly data (CSV exports)
+│   ├── [ticker]_quarterly_income.csv               # Income statements
+│   ├── [ticker]_quarterly_balance.csv              # Balance sheets
+│   └── [ticker]_quarterly_cashflow.csv             # Cash flow statements
+└── analyses/
+    ├── [TICKER]-YYYY-MM-DD.md                      # Stock analysis reports
+    ├── [TICKER]-YYYY-MM-DD.pdf                     # PDF versions
+    └── [company]-[theme]-YYYY-MM-DD.csv           # Investment productivity analyses
 ```
 
 ## Analysis Components
@@ -83,6 +115,23 @@ Evaluates whether leadership can solve identified issues:
 
 ### 5. Investment Recommendation
 Final verdict: **BUY** / **WATCH** / **AVOID**
+
+### 6. Strategic Investment Productivity Analysis (NEW)
+**When asked to prove whether strategic investments (AI, R&D, capex) are productive:**
+
+Automatically creates **multi-quarter comparison CSV files** with:
+- **4-8 quarters of quantitative metrics** (revenue growth, margins, ROIC, user growth, etc.)
+- **Good/Bad thresholds** for each metric
+- **Quick assessment checklist** (YES/NO questions with weighted scoring)
+- **Verdict logic** (PRODUCTIVE (PASS) / UNCERTAIN (CAUTION) / FAILING (FAIL))
+- **Data source references** (where to find each metric in earnings reports)
+
+**Example queries**:
+- "Prove Meta's AI investments are productive"
+- "Is Amazon's AWS capex paying off?"
+- "Show me if Tesla's Gigafactory investment worked"
+
+**Output**: CSV files saved to `references/[COMPANY]-[THEME]-productivity-metrics.csv`
 
 ## Installation
 
@@ -138,6 +187,24 @@ Does Apple have a strong moat? Score it using the moat framework.
 ```
 
 Claude will focus on the moat scorecard component.
+
+### Example 4: Strategic Investment Productivity (NEW)
+```
+Prove whether Meta's AI investments are productive using quantitative metrics
+```
+
+Claude will:
+1. Identify key metrics (revenue growth, operating margin, ARPU, DAU growth, etc.)
+2. Pull 8 quarters of data from earnings reports (Q1 2023 - Q4 2024)
+3. Create two CSV files:
+   - `meta-ai-productivity-metrics.csv` (comprehensive 50+ metrics)
+   - `meta-ai-productivity-quick-checklist.csv` (top 15 metrics, YES/NO format)
+4. Calculate weighted score and provide verdict:
+   - **PRODUCTIVE (PASS)**: If 4-5 CRITICAL metrics improving → AI is working
+   - **UNCERTAIN (CAUTION)**: If 3 CRITICAL metrics improving → Need more time
+   - **FAILING (FAIL)**: If <3 CRITICAL metrics improving → AI wasting capital
+
+**Use case**: When evaluating whether to buy a stock after a drop, use this to verify if strategic investments justify a premium valuation or if management is burning money.
 
 ## Customization
 
