@@ -34,7 +34,22 @@ Produces tactical stock analysis focusing on current price levels, moat strength
 5. **Produce the analysis**
    Use the template in `references/analysis-template.md`.
 
-6. **If asked about strategic investment productivity** (AI, R&D, capex effectiveness):
+6. **Generate highlights summary**
+   Create a concise highlights version (2-4 pages) containing:
+   - Executive Summary with verdict and price targets
+   - Key investment thesis points (3-5 bullets)
+   - Valuation snapshot (P/E, P/S, DCF fair value)
+   - Risk/reward scenario analysis
+   - Top catalysts and monitoring metrics
+   - Quick reference table
+   Save as `[TICKER]-YYYY-MM-DD-Highlights.md`
+
+7. **Convert to PDF**
+   Run `python scripts/md_to_pdf.py` on both full report and highlights:
+   - `analyses/[TICKER]/[TICKER]-YYYY-MM-DD.md` → `.pdf`
+   - `analyses/[TICKER]/[TICKER]-YYYY-MM-DD-Highlights.md` → `.pdf`
+
+8. **If asked about strategic investment productivity** (AI, R&D, capex effectiveness):
    - Create a **multi-quarter comparison CSV file** with quantitative metrics
    - Include 4-8 quarters of historical data (minimum 2 years)
    - Define clear thresholds for success/failure
@@ -235,14 +250,18 @@ All analysis outputs are organized by ticker symbol for easy access:
 ```
 analyses/
 ├── [TICKER]/                           # Folder per stock ticker
-│   ├── [TICKER]-YYYY-MM-DD.md          # Stock analysis report (markdown)
-│   ├── [TICKER]-YYYY-MM-DD.pdf         # PDF version
+│   ├── [TICKER]-YYYY-MM-DD.md          # Full stock analysis report (markdown)
+│   ├── [TICKER]-YYYY-MM-DD.pdf         # Full report PDF version
+│   ├── [TICKER]-YYYY-MM-DD-Highlights.md  # Concise highlights summary
+│   ├── [TICKER]-YYYY-MM-DD-Highlights.pdf # Highlights PDF version
 │   ├── [ticker]-[theme]-YYYY-MM-DD.csv # Investment productivity analysis
 │   └── ...                             # Multiple analyses over time
 │
-└── Example: META/
-    ├── META-2026-06-04.md              # General stock analysis
-    ├── META-2026-06-04.pdf
+└── Example: NOW/
+    ├── NOW-2026-06-09.md               # Full stock analysis
+    ├── NOW-2026-06-09.pdf
+    ├── NOW-2026-06-09-Highlights.md    # Quick summary (2-4 pages)
+    ├── NOW-2026-06-09-Highlights.pdf
     ├── META-AI-Productivity-2026-06-07.md  # AI investment analysis
     ├── META-AI-Productivity-2026-06-07.pdf
     ├── meta-ai-productivity-analysis-2026-06-07.csv
@@ -356,6 +375,143 @@ See separate CSV file: `references/[COMPANY]-[THEME]-productivity-metrics.csv`
 
 ## Sources
 [Links to data, filings, news]
+```
+
+### Highlights Report Format
+
+**Purpose**: Provide a concise 2-4 page summary for quick decision-making.
+
+**File Naming**: `[TICKER]-YYYY-MM-DD-Highlights.md`
+
+```markdown
+# [COMPANY] ([TICKER]) - Investment Highlights
+
+**Date**: [DATE] | **Current Price**: $[PRICE] | **Market Cap**: $[X]B
+
+---
+
+## Executive Summary
+
+**VERDICT: [STRONG BUY / BUY / HOLD / SELL]** - [One-line rationale]
+
+**Price Action**: [Down/Up X% from peak]  
+**Valuation**: Trading at [X]x P/S vs historical [X]x ([X]% discount/premium)  
+**Target Price**: $[X-Y] (base case), $[X-Y] (bull case)  
+**Expected Return**: **[+X%]** over [24] months (~[X]% annualized)
+
+---
+
+## Investment Thesis - Why [VERDICT]?
+
+### 1. [First Key Point - e.g., Extreme Valuation]
+[2-3 sentence explanation with key metrics table]
+
+### 2. [Second Key Point - e.g., Sentiment vs Fundamentals]
+[2-3 sentence explanation with evidence]
+
+### 3. [Third Key Point - e.g., Best-in-Class Metrics]
+[2-3 sentence explanation with peer comparison]
+
+### 4. [Fourth Key Point - e.g., Competitive Moat]
+[2-3 sentence explanation with moat score]
+
+### 5. [Fifth Key Point - e.g., Strategic Positioning]
+[2-3 sentence explanation with traction metrics]
+
+---
+
+## Risk/Reward Analysis
+
+### Scenario Analysis
+
+| Scenario | Probability | Price Target | Return from $[X] |
+|----------|-------------|--------------|------------------|
+| **Bull Case** | [X]% | $[X] | +[X]% |
+| **Base Case** | [X]% | $[X] | +[X]% |
+| **Bear Case** | [X]% | $[X] | -[X]% |
+| **Expected Value** | 100% | **$[X]** | **+[X]%** |
+
+**Upside/Downside Ratio: [X]:1**
+
+[Brief paragraph for each scenario explaining key assumptions]
+
+---
+
+## Key Issues and How Management is Solving Them
+
+### Issue #1: [Name]
+**Problem**: [1-2 sentence description]  
+**Management Solution**: [2-3 sentences]  
+**Confidence**: [High/Medium/Low]
+
+### Issue #2: [Name]
+[Same structure]
+
+---
+
+## Investment Recommendation
+
+### Rating: **[STRONG BUY / BUY / HOLD / SELL]**
+
+**Position Size**: [X-Y]% of portfolio  
+**Time Horizon**: [X] years  
+**Confidence Level**: [High/Medium/Low] ([X]/10)
+
+### Entry Strategy
+[Aggressive/Moderate/Conservative approaches]
+
+### Sell Discipline
+**Take Profits**: [Price levels]  
+**Exit Signals**: [List of red flags]
+
+---
+
+## Key Catalysts and Monitoring
+
+### Near-Term Catalysts (Next 3-6 Months)
+1. [Event/Metric to watch]
+2. [Event/Metric to watch]
+
+### Success Criteria
+**By End of [YEAR]**: [List of checkboxes]  
+**By End of [YEAR+1]**: [List of checkboxes]
+
+### Warning Signs (Reduce Position)
+- [Metric/Event threshold]
+- [Metric/Event threshold]
+
+---
+
+## Quick Reference
+
+### Stock Metrics
+- **Current Price**: $[X]
+- **52-Week Range**: $[X] - $[X]
+- **YTD Performance**: [±X]%
+- **Market Cap**: $[X]B
+
+### Valuation
+- **P/S**: [X]x (vs [X]x historical)
+- **Forward P/E**: [X]x
+- **PEG Ratio**: [X]
+- **EV/Sales**: [X]x
+
+### Fundamentals (Latest Quarter)
+- **Revenue**: $[X]B ([±X]% YoY)
+- **Operating Margin**: [X]%
+- **FCF Margin**: [X]%
+- **Rule of 40**: [X]
+
+### Growth Metrics
+[3-5 key metrics relevant to company]
+
+---
+
+**Report Date**: [DATE]  
+**Next Review**: [Upcoming event/earnings date]  
+**Analyst**: Claude Sonnet 4.5
+
+**Disclaimer**: This analysis is for informational purposes only and does not constitute investment advice.
 ```
 
 ## Rules and Filters

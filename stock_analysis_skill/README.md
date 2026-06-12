@@ -5,13 +5,19 @@ A comprehensive skill for analyzing stocks with focus on:
 - Moat strength assessment
 - Current business issues identification
 - Management problem-solving capability evaluation
+- **Investment highlights summary** (concise 2-4 page version)
+- **PDF export** for both full reports and highlights
 
 ## Quick Start
 
 ### 1. Install Dependencies
 
 ```bash
+# Required for stock data fetching
 pip install yfinance
+
+# Required for PDF conversion (optional)
+pip install markdown xhtml2pdf
 ```
 
 ### 2. Use the Price Analysis Script
@@ -49,7 +55,22 @@ This script pulls **real quarterly data** from Yahoo Finance including:
 - Cash flow (free cash flow, capex, buybacks)
 - Key metrics (P/E, EPS, market cap)
 
-### 3. Invoke via Claude Code
+### 4. Convert Analysis to PDF
+
+```bash
+# Convert a single markdown report to PDF
+python scripts/md_to_pdf.py "analyses/MSFT/MSFT-2026-06-08.md"
+
+# Convert highlights to PDF
+python scripts/md_to_pdf.py "analyses/MSFT/MSFT-2026-06-08-Highlights.md"
+```
+
+**Note**: PDF conversion requires `markdown` and `xhtml2pdf` packages:
+```bash
+pip install markdown xhtml2pdf
+```
+
+### 5. Invoke via Claude Code
 
 If this skill is installed in your Claude Code skills directory:
 
@@ -71,15 +92,20 @@ stock_analysis_skill/
 │   └── strategic-investment-productivity-template.csv  # Template for AI/R&D/capex analysis
 ├── scripts/
 │   ├── price_analysis.py                           # Price data fetching script
-│   └── fetch_quarterly_data.py                     # Fetch quarterly financials
-├── data/                                           # Raw quarterly data (CSV exports)
-│   ├── [ticker]_quarterly_income.csv               # Income statements
-│   ├── [ticker]_quarterly_balance.csv              # Balance sheets
-│   └── [ticker]_quarterly_cashflow.csv             # Cash flow statements
+│   ├── fetch_quarterly_data.py                     # Fetch quarterly financials
+│   └── md_to_pdf.py                                # Convert markdown reports to PDF
+├── data/
+│   └── [TICKER]/                                   # Raw quarterly data per ticker
+│       ├── [ticker]_quarterly_income.csv           # Income statements
+│       ├── [ticker]_quarterly_balance.csv          # Balance sheets
+│       └── [ticker]_quarterly_cashflow.csv         # Cash flow statements
 └── analyses/
-    ├── [TICKER]-YYYY-MM-DD.md                      # Stock analysis reports
-    ├── [TICKER]-YYYY-MM-DD.pdf                     # PDF versions
-    └── [company]-[theme]-YYYY-MM-DD.csv           # Investment productivity analyses
+    └── [TICKER]/                                   # Analysis reports per ticker
+        ├── [TICKER]-YYYY-MM-DD.md                  # Full stock analysis report
+        ├── [TICKER]-YYYY-MM-DD.pdf                 # Full report PDF version
+        ├── [TICKER]-YYYY-MM-DD-Highlights.md       # Concise highlights (2-4 pages)
+        ├── [TICKER]-YYYY-MM-DD-Highlights.pdf      # Highlights PDF version
+        └── [ticker]-[theme]-YYYY-MM-DD.csv         # Investment productivity analyses
 ```
 
 ## Analysis Components
@@ -188,7 +214,21 @@ Does Apple have a strong moat? Score it using the moat framework.
 
 Claude will focus on the moat scorecard component.
 
-### Example 4: Strategic Investment Productivity (NEW)
+### Example 3.5: Get Highlights Summary
+After generating a full stock analysis, Claude will automatically create:
+- **Full report**: `analyses/[TICKER]/[TICKER]-2026-06-09.md` and `.pdf` (10-15 pages)
+- **Highlights**: `analyses/[TICKER]/[TICKER]-2026-06-09-Highlights.md` and `.pdf` (2-4 pages)
+
+The highlights include:
+- Executive summary with verdict and price targets
+- Key investment thesis points (5-6 condensed sections)
+- Risk/reward scenario analysis
+- Top catalysts and monitoring metrics
+- Quick reference table with key stats
+
+**Use case**: Share the highlights PDF with colleagues/investors for quick decision-making, keep full report for deep analysis.
+
+### Example 4: Strategic Investment Productivity
 ```
 Prove whether Meta's AI investments are productive using quantitative metrics
 ```
