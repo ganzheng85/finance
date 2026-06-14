@@ -45,9 +45,11 @@ Produces tactical stock analysis focusing on current price levels, moat strength
    Save as `[TICKER]-YYYY-MM-DD-Highlights.md`
 
 7. **Convert to PDF**
-   Run `python scripts/md_to_pdf.py` on both full report and highlights:
+   Run `python ../utils/md_to_pdf.py` (shared utility) on both full report and highlights:
    - `analyses/[TICKER]/[TICKER]-YYYY-MM-DD.md` → `.pdf`
    - `analyses/[TICKER]/[TICKER]-YYYY-MM-DD-Highlights.md` → `.pdf`
+   
+   **Note**: The PDF converter is now a shared utility in `utils/md_to_pdf.py` for use across all skills.
 
 8. **If asked about strategic investment productivity** (AI, R&D, capex effectiveness):
    - Create a **multi-quarter comparison CSV file** with quantitative metrics

@@ -58,17 +58,23 @@ This script pulls **real quarterly data** from Yahoo Finance including:
 ### 4. Convert Analysis to PDF
 
 ```bash
-# Convert a single markdown report to PDF
-python scripts/md_to_pdf.py "analyses/MSFT/MSFT-2026-06-08.md"
+# Convert a single markdown report to PDF (using shared utility)
+python ../utils/md_to_pdf.py "stock_analysis_skill/analyses/MSFT/MSFT-2026-06-08.md"
 
 # Convert highlights to PDF
-python scripts/md_to_pdf.py "analyses/MSFT/MSFT-2026-06-08-Highlights.md"
+python ../utils/md_to_pdf.py "stock_analysis_skill/analyses/MSFT/MSFT-2026-06-08-Highlights.md"
+
+# Or from within stock_analysis_skill directory
+cd stock_analysis_skill
+python ../utils/md_to_pdf.py "analyses/MSFT/MSFT-2026-06-08.md"
 ```
 
 **Note**: PDF conversion requires `markdown` and `xhtml2pdf` packages:
 ```bash
 pip install markdown xhtml2pdf
 ```
+
+**Note**: The `md_to_pdf.py` script is now located in the shared `utils/` folder at the project root, making it reusable across all skills.
 
 ### 5. Invoke via Claude Code
 
@@ -92,8 +98,7 @@ stock_analysis_skill/
 │   └── strategic-investment-productivity-template.csv  # Template for AI/R&D/capex analysis
 ├── scripts/
 │   ├── price_analysis.py                           # Price data fetching script
-│   ├── fetch_quarterly_data.py                     # Fetch quarterly financials
-│   └── md_to_pdf.py                                # Convert markdown reports to PDF
+│   └── fetch_quarterly_data.py                     # Fetch quarterly financials
 ├── data/
 │   └── [TICKER]/                                   # Raw quarterly data per ticker
 │       ├── [ticker]_quarterly_income.csv           # Income statements

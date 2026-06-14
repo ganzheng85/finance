@@ -1,0 +1,33 @@
+# Trading data files (personal financial information)
+*.csv
+!sample_trades.csv
+
+# Analysis reports with actual data (keep templates only)
+analyses/*
+!analyses/.gitkeep
+!analyses/README.md
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PDF outputs (regenerate as needed)
+*.pdf
