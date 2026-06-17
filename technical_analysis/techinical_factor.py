@@ -478,18 +478,16 @@ def calculate_volume_price_trend(df):
     Calculates the Volume Price Trend (VPT) indicator.
     A rising VPT indicates stronger volume on up days, confirming an uptrend.
     """
-    df = df.sort_values(['symbol', 'date'])
+    df = df.sort_values(['symbol', 'date']).copy()
 
-    def calculate_vpt_for_group(group):
-        # Calculate percentage price change
-        price_pct_change = group['adjusted_close'].pct_change()
-        # Calculate the change in VPT for each day
-        vpt_change = group['volume'] * price_pct_change
-        # Sum cumulatively to get the indicator value
-        return vpt_change.cumsum()
+    # Calculate percentage price change per symbol
+    price_pct_change = df.groupby('symbol')['adjusted_close'].pct_change()
 
-    # Apply the calculation grouped by symbol
-    df['vpt'] = df.groupby('symbol').apply(calculate_vpt_for_group).reset_index(level=0, drop=True)
+    # Calculate the change in VPT for each day
+    vpt_change = df['volume'] * price_pct_change
+
+    # Cumulative sum per symbol
+    df['vpt'] = vpt_change.groupby(df['symbol']).cumsum()
 
     return df
 
@@ -534,17 +532,6 @@ def calculate_rsi_wilder(df: pd.DataFrame, window: int = 14, price_col: str = "a
 
     df[f"rsi_{window}"] = rsi
 
-    return df
-
-def calculate_bb_width(df, window=20):
-    """Calculates Bollinger Band Width to identify 'squeezes'."""
-    df = df.sort_values(['symbol', 'date'])
-    sma = df.groupby('symbol')['adjusted_close'].transform(lambda x: x.rolling(window=window).mean())
-    std = df.groupby('symbol')['adjusted_close'].transform(lambda x: x.rolling(window=window).std())
-
-    upper_band = sma + (2 * std)
-    lower_band = sma - (2 * std)
-    df['bb_width'] = (upper_band - lower_band) / sma
     return df
 
 def calculate_bb_width(
@@ -781,66 +768,6 @@ def calculate_stochastic(
     if keep_components:
         df[f"stoch_low_{k_window}"]  = roll_low
         df[f"stoch_high_{k_window}"] = roll_high
-
-    return df
-
-def calculate_macd(
-    df: pd.DataFrame,
-    fast: int = 12,
-    slow: int = 26,
-    signal: int = 9,
-    price_col: str = "adjusted_close",
-    keep_lines: bool = True
-) -> pd.DataFrame:
-    """
-    Compute MACD, Signal, and Histogram per symbol (vectorized).
-
-    MACD line   = EMA(fast) - EMA(slow)
-    Signal line = EMA(MACD, signal)
-    Histogram   = MACD - Signal
-
-    Parameters
-    ----------
-    df : DataFrame with ['symbol','date', price_col]
-    fast : int, fast EMA span
-    slow : int, slow EMA span (must be > fast)
-    signal : int, signal EMA span
-    price_col : price column (default 'adjusted_close')
-    keep_lines : if True, also output macd_line and macd_signal
-
-    Returns
-    -------
-    DataFrame with:
-      - 'macd_hist_{fast}_{slow}_{signal}'
-      - optionally 'macd_line_{fast}_{slow}', 'macd_signal_{signal}'
-    """
-    if not (isinstance(fast, int) and isinstance(slow, int) and isinstance(signal, int)):
-        raise ValueError("fast, slow, and signal must be integers.")
-    if fast <= 0 or slow <= 0 or signal <= 0:
-        raise ValueError("fast, slow, and signal must be positive.")
-    if fast >= slow:
-        raise ValueError("fast must be less than slow.")
-
-    df = df.sort_values(["symbol", "date"]).copy()
-    # Coerce to numeric
-    df[price_col] = pd.to_numeric(df[price_col], errors="coerce")
-
-    # Per-symbol EMAs
-    g = df.groupby("symbol")
-    ema_fast = g[price_col].transform(lambda s: s.ewm(span=fast, adjust=False).mean())
-    ema_slow = g[price_col].transform(lambda s: s.ewm(span=slow, adjust=False).mean())
-
-    macd_line = ema_fast - ema_slow
-    macd_signal = macd_line.groupby(df["symbol"]).transform(lambda s: s.ewm(span=signal, adjust=False).mean())
-    macd_hist = macd_line - macd_signal
-
-    # Attach outputs
-    hist_col = f"macd_hist_{fast}_{slow}_{signal}"
-    df[hist_col] = macd_hist
-
-    if keep_lines:
-        df[f"macd_line_{fast}_{slow}"] = macd_line
-        df[f"macd_signal_{signal}"] = macd_signal
 
     return df
 
