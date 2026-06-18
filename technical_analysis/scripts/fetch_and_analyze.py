@@ -18,9 +18,9 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 
-# Add parent directory to path to import techinical_factor
+# Add parent directory to path to import from lib
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from techinical_factor import TechnicalFactors
+from lib.techinical_factor import TechnicalFactors
 
 
 def fetch_stock_data(ticker: str, lookback_days: int = 365) -> pd.DataFrame:
