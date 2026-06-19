@@ -1,9 +1,9 @@
 ---
-name: stock-analysis
-description: Current stock price analysis and tactical company evaluation. Use when analyzing whether a stock is trading at high/medium/low levels, assessing company moats, evaluating current business issues, and judging management's problem-solving capability.
+name: fundamental-analysis
+description: Fundamental stock analysis and tactical company evaluation. Use when user asks for stock analysis, fundamental analysis, or company analysis. Analyzes whether a stock is trading at high/medium/low levels, assesses company moats, evaluates current business issues, and judges management's problem-solving capability.
 ---
 
-# Stock Analysis Skill
+# Fundamental Analysis Skill
 
 Produces tactical stock analysis focusing on current price levels, moat strength, business issues, and management's ability to solve problems. This complements strategic value-investing frameworks by adding real-time situational awareness.
 

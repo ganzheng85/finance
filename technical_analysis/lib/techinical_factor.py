@@ -242,9 +242,10 @@ def calculate_volatility_standalone(df: pd.DataFrame, window: int = 252, price_c
     daily_ret = df.groupby("symbol")[price_col].pct_change()
 
     # Rolling std of daily returns per symbol
+    # Use min_periods=30 to ensure we can calculate with at least 30 days of data
     vol_daily = (
         daily_ret.groupby(df["symbol"])
-        .rolling(window=window, min_periods=window)
+        .rolling(window=window, min_periods=30)
         .std()
         .reset_index(level=0, drop=True)
     )

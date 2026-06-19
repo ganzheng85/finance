@@ -1,6 +1,6 @@
-# Stock Analysis Skill
+# Fundamental Analysis Skill
 
-A comprehensive skill for analyzing stocks with focus on:
+A comprehensive skill for fundamental analysis of stocks with focus on:
 - Current price levels (HIGH/MEDIUM/LOW)
 - Moat strength assessment
 - Current business issues identification
@@ -59,13 +59,13 @@ This script pulls **real quarterly data** from Yahoo Finance including:
 
 ```bash
 # Convert a single markdown report to PDF (using shared utility)
-python ../utils/md_to_pdf.py "stock_analysis_skill/analyses/MSFT/MSFT-2026-06-08.md"
+python ../utils/md_to_pdf.py "fundamental_analysis_skill/analyses/MSFT/MSFT-2026-06-08.md"
 
 # Convert highlights to PDF
-python ../utils/md_to_pdf.py "stock_analysis_skill/analyses/MSFT/MSFT-2026-06-08-Highlights.md"
+python ../utils/md_to_pdf.py "fundamental_analysis_skill/analyses/MSFT/MSFT-2026-06-08-Highlights.md"
 
-# Or from within stock_analysis_skill directory
-cd stock_analysis_skill
+# Or from within fundamental_analysis_skill directory
+cd fundamental_analysis_skill
 python ../utils/md_to_pdf.py "analyses/MSFT/MSFT-2026-06-08.md"
 ```
 
@@ -89,7 +89,7 @@ Claude will use this skill to perform comprehensive analysis.
 ## Skill Structure
 
 ```
-stock_analysis_skill/
+fundamental_analysis_skill/
 ├── SKILL.md                                        # Main skill definition
 ├── README.md                                       # This file
 ├── references/
@@ -172,18 +172,18 @@ To install this skill for use with Claude Code:
 
 **Linux/Mac:**
 ```bash
-ln -s $(pwd)/stock_analysis_skill ~/.claude/skills/stock-analysis
+ln -s $(pwd)/fundamental_analysis_skill ~/.claude/skills/fundamental-analysis
 ```
 
 **Windows (PowerShell as Administrator):**
 ```powershell
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills\stock-analysis" -Target "$PWD\stock_analysis_skill"
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills\fundamental-analysis" -Target "$PWD\fundamental_analysis_skill"
 ```
 
 ### Option 2: Copy
 
 ```bash
-cp -r stock_analysis_skill ~/.claude/skills/stock-analysis
+cp -r fundamental_analysis_skill ~/.claude/skills/fundamental-analysis
 ```
 
 ### Verify Installation
@@ -194,7 +194,7 @@ After installation, the skill should appear in Claude Code's available skills. T
 /skills
 ```
 
-You should see `stock-analysis` in the list.
+You should see `fundamental-analysis` in the list.
 
 ## Usage Examples
 
