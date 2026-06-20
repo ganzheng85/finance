@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                    <path d="M10 25L15 15L20 20L25 12L30 18" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                            <stop offset="0%" stop-color="#667eea"/>
+                            <stop offset="100%" stop-color="#764ba2"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Stock Analysis Dashboard</h1>
+            </div>
+            <div class="subtitle">
+                Comprehensive Financial Analysis Platform
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Disclaimer Card -->
+            <div class="card disclaimer-card">
+                <div class="disclaimer-header">
+                    <h2>Important Disclaimer</h2>
+                </div>
+                <div class="disclaimer-content">
+                    <p><strong>Educational Purpose Only:</strong> This tool is designed for educational and informational purposes only. It is not intended to provide investment advice or recommendations.</p>
+
+                    <p><strong>Not Personalized Advice:</strong> The analysis and reports generated are based on publicly available data and standardized algorithms. They do not take into account your personal financial situation, investment objectives, risk tolerance, or specific needs.</p>
+
+                    <p><strong>No Performance Guarantee:</strong> Past performance is not indicative of future results. No guarantee or representation is made that any analysis, strategy, or recommendation will be profitable or will not result in losses.</p>
+
+                    <p><strong>User Responsibility:</strong> You are solely responsible for your own investment decisions. Always conduct your own research and consult with a licensed financial advisor before making any investment decisions.</p>
+
+                    <p><strong>Trading Risks:</strong> Trading stocks and securities involves substantial risk of loss. You should only invest money you can afford to lose. Market conditions can change rapidly, and past trends may not continue.</p>
+
+                    <p class="disclaimer-footer"><strong>By using this tool, you acknowledge and agree to these terms.</strong></p>
+                </div>
+            </div>
+
+            <!-- Input Card -->
+            <div class="card input-card">
+                <h2 class="card-title">Generate Analysis Reports</h2>
+
+                <form id="analysisForm">
+                    <!-- Ticker Input -->
+                    <div class="form-group">
+                        <label for="ticker">Stock Ticker Symbol</label>
+                        <input
+                            type="text"
+                            id="ticker"
+                            name="ticker"
+                            placeholder="e.g., AAPL, TSLA, MSFT"
+                            required
+                            autocomplete="off"
+                        >
+                        <small class="form-help">Enter a valid stock ticker symbol</small>
+                    </div>
+
+                    <!-- Report Type Selection -->
+                    <div class="form-group">
+                        <label>Select Report Types</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-card">
+                                <input type="checkbox" id="fundamental" name="report_type" value="fundamental">
+                                <label for="fundamental">
+                                    <div class="checkbox-icon">📊</div>
+                                    <div class="checkbox-content">
+                                        <div class="checkbox-title">Fundamental Research</div>
+                                        <div class="checkbox-desc">Company data, competitive metrics, financial indicators</div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="checkbox-card">
+                                <input type="checkbox" id="technical" name="report_type" value="technical">
+                                <label for="technical">
+                                    <div class="checkbox-icon">📈</div>
+                                    <div class="checkbox-content">
+                                        <div class="checkbox-title">Technical Analysis</div>
+                                        <div class="checkbox-desc">Indicators, patterns, price trends, data summaries</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-primary" id="analyzeBtn">
+                        <span class="btn-text">Generate Reports</span>
+                        <span class="btn-loading" style="display: none;">
+                            <span class="spinner"></span>
+                            Analyzing...
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Card -->
+            <div class="card results-card" id="resultsCard" style="display: none;">
+                <h2 class="card-title">Analysis Results</h2>
+                <div id="resultsContent"></div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 Stock Analysis Dashboard v1.0</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
