@@ -1,13 +1,13 @@
 ---
 name: technical-analysis
-description: Analyze stock technical factors using Yahoo Finance data
+description: Technical indicators and market data analysis tool using Yahoo Finance data. Provides technical factor calculations, pattern identification, and data summaries for research purposes.
 skill_type: analysis
 requires_approval: false
 ---
 
-# Technical Analysis Skill
+# Technical Analysis Research Tool
 
-Fetches Yahoo Finance data, calculates comprehensive technical factors, and generates trend analysis reports.
+Fetches Yahoo Finance data, calculates comprehensive technical indicators, and generates analytical reports with pattern observations and data summaries for educational and research purposes.
 
 ## Overview
 

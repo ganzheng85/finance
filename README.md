@@ -6,6 +6,7 @@ A comprehensive suite of financial analysis tools and skills for stock analysis,
 
 ```
 finance/
+├── stock_analysis_app/            # 🌟 Web application for generating analysis reports
 ├── fundamental_analysis_skill/    # Fundamental stock analysis (moat, management, financials)
 ├── technical_analysis/            # Technical indicators and chart analysis
 ├── trades_analysis_skill/         # Portfolio trading performance analysis
@@ -16,6 +17,36 @@ finance/
 ├── change_log/                    # Repository change history and migration notes
 └── requirements.txt               # Python dependencies
 ```
+
+---
+
+## 🌟 Web Application
+
+### Stock Analysis Dashboard
+
+A modern, user-friendly web application for generating comprehensive stock analysis reports through an intuitive interface.
+
+**Quick Start**:
+```bash
+cd stock_analysis_app
+pip install -r requirements.txt
+python app.py
+# Visit http://localhost:5000
+```
+
+**Features**:
+- Beautiful gradient-based UI with smooth animations
+- Generate multiple report types with one click
+- View and download analysis reports
+- Interactive technical analysis charts
+- Real-time data fetching
+
+**Report Types**:
+- 📊 Fundamental Analysis - Company evaluation and financials
+- 📈 Technical Analysis - Charts and indicators
+- 🎯 Potential Scenario Analysis - Buy/sell/hold recommendations with strategy
+
+**Learn More**: See [stock_analysis_app/README.md](stock_analysis_app/README.md)
 
 ---
 

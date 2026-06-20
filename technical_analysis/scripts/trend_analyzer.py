@@ -306,81 +306,83 @@ class TrendAnalyzer:
 
     def generate_trading_signals(self) -> List[Dict]:
         """
-        Generate actionable trading signals based on technical factors.
+        Generate technical setup indicators based on technical factors.
+
+        Note: These are analytical observations, not trading recommendations.
 
         Returns
         -------
         list of dict
-            Trading signals with action, reason, and confidence
+            Technical setup indicators with pattern, confidence, and context
         """
         signals = []
 
         # Get trend analysis
         trend = self.analyze_trend_direction()
 
-        # Strong bullish setup
+        # Strong bullish setup indicator
         if trend['direction'] == 'BULLISH' and trend['strength'] >= 7:
             signals.append({
-                'action': 'BUY',
+                'action': 'STRONG BULLISH PATTERN',
                 'confidence': 'HIGH',
-                'reason': f"Strong bullish trend (score: {trend['score']})",
+                'reason': f"Technical indicators show strong bullish alignment (score: {trend['score']})",
                 'details': trend['bullish_signals']
             })
 
-        # Strong bearish setup
+        # Strong bearish setup indicator
         elif trend['direction'] == 'BEARISH' and trend['strength'] >= 7:
             signals.append({
-                'action': 'SELL',
+                'action': 'STRONG BEARISH PATTERN',
                 'confidence': 'HIGH',
-                'reason': f"Strong bearish trend (score: {trend['score']})",
+                'reason': f"Technical indicators show strong bearish alignment (score: {trend['score']})",
                 'details': trend['bearish_signals']
             })
 
-        # Oversold bounce setup
+        # Oversold bounce pattern
         if 'rsi_14' in self.df.columns and pd.notna(self.latest['rsi_14']):
             rsi = self.latest['rsi_14']
             if rsi < 30 and 'macd_hist_12_26_9' in self.df.columns:
                 macd = self.latest['macd_hist_12_26_9']
                 if pd.notna(macd) and macd > 0:
                     signals.append({
-                        'action': 'BUY',
+                        'action': 'OVERSOLD REVERSAL PATTERN',
                         'confidence': 'MEDIUM',
-                        'reason': 'Oversold bounce setup',
-                        'details': [f'RSI oversold ({rsi:.1f})', 'MACD turning positive']
+                        'reason': 'Indicators suggest potential oversold reversal pattern',
+                        'details': [f'RSI in oversold territory ({rsi:.1f})', 'MACD showing positive divergence']
                     })
 
-        # Overbought pullback setup
+        # Overbought pullback pattern
         if 'rsi_14' in self.df.columns and pd.notna(self.latest['rsi_14']):
             rsi = self.latest['rsi_14']
             if rsi > 70 and 'macd_hist_12_26_9' in self.df.columns:
                 macd = self.latest['macd_hist_12_26_9']
                 if pd.notna(macd) and macd < 0:
                     signals.append({
-                        'action': 'SELL',
+                        'action': 'OVERBOUGHT PULLBACK PATTERN',
                         'confidence': 'MEDIUM',
-                        'reason': 'Overbought pullback setup',
-                        'details': [f'RSI overbought ({rsi:.1f})', 'MACD turning negative']
+                        'reason': 'Indicators suggest potential overbought pullback pattern',
+                        'details': [f'RSI in overbought territory ({rsi:.1f})', 'MACD showing negative divergence']
                     })
 
-        # Bollinger squeeze breakout
+        # Bollinger squeeze breakout pattern
         vol_analysis = self.analyze_volatility()
         if vol_analysis['squeeze'] and vol_analysis['expansion']:
             direction = trend['direction']
             if direction != 'NEUTRAL':
                 signals.append({
-                    'action': 'BUY' if direction == 'BULLISH' else 'SELL',
+                    'action': f'VOLATILITY BREAKOUT PATTERN ({direction})',
                     'confidence': 'MEDIUM',
-                    'reason': f'Bollinger squeeze breakout ({direction.lower()})',
+                    'reason': f'Bollinger squeeze breakout pattern observed with {direction.lower()} bias',
                     'details': ['Low volatility squeeze expanding', f'Trend direction: {direction}']
                 })
 
-        # No clear signal
+        # No clear pattern
         if not signals:
             signals.append({
-                'action': 'HOLD',
+                'action': 'NEUTRAL - NO CLEAR PATTERN',
                 'confidence': 'LOW',
-                'reason': 'No clear technical setup',
-                'details': ['Mixed signals or neutral trend']
+                'reason': 'No clear technical pattern identified',
+                'details': ['Mixed signals or neutral trend conditions']
             })
 
         return signals
@@ -476,16 +478,16 @@ class TrendAnalyzer:
                 report.append(f"  ${s['level']:.2f} ({s['type']}) - {s['distance_pct']:.2f}% below")
             report.append("")
 
-        # Trading Signals
+        # Technical Patterns & Setups
         report.append("=" * 80)
-        report.append("TRADING SIGNALS")
+        report.append("TECHNICAL PATTERNS & SETUPS")
         report.append("=" * 80)
 
         for i, signal in enumerate(signals, 1):
-            report.append(f"Signal #{i}:")
-            report.append(f"  Action: {signal['action']}")
+            report.append(f"Pattern #{i}:")
+            report.append(f"  Type: {signal['action']}")
             report.append(f"  Confidence: {signal['confidence']}")
-            report.append(f"  Reason: {signal['reason']}")
+            report.append(f"  Observation: {signal['reason']}")
             if signal['details']:
                 report.append("  Details:")
                 for detail in signal['details']:

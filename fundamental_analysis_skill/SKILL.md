@@ -1,11 +1,11 @@
 ---
 name: fundamental-analysis
-description: Fundamental stock analysis and tactical company evaluation. Use when user asks for stock analysis, fundamental analysis, or company analysis. Analyzes whether a stock is trading at high/medium/low levels, assesses company moats, evaluates current business issues, and judges management's problem-solving capability.
+description: Fundamental stock research and company data analysis tool. Use when user asks for stock analysis, fundamental analysis, or company analysis. Provides data summaries on price levels, company competitive position, business metrics, and management quality indicators for research purposes.
 ---
 
-# Fundamental Analysis Skill
+# Fundamental Analysis Research Tool
 
-Produces tactical stock analysis focusing on current price levels, moat strength, business issues, and management's ability to solve problems. This complements strategic value-investing frameworks by adding real-time situational awareness.
+Produces company research reports focusing on data analysis of price levels, competitive moat indicators, business metrics, and management quality factors. This tool provides analytical data summaries for educational and research purposes, not investment recommendations.
 
 ## Workflow
 
