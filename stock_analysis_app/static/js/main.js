@@ -128,23 +128,43 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         if (report.status === 'success') {
+            // Add note for fundamental reports
+            if (report.type === 'fundamental' && report.note) {
+                content += `
+                    <div class="result-note" style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 12px 0; font-size: 0.9em; color: #856404;">
+                        ${report.note}
+                    </div>
+                `;
+            }
+
+            // Add instruction for comprehensive analysis
+            if (report.type === 'fundamental' && report.instruction) {
+                content += `
+                    <div class="result-note" style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; margin: 12px 0; font-size: 0.95em; color: #0d47a1;">
+                        <strong>💡 For Comprehensive Analysis:</strong><br>
+                        <code style="background: white; padding: 4px 8px; border-radius: 3px; display: inline-block; margin-top: 6px; color: #2196f3;">${report.instruction}</code>
+                    </div>
+                `;
+            }
+
             content += `
                 <div class="result-actions">
-                    <a href="${report.url}" target="_blank" class="btn-secondary">
-                        📄 View Markdown
-                    </a>
             `;
 
-            // Add PDF download button if PDF is available
-            if (report.pdf_url) {
+            // Add HTML view button if available
+            if (report.html_url) {
                 content += `
-                    <a href="${report.pdf_url}" download class="btn-secondary">
-                        📥 Download PDF
+                    <a href="${report.html_url}" target="_blank" class="btn-secondary">
+                        📄 View Report
                     </a>
                 `;
             }
 
-            content += `</div>`;
+            content += `
+                    <a href="${report.url}" download class="btn-secondary">
+                        📥 Download Markdown
+                    </a>
+                </div>`;
 
             // Add chart preview for technical analysis
             if (report.type === 'technical' && report.chart_url) {

@@ -64,10 +64,11 @@ def analyze():
                     'type': 'fundamental',
                     'status': 'success',
                     'path': report['path'],
-                    'url': f'/api/report/{report["filename"]}'
+                    'url': f'/api/report/{report["filename"]}',
+                    'note': report.get('note')
                 }
-                if report.get('pdf_filename'):
-                    result_item['pdf_url'] = f'/api/report/{report["pdf_filename"]}'
+                if report.get('html_filename'):
+                    result_item['html_url'] = f'/api/report/{report["html_filename"]}'
                 results['reports'].append(result_item)
             except Exception as e:
                 results['reports'].append({
@@ -87,8 +88,8 @@ def analyze():
                     'url': f'/api/report/{report["filename"]}',
                     'chart_url': f'/api/report/{report.get("chart_filename")}' if report.get('chart_filename') else None
                 }
-                if report.get('pdf_filename'):
-                    result_item['pdf_url'] = f'/api/report/{report["pdf_filename"]}'
+                if report.get('html_filename'):
+                    result_item['html_url'] = f'/api/report/{report["html_filename"]}'
                 results['reports'].append(result_item)
             except Exception as e:
                 results['reports'].append({

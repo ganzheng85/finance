@@ -1,14 +1,14 @@
 """
 Complete Stock Technical Analysis Script
 
-Fetches Yahoo Finance data, calculates technical factors, and generates a comprehensive analysis report.
+Fetches fresh Yahoo Finance data, calculates technical factors, and generates comprehensive analysis reports in markdown and HTML formats.
 
 Usage:
-    python analyze_stock.py TICKER [--days DAYS] [--pdf]
+    python analyze_stock.py TICKER [--days DAYS] [--lookback DAYS]
 
 Example:
     python analyze_stock.py AAPL
-    python analyze_stock.py TSLA --days 60 --pdf
+    python analyze_stock.py TSLA --days 60 --lookback 365
 """
 
 import argparse
@@ -321,13 +321,12 @@ def main():
 Examples:
   python analyze_stock.py AAPL
   python analyze_stock.py TSLA --days 60
-  python analyze_stock.py NVDA --pdf
+  python analyze_stock.py NVDA --lookback 730
         """
     )
     parser.add_argument('ticker', type=str, help='Stock ticker symbol')
     parser.add_argument('--days', type=int, default=30, help='Number of recent days to analyze (default: 30)')
     parser.add_argument('--lookback', type=int, default=365, help='Days of historical data (default: 365)')
-    parser.add_argument('--pdf', action='store_true', help='Generate PDF report (requires utils/md_to_pdf.py)')
 
     args = parser.parse_args()
 
@@ -362,23 +361,49 @@ Examples:
         md_report = generate_markdown_report(df_recent, args.ticker, analyzer)
         md_path = save_report(md_report, args.ticker)
 
-        # Step 6: Generate PDF if requested
-        if args.pdf:
-            print(f"\n{'='*60}")
-            print("Generating PDF Report...")
-            print(f"{'='*60}")
-            try:
-                # Import PDF converter
-                sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'utils'))
-                from md_to_pdf import convert_markdown_to_pdf
+        # Step 6: Generate HTML report (always)
+        print(f"\n{'='*60}")
+        print("Generating HTML Report...")
+        print(f"{'='*60}")
+        try:
+            # Import HTML converter
+            sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'utils'))
+            from md_to_html import convert_md_to_html
 
-                pdf_path = md_path.replace('.md', '.pdf')
-                convert_markdown_to_pdf(md_path, pdf_path)
-                print(f"[OK] PDF saved to: {pdf_path}")
+            html_path = md_path.replace('.md', '.html')
+            convert_md_to_html(md_path, html_path)
+            print(f"[OK] HTML saved to: {html_path}")
 
-            except Exception as e:
-                print(f"[WARNING] PDF generation failed: {str(e)}")
-                print("   Markdown report is still available.")
+        except Exception as e:
+            print(f"[WARNING] HTML generation failed: {str(e)}")
+            print("   Markdown report is still available.")
+
+        # Step 7: Validate report data
+        print(f"\n{'='*60}")
+        print("Validating Report Data...")
+        print(f"{'='*60}")
+        try:
+            # Import validation module
+            from validate_technical_report import extract_report_values, calculate_fresh_values, validate_values
+
+            # Extract and validate
+            report_values = extract_report_values(Path(md_path))
+            actual_values = calculate_fresh_values(args.ticker, lookback_days=args.lookback)
+            matches, mismatches, missing = validate_values(report_values, actual_values, tolerance=0.02)
+
+            # Print summary
+            if mismatches:
+                print(f"[WARNING] Validation found {len(mismatches)} mismatch(es):")
+                for item in mismatches:
+                    print(f"  - {item['metric']}: Report={item['report']:.2f}, Actual={item['actual']:.2f}")
+                print(f"\nRun validation script for detailed report:")
+                print(f"  python scripts/validate_technical_report.py {args.ticker} --report {md_path}")
+            else:
+                print(f"[OK] All {len(matches)} values validated successfully!")
+
+        except Exception as e:
+            print(f"[WARNING] Validation failed: {str(e)}")
+            print("   Report is still available but values not verified.")
 
         print(f"\n{'='*60}")
         print("[OK] ANALYSIS COMPLETE!")

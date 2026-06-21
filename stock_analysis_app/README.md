@@ -10,8 +10,9 @@ A modern, user-friendly web application for generating comprehensive stock analy
   - 📈 **Technical Analysis**: Charts, indicators, trends, support/resistance levels
   - 🎯 **Potential Scenario Analysis**: Buy/sell/hold recommendations with entry/exit strategies
 - **Real-time Analysis**: Fetch latest market data and generate fresh reports
-- **Download Reports**: View online or download as markdown files
+- **Download Reports**: View HTML reports in browser or download markdown files
 - **Chart Visualization**: Interactive technical analysis charts
+- **HTML Reports**: Professional, print-ready HTML reports with built-in print-to-PDF button
 
 ## Installation
 
@@ -42,11 +43,67 @@ The application will start on `http://localhost:5000`
 
 1. **Enter a stock ticker** (e.g., AAPL, TSLA, MSFT)
 2. **Select report types** (one or multiple):
-   - Fundamental Analysis
-   - Technical Analysis
-   - Potential Scenario Analysis
+   - **Fundamental Analysis** ⚠️ See workflow below
+   - **Technical Analysis** ✅ Fully automated
 3. **Click "Generate Reports"**
 4. **View or download** the generated reports
+
+---
+
+### ⚠️ Important: Fundamental Analysis Workflow
+
+The web app generates a **preliminary structure** for fundamental analysis. For **comprehensive analysis** (like [META-2026-06-20.html](../fundamental_analysis_skill/analyses/META/META-2026-06-20.html)), follow this workflow:
+
+#### Step 1: Click "Fundamental Research" in Web App
+- Generates preliminary report with price/valuation data
+- Creates report structure with all sections
+- Displays message: "For comprehensive analysis, tell Claude Code: Generate fundamental analysis for {TICKER}"
+
+#### Step 2: Use Claude Code for Comprehensive Analysis
+In Claude Code terminal, type:
+```
+Generate fundamental analysis for AAPL
+```
+
+This will:
+- ✅ Research competitive moat with actual scores (e.g., 16/18)
+- ✅ Pull real financial metrics from SEC filings
+- ✅ Assess management quality with track record
+- ✅ Identify specific issues (e.g., "AI Capex: $125-145B")
+- ✅ Build Bull/Base/Bear scenarios with price targets
+- ✅ Provide investment recommendation with position sizing
+- ✅ Generate comprehensive HTML report
+
+#### Step 3: View Report
+- Report saved to: `fundamental_analysis_skill/analyses/{TICKER}/{TICKER}-YYYY-MM-DD.html`
+- Open in browser to view
+- Use built-in print button to save as PDF
+
+---
+
+### Why This Workflow?
+
+**Technical Analysis** = Quantitative formulas → Fully automated ✅
+
+**Fundamental Analysis** = Requires research, judgment, synthesis:
+- Read earnings transcripts
+- Analyze competitive dynamics
+- Assess management track record
+- Build probabilistic scenarios
+- Synthesize investment thesis
+
+This requires Claude Code's Agent tool with web search capabilities. The web app alone cannot perform this level of analysis.
+
+---
+
+### Quick Reference
+
+| Task | Use |
+|------|-----|
+| Technical analysis with indicators | ✅ Web App (automated) |
+| Preliminary price/valuation check | ✅ Web App (automated) |
+| Comprehensive fundamental analysis | 💬 Claude Code: `Generate fundamental analysis for {TICKER}` |
+| View existing reports | ✅ Web App or file browser |
 
 ## Application Structure
 
@@ -200,13 +257,13 @@ pip install -r requirements.txt
 
 ## Future Enhancements
 
+- [x] Export to HTML/PDF (✅ Implemented - HTML reports with print-to-PDF)
 - [ ] User authentication
 - [ ] Report history and comparison
 - [ ] Multiple stocks comparison
 - [ ] Portfolio-level analysis
 - [ ] Email report delivery
 - [ ] Scheduled automated reports
-- [ ] Export to PDF
 - [ ] Integration with trading platforms
 
 ## License

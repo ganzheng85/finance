@@ -1,38 +1,127 @@
 ---
 name: fundamental-analysis
-description: Fundamental stock research and company data analysis tool. Use when user asks for stock analysis, fundamental analysis, or company analysis. Provides data summaries on price levels, company competitive position, business metrics, and management quality indicators for research purposes.
+description: Fundamental stock research and company data analysis tool. Use when user asks for stock analysis, fundamental analysis, or company analysis. ALWAYS generates COMPREHENSIVE, fully-researched reports with actual analysis, scores, and recommendations - NOT templates or preliminary reports.
 ---
 
 # Fundamental Analysis Research Tool
 
-Produces company research reports focusing on data analysis of price levels, competitive moat indicators, business metrics, and management quality factors. This tool provides analytical data summaries for educational and research purposes, not investment recommendations.
+**CRITICAL: This skill generates COMPREHENSIVE, fully-researched fundamental analysis reports.**
+
+When invoked, you MUST produce a complete analysis with:
+- ✅ Actual moat scores (0-18) with specific evidence for each category
+- ✅ Real financial metrics from SEC filings and earnings reports
+- ✅ Management quality assessment with track record analysis
+- ✅ Specific issues identified with severity ratings
+- ✅ Bull/Base/Bear scenario analysis with price targets
+- ✅ Investment thesis and clear recommendation (BUY/HOLD/SELL)
+
+**DO NOT generate template reports or preliminary reports that require "manual completion."**
+
+This tool provides comprehensive analytical research for educational and research purposes, not investment recommendations.
+
+## Reference Sample
+
+**See**: `analyses/MSFT/MSFT-2026-06-19.md` and `analyses/META/META-2026-06-20.md` - Complete, validated fundamental analysis reports. These reports demonstrate the REQUIRED quality standard:
+- Comprehensive moat analysis with actual scores (16-17/18) and specific evidence
+- Real financial metrics from SEC filings (margins, ROE, revenue growth)
+- Management quality assessment with historical track record
+- Specific issues identified (e.g., "AI Capex Explosion: $125-145B")
+- Bull/Base/Bear scenarios with specific price targets ($650-700, $820-880, $380-420)
+- Investment thesis and clear recommendation (QUALIFIED BUY, position sizing guidance)
+- Data validated against Yahoo Finance (all metrics passed validation)
+- Professional HTML output with print-to-PDF button
+
+**EVERY fundamental analysis report MUST match this quality level - fully researched and complete, not preliminary templates.**
 
 ## Workflow
 
+**IMPORTANT: Generate COMPREHENSIVE analysis, not templates. Follow the META-2026-06-20.md or MSFT-2026-06-19.md examples.**
+
+### Smart Update: Same-Day Report Optimization
+
+**Report Naming Convention:**
+- Format: `{TICKER}-YYYY-MM-DD-HHMM.md`
+- Example: `META-2026-06-21-1154.md` (generated at 11:54 AM)
+- **Multiple reports per day allowed** - each gets unique timestamp
+
+**If a report already exists for the same ticker on the same day:**
+- ✅ **Finds most recent report** (by modification time)
+- ✅ **Update Yahoo Finance data only** (price, volume, P/E ratios - updated hourly)
+- ✅ **Reuse all research** (moat analysis, management assessment, competitive analysis, scenarios)
+- ❌ **Skip web searches** (fundamental research doesn't change intraday)
+
+**If no report exists for today or it's a different day:**
+- ✅ **Full comprehensive analysis** with web research
+- ✅ **New report created** with current hour-minute timestamp
+
+This saves time while keeping price data current and preserving historical snapshots.
+
+---
+
+### Step-by-Step Workflow
+
+**Step 1: Check for existing same-day report**
+```bash
+# Look for: analyses/{TICKER}/{TICKER}-{TODAY}-*.md
+# Example: analyses/META/META-2026-06-21-1154.md
+# Note: Multiple reports per day allowed - uses most recent
+```
+
+**Step 2A: If same-day report EXISTS → Smart Update (Fast Path)**
+```bash
+python scripts/update_report_data.py {TICKER}
+```
+- ✅ Updates ONLY Yahoo Finance data (price, volume, ratios)
+- ✅ Preserves ALL research (moat, management, scenarios)
+- ✅ Regenerates HTML
+- ⏱️ Takes ~5-10 seconds
+- **Done!** No web research needed.
+
+**Step 2B: If NO same-day report → Full Comprehensive Analysis**
+
+Follow these substeps:
+
 1. **Confirm the target**
-   Get the exact ticker, exchange, company name, and current business focus.
+   - Get exact ticker, exchange, company name, current business focus
 
 2. **Gather current data**
-   Always fetch fresh data - prices, recent news, filings, earnings calls:
+   Fetch fresh data - prices, recent news, filings, earnings calls:
    - Current stock price and 52-week range
-   - **6-month price history and trend analysis**
+   - 6-month price history and trend analysis
    - Recent trading volume and volatility
    - Latest earnings report and guidance
    - Recent news and company announcements
-   - Key events that moved the stock (earnings, announcements, macro events)
-   - Insider transactions if available
-   - **Peer group valuation metrics and performance** (compare P/E, P/S, revenue growth to 3-5 key competitors)
-   - **Debt-to-equity ratio and interest coverage ratios** (financial leverage and safety)
-   - **Short interest percentage and institutional flows** (sentiment and smart money positioning)
+   - Key events that moved the stock
+   - Peer group valuation metrics (compare to 3-5 competitors)
+   - Debt-to-equity and interest coverage ratios
+   - Short interest and institutional flows
 
-3. **Use the analysis script** (if available)
-   Run `python scripts/price_analysis.py "TICKER"` to get automated price metrics.
+3. **Conduct comprehensive research** (REQUIRED)
+   - **Moat Analysis**: Research competitive advantages, assign scores 0-3 for each category with evidence
+   - **Financial Analysis**: Pull metrics from 10-K/10-Q (margins, ROE, growth rates)
+   - **Management Assessment**: Review track record, capital allocation decisions
+   - **Issue Identification**: Research current challenges from earnings calls and news
+   - **Competitive Analysis**: Compare positioning vs competitors
+   - **Scenario Building**: Develop bull/base/bear cases with specific price targets
 
-4. **Read the reference framework**
-   Review `references/analysis-framework.md` for the scoring system.
+4. **Use Agent tool to generate comprehensive analysis**
+   **CRITICAL**: Use the Agent tool to conduct full research and generate a complete report:
+   - The Agent will web search for recent earnings, filings, news
+   - The Agent will analyze competitive moat with scores and evidence
+   - The Agent will build scenario analysis with price targets
+   - The Agent will write the complete report to the markdown file
+   
+   **DO NOT** just run `generate_comprehensive_report.py` - it only creates structure, not analysis.
+   **DO NOT** generate template reports that say "Requires Manual Analysis" - do the analysis.
 
-5. **Produce the analysis**
-   Use the template in `references/analysis-template.md`.
+5. **Reference format**
+   Follow `analyses/MSFT/MSFT-2026-06-19.md` or `analyses/META/META-2026-06-20.md` exactly:
+   - Actual moat scores (e.g., 16/18) with specific evidence
+   - Real financial metrics from filings
+   - Management assessment with track record
+   - Specific issues (e.g., "AI Capex: $125-145B")
+   - Bull/Base/Bear with price targets ($650-700, $820-880, $380-420)
+   - Clear recommendation (QUALIFIED BUY, position sizing)
 
 6. **Generate highlights summary**
    Create a concise highlights version (2-4 pages) containing:
@@ -44,12 +133,44 @@ Produces company research reports focusing on data analysis of price levels, com
    - Quick reference table
    Save as `[TICKER]-YYYY-MM-DD-Highlights.md`
 
-7. **Convert to PDF**
-   Run `python ../utils/md_to_pdf.py` (shared utility) on both full report and highlights:
-   - `analyses/[TICKER]/[TICKER]-YYYY-MM-DD.md` → `.pdf`
-   - `analyses/[TICKER]/[TICKER]-YYYY-MM-DD-Highlights.md` → `.pdf`
+7. **Convert to HTML**
+   Run `python ../utils/md_to_html.py` (shared utility) on both full report and highlights:
+   - `analyses/[TICKER]/[TICKER]-YYYY-MM-DD.md` → `.html`
+   - `analyses/[TICKER]/[TICKER]-YYYY-MM-DD-Highlights.md` → `.html`
    
-   **Note**: The PDF converter is now a shared utility in `utils/md_to_pdf.py` for use across all skills.
+   **Note**: The HTML converter generates professional reports viewable in any browser with a built-in print-to-PDF button. No spacing issues like PDF libraries.
+
+8. **Validate Report Data** ⚠️ CRITICAL - ALWAYS RUN
+   **MANDATORY**: Run validation after generating every report to catch hallucination errors:
+   ```bash
+   python scripts/validate_report_data.py TICKER --report analyses/TICKER/TICKER-YYYY-MM-DD.md
+   ```
+   
+   This validates that all financial metrics in the report match actual Yahoo Finance data:
+   - Price metrics (current, 52-week high/low, range position)
+   - Valuation ratios (P/E, P/S, P/B)
+   - Return calculations (6-month performance)
+   - Volume data
+   
+   **Action on Mismatches**:
+   - If validation finds mismatches, investigate and correct the report immediately
+   - Review which values are incorrect and update them in the markdown
+   - Re-run validation until all checks pass (0 mismatches)
+   - Never publish or share a report with unresolved validation errors
+   
+   **Reference Sample** (all validation passed):
+   ```bash
+   python scripts/validate_report_data.py MSFT --report analyses/MSFT/MSFT-2026-06-19.md
+   
+   # Output:
+   # [OK] All values validated successfully!
+   # Summary:
+   #   [OK] Matches:    11
+   #   [X]  Mismatches: 0
+   #   [!]  Missing:    0
+   ```
+   
+   See `scripts/README_VALIDATION.md` for detailed documentation.
 
 8. **If asked about strategic investment productivity** (AI, R&D, capex effectiveness):
    - Create a **multi-quarter comparison CSV file** with quantitative metrics
@@ -252,22 +373,24 @@ All analysis outputs are organized by ticker symbol for easy access:
 ```
 analyses/
 ├── [TICKER]/                           # Folder per stock ticker
-│   ├── [TICKER]-YYYY-MM-DD.md          # Full stock analysis report (markdown)
-│   ├── [TICKER]-YYYY-MM-DD.pdf         # Full report PDF version
-│   ├── [TICKER]-YYYY-MM-DD-Highlights.md  # Concise highlights summary
-│   ├── [TICKER]-YYYY-MM-DD-Highlights.pdf # Highlights PDF version
+│   ├── [TICKER]-YYYY-MM-DD-HHMM.md     # Full stock analysis report (markdown)
+│   ├── [TICKER]-YYYY-MM-DD-HHMM.html   # Full report HTML version (view in browser)
+│   ├── [TICKER]-YYYY-MM-DD-HHMM-Highlights.md  # Concise highlights summary
+│   ├── [TICKER]-YYYY-MM-DD-HHMM-Highlights.html # Highlights HTML version
 │   ├── [ticker]-[theme]-YYYY-MM-DD.csv # Investment productivity analysis
-│   └── ...                             # Multiple analyses over time
+│   └── ...                             # Multiple analyses per day allowed
 │
-└── Example: NOW/
-    ├── NOW-2026-06-09.md               # Full stock analysis
-    ├── NOW-2026-06-09.pdf
-    ├── NOW-2026-06-09-Highlights.md    # Quick summary (2-4 pages)
-    ├── NOW-2026-06-09-Highlights.pdf
-    ├── META-AI-Productivity-2026-06-07.md  # AI investment analysis
-    ├── META-AI-Productivity-2026-06-07.pdf
-    ├── meta-ai-productivity-analysis-2026-06-07.csv
-    └── meta-ai-investment-returns-2026-06-07.csv
+└── Example: META/
+    ├── META-2026-06-20-2315.md         # Generated at 11:15 PM
+    ├── META-2026-06-20-2315.html       # HTML version with print-to-PDF button
+    ├── META-2026-06-21-1154.md         # Generated at 11:54 AM (next day)
+    ├── META-2026-06-21-1154.html       # Most recent version
+    ├── META-2026-06-21-1430.md         # Updated at 2:30 PM (same day)
+    ├── META-2026-06-21-1430.html       # Latest intraday update
+    ├── META-AI-Investment-Productivity-2026-06-08.md  # AI investment analysis
+    ├── META-AI-Investment-Productivity-2026-06-08.html
+    ├── meta-ai-productivity-analysis-2026-06-08.csv
+    └── meta-ai-quick-checklist-2026-06-08.csv
 
 data/
 ├── [TICKER]/                           # Raw quarterly data per ticker

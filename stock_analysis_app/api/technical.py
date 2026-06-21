@@ -8,9 +8,9 @@ from pathlib import Path
 from datetime import datetime
 import shutil
 
-# Import PDF converter
+# Import HTML converter
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'utils'))
-from md_to_pdf import convert_md_to_pdf
+from md_to_html import convert_md_to_html
 
 
 def generate_technical_report(ticker: str) -> dict:
@@ -63,15 +63,41 @@ def generate_technical_report(ticker: str) -> dict:
         dest_path = reports_dir / dest_filename
         shutil.copy2(latest_report, dest_path)
 
-        # Generate PDF
-        pdf_filename = f'{ticker}_technical_{timestamp}.pdf'
-        pdf_path = reports_dir / pdf_filename
-        convert_md_to_pdf(str(dest_path), str(pdf_path))
+        # Copy or generate HTML
+        html_filename = f'{ticker}_technical_{timestamp}.html'
+        html_path = reports_dir / html_filename
+
+        # Check if HTML already exists in source directory
+        source_html = latest_report.with_suffix('.html')
+        if source_html.exists():
+            # Copy existing HTML
+            shutil.copy2(source_html, html_path)
+        else:
+            # Generate HTML from markdown
+            convert_md_to_html(str(dest_path), str(html_path))
+
+        # Validate report data
+        validation_script = technical_skill / 'scripts' / 'validate_technical_report.py'
+        validation_result = subprocess.run(
+            [sys.executable, str(validation_script), ticker, '--report', str(latest_report)],
+            cwd=str(technical_skill),
+            capture_output=True,
+            text=True
+        )
+
+        validation_passed = validation_result.returncode == 0
+        validation_output = validation_result.stdout
 
         report_data['path'] = str(dest_path)
         report_data['filename'] = dest_filename
-        report_data['pdf_path'] = str(pdf_path)
-        report_data['pdf_filename'] = pdf_filename
+        report_data['html_path'] = str(html_path)
+        report_data['html_filename'] = html_filename
+        report_data['validation_passed'] = validation_passed
+        report_data['validation_output'] = validation_output
+
+        # Add warning if validation failed
+        if not validation_passed:
+            report_data['warning'] = 'Report validation found data mismatches. Review validation output.'
 
     # Copy chart if available
     if chart_files:
