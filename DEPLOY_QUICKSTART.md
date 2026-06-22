@@ -1,6 +1,6 @@
 # Quick Start: Deploy to Render.com (FREE)
 
-**Estimated Time:** 20 minutes  
+**Estimated Time:** 20 minutes
 **Cost:** FREE
 
 ---
