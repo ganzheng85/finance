@@ -11,8 +11,8 @@ from datetime import datetime
 from pathlib import Path
 import json
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# Add stock_analysis_app directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
 
 from api.fundamental import generate_fundamental_report
 from api.technical import generate_technical_report
