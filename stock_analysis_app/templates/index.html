@@ -11,6 +11,12 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')" data-i18n="lang.english">English</button>
+                <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')" data-i18n="lang.chinese">中文</button>
+            </div>
+
             <div class="logo">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
@@ -22,9 +28,9 @@
                         </linearGradient>
                     </defs>
                 </svg>
-                <h1>Stock Analysis Dashboard</h1>
+                <h1 data-i18n="app.title">Stock Analysis Dashboard</h1>
             </div>
-            <div class="subtitle">
+            <div class="subtitle" data-i18n="app.subtitle">
                 Comprehensive Financial Analysis Platform
             </div>
         </header>
@@ -32,29 +38,29 @@
         <!-- Disclaimer Card -->
         <div class="card disclaimer-card">
             <div class="disclaimer-header">
-                <h2>Important Disclaimer</h2>
+                <h2 data-i18n="disclaimer.title">Important Disclaimer</h2>
             </div>
             <div class="disclaimer-content">
-                <p><strong>Educational Purpose Only:</strong> This tool is designed for educational and informational purposes only. It is not intended to provide investment advice or recommendations.</p>
+                <p><strong data-i18n="disclaimer.educational.title">Educational Purpose Only:</strong> <span data-i18n="disclaimer.educational.text">This tool is designed for educational and informational purposes only. It is not intended to provide investment advice or recommendations.</span></p>
 
-                <p><strong>Not Personalized Advice:</strong> The analysis and reports generated are based on publicly available data and standardized algorithms. They do not take into account your personal financial situation, investment objectives, risk tolerance, or specific needs.</p>
+                <p><strong data-i18n="disclaimer.notPersonalized.title">Not Personalized Advice:</strong> <span data-i18n="disclaimer.notPersonalized.text">The analysis and reports generated are based on publicly available data and standardized algorithms. They do not take into account your personal financial situation, investment objectives, risk tolerance, or specific needs.</span></p>
 
-                <p><strong>No Performance Guarantee:</strong> Past performance is not indicative of future results. No guarantee or representation is made that any analysis, strategy, or recommendation will be profitable or will not result in losses.</p>
+                <p><strong data-i18n="disclaimer.noGuarantee.title">No Performance Guarantee:</strong> <span data-i18n="disclaimer.noGuarantee.text">Past performance is not indicative of future results. No guarantee or representation is made that any analysis, strategy, or recommendation will be profitable or will not result in losses.</span></p>
 
-                <p><strong>User Responsibility:</strong> You are solely responsible for your own investment decisions. Always conduct your own research and consult with a licensed financial advisor before making any investment decisions.</p>
+                <p><strong data-i18n="disclaimer.responsibility.title">User Responsibility:</strong> <span data-i18n="disclaimer.responsibility.text">You are solely responsible for your own investment decisions. Always conduct your own research and consult with a licensed financial advisor before making any investment decisions.</span></p>
 
-                <p><strong>Trading Risks:</strong> Trading stocks and securities involves substantial risk of loss. You should only invest money you can afford to lose. Market conditions can change rapidly, and past trends may not continue.</p>
+                <p><strong data-i18n="disclaimer.risks.title">Trading Risks:</strong> <span data-i18n="disclaimer.risks.text">Trading stocks and securities involves substantial risk of loss. You should only invest money you can afford to lose. Market conditions can change rapidly, and past trends may not continue.</span></p>
 
-                <p class="disclaimer-footer"><strong>By using this tool, you acknowledge and agree to these terms.</strong></p>
+                <p class="disclaimer-footer"><strong data-i18n="disclaimer.footer">By using this tool, you acknowledge and agree to these terms.</strong></p>
             </div>
         </div>
 
         <!-- Tab Navigation -->
         <div class="tab-navigation">
-            <button class="tab-button active" onclick="switchTab('company')" id="company-tab-btn">
+            <button class="tab-button active" onclick="switchTab('company')" id="company-tab-btn" data-i18n="tab.company">
                 Company Analysis
             </button>
-            <button class="tab-button" onclick="switchTab('sector')" id="sector-tab-btn">
+            <button class="tab-button" onclick="switchTab('sector')" id="sector-tab-btn" data-i18n="tab.sector">
                 Sector Rotation
             </button>
         </div>
@@ -64,34 +70,35 @@
         <main class="main-content">
             <!-- Input Card -->
             <div class="card input-card">
-                <h2 class="card-title">Generate Analysis Reports</h2>
+                <h2 class="card-title" data-i18n="company.title">Generate Analysis Reports</h2>
 
                 <form id="analysisForm">
                     <!-- Ticker Input -->
                     <div class="form-group">
-                        <label for="ticker">Stock Ticker Symbol</label>
+                        <label for="ticker" data-i18n="company.ticker.label">Stock Ticker Symbol</label>
                         <input
                             type="text"
                             id="ticker"
                             name="ticker"
                             placeholder="e.g., AAPL, TSLA, MSFT"
+                            data-i18n-placeholder="company.ticker.placeholder"
                             required
                             autocomplete="off"
                         >
-                        <small class="form-help">Enter a valid stock ticker symbol</small>
+                        <small class="form-help" data-i18n="company.ticker.help">Enter a valid stock ticker symbol</small>
                     </div>
 
                     <!-- Report Type Selection -->
                     <div class="form-group">
-                        <label>Select Report Types</label>
+                        <label data-i18n="company.reportType.label">Select Report Types</label>
                         <div class="checkbox-group">
                             <div class="checkbox-card">
                                 <input type="checkbox" id="fundamental" name="report_type" value="fundamental">
                                 <label for="fundamental">
                                     <div class="checkbox-icon">📊</div>
                                     <div class="checkbox-content">
-                                        <div class="checkbox-title">Fundamental Research</div>
-                                        <div class="checkbox-desc">Company data, competitive metrics, financial indicators</div>
+                                        <div class="checkbox-title" data-i18n="company.fundamental.title">Fundamental Research</div>
+                                        <div class="checkbox-desc" data-i18n="company.fundamental.desc">Company data, competitive metrics, financial indicators</div>
                                     </div>
                                 </label>
                             </div>
@@ -101,8 +108,8 @@
                                 <label for="technical">
                                     <div class="checkbox-icon">📈</div>
                                     <div class="checkbox-content">
-                                        <div class="checkbox-title">Technical Analysis</div>
-                                        <div class="checkbox-desc">Indicators, patterns, price trends, data summaries</div>
+                                        <div class="checkbox-title" data-i18n="company.technical.title">Technical Analysis</div>
+                                        <div class="checkbox-desc" data-i18n="company.technical.desc">Indicators, patterns, price trends, data summaries</div>
                                     </div>
                                 </label>
                             </div>
@@ -111,10 +118,10 @@
 
                     <!-- Submit Button -->
                     <button type="submit" class="btn-primary" id="analyzeBtn">
-                        <span class="btn-text">Generate Reports</span>
+                        <span class="btn-text" data-i18n="company.button">Generate Reports</span>
                         <span class="btn-loading" style="display: none;">
                             <span class="spinner"></span>
-                            Analyzing...
+                            <span data-i18n="company.button.loading">Analyzing...</span>
                         </span>
                     </button>
                 </form>
@@ -122,7 +129,7 @@
 
             <!-- Results Card -->
             <div class="card results-card" id="resultsCard" style="display: none;">
-                <h2 class="card-title">Analysis Results</h2>
+                <h2 class="card-title" data-i18n="company.results.title">Analysis Results</h2>
                 <div id="resultsContent"></div>
             </div>
         </main>
@@ -133,17 +140,17 @@
         <div id="sector-content" class="tab-content" style="display: none;">
         <main class="main-content">
             <div class="card">
-                <h2>Sector Rotation Analysis</h2>
-                <p class="subtitle-text">
+                <h2 data-i18n="sector.title">Sector Rotation Analysis</h2>
+                <p class="subtitle-text" data-i18n="sector.subtitle">
                     Track institutional money flow across 13 market sectors (11 S&P sectors + Semiconductors + Magnificent 7)
                 </p>
 
                 <!-- Generate Button -->
                 <div class="generate-section">
-                    <button id="generate-sector-btn" class="btn-primary">
+                    <button id="generate-sector-btn" class="btn-primary" data-i18n="sector.button">
                         Generate Sector Analysis
                     </button>
-                    <p class="help-text">
+                    <p class="help-text" data-i18n="sector.help">
                         Analyzes 13 sectors by momentum, relative strength, and rotation patterns
                     </p>
                 </div>
@@ -151,32 +158,32 @@
                 <!-- Loading Indicator -->
                 <div id="sector-loading" class="loading" style="display: none;">
                     <div class="spinner"></div>
-                    <p>Analyzing sector rotation... This may take 30-60 seconds...</p>
+                    <p data-i18n="sector.loading">Analyzing sector rotation... This may take 30-60 seconds...</p>
                 </div>
 
                 <!-- Results Container -->
                 <div id="sector-results" class="results-container" style="display: none;">
                     <!-- Sector Rankings Table -->
                     <div class="sector-rankings">
-                        <h3>Sector Rankings</h3>
+                        <h3 data-i18n="sector.rankings.title">Sector Rankings</h3>
                         <div id="rankings-table"></div>
                     </div>
 
                     <!-- Rotation Status -->
                     <div class="rotation-status">
-                        <h3>Rotation Map</h3>
+                        <h3 data-i18n="sector.rotation.title">Rotation Map</h3>
                         <div id="rotation-map"></div>
                     </div>
 
                     <!-- Portfolio Recommendation -->
                     <div class="portfolio-recommendation">
-                        <h3>Portfolio Recommendation</h3>
+                        <h3 data-i18n="sector.portfolio.title">Portfolio Recommendation</h3>
                         <div id="portfolio-rec"></div>
                     </div>
 
                     <!-- View Reports Links -->
                     <div class="report-actions">
-                        <button class="btn btn-secondary" id="view-sector-report">
+                        <button class="btn btn-secondary" id="view-sector-report" data-i18n="sector.viewReport">
                             View Full Report
                         </button>
                     </div>
@@ -188,10 +195,11 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>© 2026 Stock Analysis Dashboard v1.0</p>
+            <p data-i18n="footer.copyright">© 2026 Stock Analysis Dashboard v1.0</p>
         </footer>
     </div>
 
+    <script src="{{ url_for('static', filename='js/translations.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script>
         // Tab Switching
@@ -275,14 +283,15 @@
         }
 
         function generateRankingsTable(rankings) {
+            const t = translations[currentLanguage];
             let html = '<table class="rankings-table">';
             html += '<thead><tr>';
-            html += '<th>Rank</th>';
-            html += '<th>Sector</th>';
-            html += '<th>Score</th>';
-            html += '<th>RS (20d)</th>';
-            html += '<th>Momentum</th>';
-            html += '<th>Signal</th>';
+            html += `<th>${t['sector.rankings.rank']}</th>`;
+            html += `<th>${t['sector.rankings.sector']}</th>`;
+            html += `<th>${t['sector.rankings.score']}</th>`;
+            html += `<th>${t['sector.rankings.rs']}</th>`;
+            html += `<th>${t['sector.rankings.momentum']}</th>`;
+            html += `<th>${t['sector.rankings.signal']}</th>`;
             html += '</tr></thead>';
             html += '<tbody>';
 
@@ -310,53 +319,54 @@
         }
 
         function generateRotationMap(rotation_map) {
+            const t = translations[currentLanguage];
             let html = '<div class="rotation-quadrants">';
 
             html += '<div class="quadrant leading">';
-            html += '<h4>Leading (Strong + Accelerating)</h4>';
+            html += `<h4>${t['sector.rotation.leading']}</h4>`;
             html += '<ul>';
             if (rotation_map.leading && rotation_map.leading.length > 0) {
                 rotation_map.leading.forEach(sector => {
                     html += `<li>${sector}</li>`;
                 });
             } else {
-                html += '<li><em>None</em></li>';
+                html += `<li><em>${t['sector.rotation.none']}</em></li>`;
             }
             html += '</ul></div>';
 
             html += '<div class="quadrant weakening">';
-            html += '<h4>Weakening (Strong + Decelerating)</h4>';
+            html += `<h4>${t['sector.rotation.weakening']}</h4>`;
             html += '<ul>';
             if (rotation_map.weakening && rotation_map.weakening.length > 0) {
                 rotation_map.weakening.forEach(sector => {
                     html += `<li>${sector}</li>`;
                 });
             } else {
-                html += '<li><em>None</em></li>';
+                html += `<li><em>${t['sector.rotation.none']}</em></li>`;
             }
             html += '</ul></div>';
 
             html += '<div class="quadrant lagging">';
-            html += '<h4>Lagging (Weak + Decelerating)</h4>';
+            html += `<h4>${t['sector.rotation.lagging']}</h4>`;
             html += '<ul>';
             if (rotation_map.lagging && rotation_map.lagging.length > 0) {
                 rotation_map.lagging.forEach(sector => {
                     html += `<li>${sector}</li>`;
                 });
             } else {
-                html += '<li><em>None</em></li>';
+                html += `<li><em>${t['sector.rotation.none']}</em></li>`;
             }
             html += '</ul></div>';
 
             html += '<div class="quadrant improving">';
-            html += '<h4>Improving (Weak + Accelerating)</h4>';
+            html += `<h4>${t['sector.rotation.improving']}</h4>`;
             html += '<ul>';
             if (rotation_map.improving && rotation_map.improving.length > 0) {
                 rotation_map.improving.forEach(sector => {
                     html += `<li>${sector}</li>`;
                 });
             } else {
-                html += '<li><em>None</em></li>';
+                html += `<li><em>${t['sector.rotation.none']}</em></li>`;
             }
             html += '</ul></div>';
 
@@ -365,16 +375,17 @@
         }
 
         function generatePortfolioRec(portfolio) {
+            const t = translations[currentLanguage];
             let html = '<div class="portfolio-allocations">';
 
-            html += '<h4>Recommended Allocation (Top 5):</h4>';
+            html += `<h4>${t['sector.portfolio.top5']}</h4>`;
             html += '<ul class="allocation-list">';
             portfolio.top_5.forEach(sector => {
                 html += `<li><strong>${sector.name} (${sector.ticker})</strong>: ${sector.allocation}%</li>`;
             });
             html += '</ul>';
 
-            html += '<h4 style="margin-top: 1.5rem;">Avoid (Bottom 3):</h4>';
+            html += `<h4 style="margin-top: 1.5rem;">${t['sector.portfolio.bottom3']}</h4>`;
             html += '<ul class="avoid-list">';
             portfolio.bottom_3.forEach(sector => {
                 html += `<li>${sector.name} (${sector.ticker})</li>`;
