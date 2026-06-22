@@ -267,18 +267,18 @@ _cache_time = None
 @app.route('/api/sector/generate', methods=['POST'])
 def generate_sector():
     global _sector_cache, _cache_time
-    
+
     # Check cache
     if _cache_time and (datetime.now() - _cache_time) < timedelta(hours=1):
         return jsonify(_sector_cache)
-    
+
     # Generate fresh data
     result = generate_sector_analysis()
-    
+
     # Update cache
     _sector_cache = result
     _cache_time = datetime.now()
-    
+
     return jsonify(result)
 ```
 
