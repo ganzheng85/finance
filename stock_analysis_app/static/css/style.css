@@ -479,3 +479,343 @@ body {
 .alert-icon {
     font-size: 1.25rem;
 }
+
+/* ======================
+   Tab Navigation Styles
+   ====================== */
+
+.tab-navigation {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0 0 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0;
+}
+
+.tab-button {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    position: relative;
+    bottom: -2px;
+}
+
+.tab-button:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-button.active {
+    color: white;
+    border-bottom-color: white;
+    font-weight: 600;
+}
+
+.tab-button svg {
+    transition: transform 0.3s ease;
+}
+
+.tab-button:hover svg {
+    transform: scale(1.1);
+}
+
+/* Tab Content */
+.tab-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ======================
+   Sector Analysis Styles
+   ====================== */
+
+.generate-section {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.subtitle-text {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.help-text {
+    margin-top: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Sector Rankings Table */
+.sector-rankings {
+    margin: 2rem 0;
+}
+
+.sector-rankings h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
+
+.rankings-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 1px 3px var(--shadow);
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.rankings-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.rankings-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: white;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.rankings-table td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+}
+
+.rankings-table tbody tr:hover {
+    background-color: var(--bg-light);
+}
+
+.rankings-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Signal Badges */
+.signal-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 16px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.signal-strong-buy {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.signal-buy {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.signal-watch {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.signal-avoid {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Rotation Map */
+.rotation-status {
+    margin: 2rem 0;
+}
+
+.rotation-status h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
+
+.rotation-quadrants {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.quadrant {
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+}
+
+.quadrant h4 {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.quadrant ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.quadrant ul li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.quadrant.leading {
+    background: linear-gradient(135deg, #d1fae515 0%, #10b98115 100%);
+    border-color: var(--success);
+}
+
+.quadrant.weakening {
+    background: linear-gradient(135deg, #fef3c715 0%, #f59e0b15 100%);
+    border-color: var(--warning);
+}
+
+.quadrant.lagging {
+    background: linear-gradient(135deg, #fee2e215 0%, #ef444415 100%);
+    border-color: var(--error);
+}
+
+.quadrant.improving {
+    background: linear-gradient(135deg, #dbeafe15 0%, #3b82f615 100%);
+    border-color: #3b82f6;
+}
+
+/* Portfolio Recommendation */
+.portfolio-recommendation {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+.portfolio-recommendation h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
+
+.portfolio-recommendation h4 {
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.allocation-list,
+.avoid-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.allocation-list li {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.avoid-list li {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* Report Actions */
+.report-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-secondary {
+    padding: 0.875rem 1.75rem;
+    background-color: white;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.loading p {
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Results Container */
+.results-container {
+    margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tab-navigation {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .tab-button {
+        border-bottom: none;
+        border-left: 3px solid transparent;
+        bottom: 0;
+    }
+
+    .tab-button.active {
+        border-bottom: none;
+        border-left-color: white;
+    }
+
+    .rotation-quadrants {
+        grid-template-columns: 1fr;
+    }
+
+    .report-actions {
+        flex-direction: column;
+    }
+}

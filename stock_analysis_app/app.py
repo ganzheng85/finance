@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from api.fundamental import generate_fundamental_report
 from api.technical import generate_technical_report
+from api.sector import generate_sector_analysis
 # from api.action_plan import generate_action_plan  # Disabled for now
 
 app = Flask(__name__)
@@ -137,6 +138,19 @@ def get_report(filename):
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/api/sector/generate', methods=['POST'])
+def generate_sector():
+    """Generate sector rotation analysis"""
+    try:
+        result = generate_sector_analysis()
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 @app.route('/api/health')
 def health():
     """Health check endpoint"""
@@ -150,7 +164,15 @@ if __name__ == '__main__':
     print("=" * 60)
     print("Stock Analysis Web Application")
     print("=" * 60)
-    print(f"Starting server...")
-    print(f"Access the application at: http://localhost:5000")
+
+    # Support deployment platforms (Render, Railway, etc.)
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV', 'development') != 'production'
+
+    print(f"Starting server on port {port}...")
+    print(f"Debug mode: {debug}")
+    if debug:
+        print(f"Access the application at: http://localhost:{port}")
     print("=" * 60)
-    app.run(debug=True, host='0.0.0.0', port=5000)
+
+    app.run(debug=debug, host='0.0.0.0', port=port)

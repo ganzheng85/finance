@@ -29,7 +29,18 @@
             </div>
         </header>
 
-        <!-- Main Content -->
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-button active" onclick="switchTab('company')" id="company-tab-btn">
+                Company Analysis
+            </button>
+            <button class="tab-button" onclick="switchTab('sector')" id="sector-tab-btn">
+                Sector Rotation
+            </button>
+        </div>
+
+        <!-- Company Analysis Tab Content -->
+        <div id="company-content" class="tab-content active">
         <main class="main-content">
             <!-- Disclaimer Card -->
             <div class="card disclaimer-card">
@@ -115,6 +126,65 @@
                 <div id="resultsContent"></div>
             </div>
         </main>
+        </div>
+        <!-- End Company Analysis Tab -->
+
+        <!-- Sector Analysis Tab Content -->
+        <div id="sector-content" class="tab-content" style="display: none;">
+        <main class="main-content">
+            <div class="card">
+                <h2>Sector Rotation Analysis</h2>
+                <p class="subtitle-text">
+                    Track institutional money flow across 13 market sectors (11 S&P sectors + Semiconductors + Magnificent 7)
+                </p>
+
+                <!-- Generate Button -->
+                <div class="generate-section">
+                    <button id="generate-sector-btn" class="btn-primary">
+                        Generate Sector Analysis
+                    </button>
+                    <p class="help-text">
+                        Analyzes 13 sectors by momentum, relative strength, and rotation patterns
+                    </p>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="sector-loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing sector rotation... This may take 30-60 seconds...</p>
+                </div>
+
+                <!-- Results Container -->
+                <div id="sector-results" class="results-container" style="display: none;">
+                    <!-- Sector Rankings Table -->
+                    <div class="sector-rankings">
+                        <h3>Sector Rankings</h3>
+                        <div id="rankings-table"></div>
+                    </div>
+
+                    <!-- Rotation Status -->
+                    <div class="rotation-status">
+                        <h3>Rotation Map</h3>
+                        <div id="rotation-map"></div>
+                    </div>
+
+                    <!-- Portfolio Recommendation -->
+                    <div class="portfolio-recommendation">
+                        <h3>Portfolio Recommendation</h3>
+                        <div id="portfolio-rec"></div>
+                    </div>
+
+                    <!-- View Reports Links -->
+                    <div class="report-actions">
+                        <button class="btn btn-secondary" id="view-sector-report">
+                            View Full Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        </div>
+        <!-- End Sector Analysis Tab -->
 
         <!-- Footer -->
         <footer class="footer">
@@ -123,5 +193,197 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Tab Switching
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-content').style.display = 'block';
+            document.getElementById(tabName + '-content').classList.add('active');
+
+            // Add active class to clicked button
+            document.getElementById(tabName + '-tab-btn').classList.add('active');
+        }
+
+        // Sector Analysis Generation
+        document.getElementById('generate-sector-btn').addEventListener('click', async () => {
+            // Show loading
+            document.getElementById('sector-loading').style.display = 'block';
+            document.getElementById('sector-results').style.display = 'none';
+            document.getElementById('generate-sector-btn').disabled = true;
+
+            try {
+                // Call API
+                const response = await fetch('/api/sector/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Hide loading
+                    document.getElementById('sector-loading').style.display = 'none';
+
+                    // Display results
+                    displaySectorResults(data);
+
+                    // Show results container
+                    document.getElementById('sector-results').style.display = 'block';
+                } else {
+                    alert('Error generating sector analysis: ' + data.error);
+                    document.getElementById('sector-loading').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate sector analysis: ' + error.message);
+                document.getElementById('sector-loading').style.display = 'none';
+            } finally {
+                document.getElementById('generate-sector-btn').disabled = false;
+            }
+        });
+
+        function displaySectorResults(data) {
+            // Display rankings table
+            const rankingsHTML = generateRankingsTable(data.rankings);
+            document.getElementById('rankings-table').innerHTML = rankingsHTML;
+
+            // Display rotation map
+            const rotationHTML = generateRotationMap(data.rotation_map);
+            document.getElementById('rotation-map').innerHTML = rotationHTML;
+
+            // Display portfolio recommendation
+            const portfolioHTML = generatePortfolioRec(data.portfolio);
+            document.getElementById('portfolio-rec').innerHTML = portfolioHTML;
+
+            // Setup report view button
+            document.getElementById('view-sector-report').onclick = () => {
+                window.open(data.report_path, '_blank');
+            };
+        }
+
+        function generateRankingsTable(rankings) {
+            let html = '<table class="rankings-table">';
+            html += '<thead><tr>';
+            html += '<th>Rank</th>';
+            html += '<th>Sector</th>';
+            html += '<th>Score</th>';
+            html += '<th>RS (20d)</th>';
+            html += '<th>Momentum</th>';
+            html += '<th>Signal</th>';
+            html += '</tr></thead>';
+            html += '<tbody>';
+
+            rankings.forEach(sector => {
+                const signalClass = getSignalClass(sector.signal);
+                html += '<tr>';
+                html += `<td><strong>${sector.rank}</strong></td>`;
+                html += `<td>${sector.name} (${sector.ticker})</td>`;
+                html += `<td>${sector.score.toFixed(1)}</td>`;
+                html += `<td>${sector.rs_20d > 0 ? '+' : ''}${sector.rs_20d.toFixed(2)}%</td>`;
+                html += `<td>${sector.momentum > 0 ? '+' : ''}${sector.momentum.toFixed(2)}%</td>`;
+                html += `<td><span class="signal-badge ${signalClass}">${sector.signal}</span></td>`;
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            return html;
+        }
+
+        function getSignalClass(signal) {
+            if (signal.includes('STRONG BUY')) return 'signal-strong-buy';
+            if (signal.includes('BUY')) return 'signal-buy';
+            if (signal.includes('WATCH')) return 'signal-watch';
+            return 'signal-avoid';
+        }
+
+        function generateRotationMap(rotation_map) {
+            let html = '<div class="rotation-quadrants">';
+
+            html += '<div class="quadrant leading">';
+            html += '<h4>Leading (Strong + Accelerating)</h4>';
+            html += '<ul>';
+            if (rotation_map.leading && rotation_map.leading.length > 0) {
+                rotation_map.leading.forEach(sector => {
+                    html += `<li>${sector}</li>`;
+                });
+            } else {
+                html += '<li><em>None</em></li>';
+            }
+            html += '</ul></div>';
+
+            html += '<div class="quadrant weakening">';
+            html += '<h4>Weakening (Strong + Decelerating)</h4>';
+            html += '<ul>';
+            if (rotation_map.weakening && rotation_map.weakening.length > 0) {
+                rotation_map.weakening.forEach(sector => {
+                    html += `<li>${sector}</li>`;
+                });
+            } else {
+                html += '<li><em>None</em></li>';
+            }
+            html += '</ul></div>';
+
+            html += '<div class="quadrant lagging">';
+            html += '<h4>Lagging (Weak + Decelerating)</h4>';
+            html += '<ul>';
+            if (rotation_map.lagging && rotation_map.lagging.length > 0) {
+                rotation_map.lagging.forEach(sector => {
+                    html += `<li>${sector}</li>`;
+                });
+            } else {
+                html += '<li><em>None</em></li>';
+            }
+            html += '</ul></div>';
+
+            html += '<div class="quadrant improving">';
+            html += '<h4>Improving (Weak + Accelerating)</h4>';
+            html += '<ul>';
+            if (rotation_map.improving && rotation_map.improving.length > 0) {
+                rotation_map.improving.forEach(sector => {
+                    html += `<li>${sector}</li>`;
+                });
+            } else {
+                html += '<li><em>None</em></li>';
+            }
+            html += '</ul></div>';
+
+            html += '</div>';
+            return html;
+        }
+
+        function generatePortfolioRec(portfolio) {
+            let html = '<div class="portfolio-allocations">';
+
+            html += '<h4>Recommended Allocation (Top 5):</h4>';
+            html += '<ul class="allocation-list">';
+            portfolio.top_5.forEach(sector => {
+                html += `<li><strong>${sector.name} (${sector.ticker})</strong>: ${sector.allocation}%</li>`;
+            });
+            html += '</ul>';
+
+            html += '<h4 style="margin-top: 1.5rem;">Avoid (Bottom 3):</h4>';
+            html += '<ul class="avoid-list">';
+            portfolio.bottom_3.forEach(sector => {
+                html += `<li>${sector.name} (${sector.ticker})</li>`;
+            });
+            html += '</ul>';
+
+            html += '</div>';
+            return html;
+        }
+    </script>
 </body>
 </html>

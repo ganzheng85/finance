@@ -21,6 +21,7 @@ import pandas as pd
 # Import our modules
 from fetch_and_analyze import fetch_stock_data, calculate_all_factors, get_recent_data
 from trend_analyzer import TrendAnalyzer
+from plot_comprehensive_analysis import create_comprehensive_chart
 
 
 def generate_markdown_report(df: pd.DataFrame, ticker: str, analyzer: TrendAnalyzer) -> str:
@@ -335,8 +336,17 @@ Examples:
         print(f"TECHNICAL ANALYSIS: {args.ticker.upper()}")
         print(f"{'='*60}")
 
+        # Calculate required lookback to ensure MAs are valid from start
+        # MA20 is the longest short-term MA, so we need at least 20 extra days
+        max_ma_period = 20
+        required_lookback = args.days + max_ma_period + 10  # Add 10 buffer days
+        actual_lookback = max(args.lookback, required_lookback)
+
+        if actual_lookback > args.lookback:
+            print(f"[INFO] Fetching {actual_lookback} days (instead of {args.lookback}) to ensure MAs are complete")
+
         # Step 1: Fetch data
-        df = fetch_stock_data(args.ticker, lookback_days=args.lookback)
+        df = fetch_stock_data(args.ticker, lookback_days=actual_lookback)
 
         # Step 2: Calculate all technical factors
         df_with_factors = calculate_all_factors(df)
@@ -361,7 +371,26 @@ Examples:
         md_report = generate_markdown_report(df_recent, args.ticker, analyzer)
         md_path = save_report(md_report, args.ticker)
 
-        # Step 6: Generate HTML report (always)
+        # Step 6: Generate comprehensive chart
+        print(f"\n{'='*60}")
+        print("Generating Technical Chart...")
+        print(f"{'='*60}")
+        try:
+            # Prepare data for charting (need extra history for volume MA)
+            # Get args.days + 20 extra days for complete MA calculations
+            df_sorted_for_chart = df_with_factors.sort_values('date', ascending=False)
+            chart_data = df_sorted_for_chart.head(args.days + 20).sort_values('date', ascending=True)
+
+            # Create chart
+            chart_path = create_comprehensive_chart(chart_data, args.ticker, plot_days=args.days)
+            print(f"[OK] Chart saved to: {chart_path}")
+        except Exception as e:
+            print(f"[WARNING] Chart generation failed: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            print("   Reports are still available.")
+
+        # Step 7: Generate HTML report (always)
         print(f"\n{'='*60}")
         print("Generating HTML Report...")
         print(f"{'='*60}")
@@ -378,7 +407,7 @@ Examples:
             print(f"[WARNING] HTML generation failed: {str(e)}")
             print("   Markdown report is still available.")
 
-        # Step 7: Validate report data
+        # Step 8: Validate report data
         print(f"\n{'='*60}")
         print("Validating Report Data...")
         print(f"{'='*60}")
@@ -388,7 +417,7 @@ Examples:
 
             # Extract and validate
             report_values = extract_report_values(Path(md_path))
-            actual_values = calculate_fresh_values(args.ticker, lookback_days=args.lookback)
+            actual_values = calculate_fresh_values(args.ticker, lookback_days=actual_lookback)
             matches, mismatches, missing = validate_values(report_values, actual_values, tolerance=0.02)
 
             # Print summary

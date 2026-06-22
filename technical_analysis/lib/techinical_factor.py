@@ -177,8 +177,10 @@ class TechnicalFactors:
         print("Computing momentum...")
         self.momentum(**params.get('momentum', {}))
 
-        print("Computing distance from SMA...")
-        self.distance_from_sma(**params.get('distance_from_sma', {}))
+        print("Computing SMAs and distance from SMA...")
+        # Calculate multiple SMAs (5, 10, 20, 50, 200) and keep them for plotting
+        for window in [5, 10, 20, 50, 200]:
+            self.df = calculate_distance_from_sma(self.df, window=window, keep_sma=True)
 
         print("Computing SMA distance (20 vs 50)...")
         self.sma_distance(**params.get('sma_distance', {}))
@@ -321,7 +323,7 @@ def calculate_momentum_factor(df: pd.DataFrame,
 
     return df
 
-def calculate_distance_from_sma(df, window=200):
+def calculate_distance_from_sma(df, window=200, keep_sma=True):
     """
     Calculates how far the current price is from the Simple Moving Average (SMA).
     A positive value means the price is above the SMA.
@@ -337,8 +339,9 @@ def calculate_distance_from_sma(df, window=200):
     # Calculate the percentage difference
     df[f'dist_sma_{window}'] = (df['adjusted_close'] / df[sma_col_name]) - 1
 
-    # Clean up the intermediate SMA column if desired
-    df = df.drop(columns=[sma_col_name])
+    # Keep the SMA column for plotting
+    if not keep_sma:
+        df = df.drop(columns=[sma_col_name])
 
     return df
 

@@ -173,3 +173,4 @@ xmltodict==0.15.1
 yfinance==1.4.1
 zipp==3.23.1
 zopfli==0.4.3
+gunicorn==21.2.0

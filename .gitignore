@@ -41,3 +41,22 @@ Thumbs.db
 *.csv
 *.xlsx
 *.xls
+
+# Generated Reports and Analyses
+stock_analysis_app/reports/*.md
+stock_analysis_app/reports/*.html
+stock_analysis_app/reports/*.png
+technical_analysis/analyses/*.md
+technical_analysis/analyses/*.html
+technical_analysis/analyses/*.png
+fundamental_analysis_skill/analyses/*.md
+fundamental_analysis_skill/analyses/*.html
+sector_analysis/analyses/*.md
+sector_analysis/analyses/*.html
+
+# But keep the directories
+!**/.gitkeep
+
+# Environment variables
+.env
+.env.local
