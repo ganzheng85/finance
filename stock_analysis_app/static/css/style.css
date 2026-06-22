@@ -277,6 +277,25 @@ body {
     line-height: 1.4;
 }
 
+.sample-link {
+    margin-top: 0.5rem;
+}
+
+.sample-report-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    padding: 0.25rem 0;
+}
+
+.sample-report-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
 /* Button */
 .btn-primary {
     width: 100%;
