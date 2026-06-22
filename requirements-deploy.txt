@@ -22,6 +22,7 @@ tzdata==2026.2
 # HTML/PDF Generation
 Jinja2==3.1.6
 MarkupSafe==3.0.3
+markdown==3.7
 
 # Dependencies
 certifi==2025.11.12
