@@ -28,28 +28,53 @@ def generate_sector_analysis():
     """
     Generate sector rotation analysis
 
+    ALWAYS generates FRESH analysis - no caching!
+    - Fetches latest data from Yahoo Finance
+    - Recalculates all metrics
+    - Creates new timestamped report
+
     Returns:
         dict with sector rankings, rotation map, and portfolio recommendations
     """
     try:
-        # Fetch sector data
+        print(f"\n{'='*70}")
+        print(f"GENERATING FRESH SECTOR ANALYSIS - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"{'='*70}")
+
+        # Fetch FRESH sector data from Yahoo Finance (no caching)
+        print("\n[1/5] Fetching latest market data from Yahoo Finance...")
         df = fetch_sector_etfs(lookback_days=365)
+        print(f"      ✓ Fetched {len(df)} data points for 13 sectors + SPY")
 
         # Calculate metrics
+        print("\n[2/5] Calculating relative strength vs SPY...")
         df = calculate_relative_strength(df)
+        print("      ✓ RS metrics calculated")
+
+        print("\n[3/5] Calculating momentum scores...")
         df = calculate_momentum(df)
+        print("      ✓ Momentum calculated")
 
         # Rank sectors
+        print("\n[4/5] Ranking sectors by composite score...")
         rankings = rank_sectors(df)
+        print(f"      ✓ {len(rankings)} sectors ranked")
 
         # Identify rotation quadrants
+        print("\n[5/5] Identifying rotation quadrants...")
         quadrants = identify_rotation_quadrants(df)
+        print(f"      ✓ Leading: {len(quadrants['leading'])}, Weakening: {len(quadrants['weakening'])}")
+        print(f"      ✓ Improving: {len(quadrants['improving'])}, Lagging: {len(quadrants['lagging'])}")
 
         # Generate full report
+        print(f"\n{'='*70}")
+        print("GENERATING REPORT FILES")
+        print(f"{'='*70}")
         from generate_sector_report import generate_markdown_report, save_report
 
         md_report = generate_markdown_report(rankings, quadrants, df)
         md_path = save_report(md_report)
+        print(f"✓ Markdown report created")
 
         # Convert to HTML
         html_path = md_path.replace('.md', '.html')
@@ -57,6 +82,7 @@ def generate_sector_analysis():
             sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'utils'))
             from md_to_html import convert_md_to_html
             convert_md_to_html(md_path, html_path)
+            print(f"✓ HTML report created")
         except Exception as e:
             print(f"[WARNING] HTML conversion failed: {str(e)}")
 
@@ -64,13 +90,18 @@ def generate_sector_analysis():
         reports_dir = Path(__file__).parent.parent / 'reports'
         reports_dir.mkdir(exist_ok=True)
 
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        dest_md = reports_dir / f'Sector_Rotation_{timestamp}.md'
-        dest_html = reports_dir / f'Sector_Rotation_{timestamp}.html'
+        analysis_timestamp = datetime.now()
+        timestamp_str = analysis_timestamp.strftime('%Y%m%d_%H%M%S')
+        dest_md = reports_dir / f'Sector_Rotation_{timestamp_str}.md'
+        dest_html = reports_dir / f'Sector_Rotation_{timestamp_str}.html'
 
         shutil.copy2(md_path, dest_md)
         if Path(html_path).exists():
             shutil.copy2(html_path, dest_html)
+
+        print(f"\n✓ Reports saved to web app:")
+        print(f"  - {dest_html.name}")
+        print(f"  - {dest_md.name}")
 
         # Format data for API response
         rankings_list = []
@@ -111,6 +142,10 @@ def generate_sector_analysis():
                 'ticker': row['ticker']
             })
 
+        print(f"\n{'='*70}")
+        print(f"✓ SECTOR ANALYSIS COMPLETE - {analysis_timestamp.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"{'='*70}\n")
+
         return {
             'success': True,
             'rankings': rankings_list,
@@ -118,7 +153,9 @@ def generate_sector_analysis():
             'portfolio': portfolio,
             'report_path': f'/api/report/{dest_html.name}',
             'report_md_path': f'/api/report/{dest_md.name}',
-            'timestamp': datetime.now().isoformat()
+            'timestamp': analysis_timestamp.isoformat(),
+            'generated_at': analysis_timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'market_date': rankings.iloc[0]['date'].strftime('%Y-%m-%d')
         }
 
     except Exception as e:

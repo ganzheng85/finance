@@ -171,6 +171,11 @@
 
                 <!-- Results Container -->
                 <div id="sector-results" class="results-container" style="display: none;">
+                    <!-- Analysis Timestamp -->
+                    <div class="analysis-timestamp" id="analysis-timestamp" style="text-align: center; margin-bottom: 1.5rem; padding: 0.75rem; background: rgba(102, 126, 234, 0.05); border-radius: 8px;">
+                        <!-- Timestamp will be inserted here -->
+                    </div>
+
                     <!-- Sector Rankings Table -->
                     <div class="sector-rankings">
                         <h3 data-i18n="sector.rankings.title">Sector Rankings</h3>
@@ -351,6 +356,16 @@
         });
 
         function displaySectorResults(data) {
+            // Display timestamp
+            const timestampHTML = `
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                    <strong>📊 Fresh Analysis Generated:</strong> ${data.generated_at || data.timestamp}
+                    <br>
+                    <strong>Market Data As Of:</strong> ${data.market_date || 'Latest'}
+                </div>
+            `;
+            document.getElementById('analysis-timestamp').innerHTML = timestampHTML;
+
             // Display rankings table
             const rankingsHTML = generateRankingsTable(data.rankings);
             document.getElementById('rankings-table').innerHTML = rankingsHTML;
