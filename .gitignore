@@ -46,6 +46,9 @@ Thumbs.db
 stock_analysis_app/reports/*.md
 stock_analysis_app/reports/*.html
 stock_analysis_app/reports/*.png
+
+# Contact Messages (user data - do not commit)
+stock_analysis_app/messages/
 technical_analysis/analyses/*.md
 technical_analysis/analyses/*.html
 technical_analysis/analyses/*.png

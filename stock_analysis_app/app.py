@@ -151,6 +151,65 @@ def generate_sector():
         }), 500
 
 
+@app.route('/api/contact', methods=['POST'])
+def contact():
+    """Handle contact form submissions"""
+    try:
+        data = request.get_json()
+
+        # Validate required fields
+        required_fields = ['name', 'email', 'subject', 'message']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({
+                    'success': False,
+                    'error': f'Missing required field: {field}'
+                }), 400
+
+        # Create messages directory if it doesn't exist
+        messages_dir = Path(__file__).parent / 'messages'
+        messages_dir.mkdir(exist_ok=True)
+
+        # Save message to JSON file
+        messages_file = messages_dir / 'contact_messages.json'
+
+        # Load existing messages
+        messages = []
+        if messages_file.exists():
+            try:
+                with open(messages_file, 'r', encoding='utf-8') as f:
+                    messages = json.load(f)
+            except:
+                messages = []
+
+        # Add new message
+        message_entry = {
+            'id': len(messages) + 1,
+            'name': data['name'],
+            'email': data['email'],
+            'subject': data['subject'],
+            'message': data['message'],
+            'timestamp': data.get('timestamp', datetime.now().isoformat()),
+            'read': False
+        }
+        messages.append(message_entry)
+
+        # Save updated messages
+        with open(messages_file, 'w', encoding='utf-8') as f:
+            json.dump(messages, f, indent=2, ensure_ascii=False)
+
+        return jsonify({
+            'success': True,
+            'message': 'Message received successfully'
+        })
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 @app.route('/api/health')
 def health():
     """Health check endpoint"""

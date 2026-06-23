@@ -26,6 +26,7 @@ const translations = {
         // Tabs
         'tab.company': 'Company Analysis',
         'tab.sector': 'Sector Rotation',
+        'tab.contact': 'Contact Author',
 
         // Company Analysis
         'company.title': 'Generate Analysis Reports',
@@ -66,6 +67,24 @@ const translations = {
         'sector.portfolio.bottom3': 'Avoid (Bottom 3):',
         'sector.viewReport': 'View Full Report',
 
+        // Contact
+        'contact.title': 'Contact Author',
+        'contact.subtitle': 'Have questions or feedback? Send me a message and I\'ll get back to you!',
+        'contact.name.label': 'Your Name',
+        'contact.name.placeholder': 'John Doe',
+        'contact.email.label': 'Your Email Address',
+        'contact.email.placeholder': 'john@example.com',
+        'contact.email.help': 'I\'ll use this to respond to your message',
+        'contact.subject.label': 'Subject',
+        'contact.subject.placeholder': 'Question about technical analysis',
+        'contact.message.label': 'Your Message',
+        'contact.message.placeholder': 'Type your message here...',
+        'contact.message.help': 'Please provide as much detail as possible',
+        'contact.button': 'Send Message',
+        'contact.button.loading': 'Sending...',
+        'contact.success.title': 'Message Sent!',
+        'contact.success.text': 'Thank you for your message. I will get back to you soon!',
+
         // Footer
         'footer.copyright': '© 2026 Stock Analysis Dashboard v1.0'
     },
@@ -96,6 +115,7 @@ const translations = {
         // Tabs
         'tab.company': '公司分析',
         'tab.sector': '板块轮动',
+        'tab.contact': '联系作者',
 
         // Company Analysis
         'company.title': '生成分析报告',
@@ -135,6 +155,24 @@ const translations = {
         'sector.portfolio.top5': '推荐配置（前5名）：',
         'sector.portfolio.bottom3': '避免配置（后3名）：',
         'sector.viewReport': '查看完整报告',
+
+        // Contact
+        'contact.title': '联系作者',
+        'contact.subtitle': '有问题或反馈？给我发消息，我会尽快回复您！',
+        'contact.name.label': '您的姓名',
+        'contact.name.placeholder': '张三',
+        'contact.email.label': '您的电子邮件地址',
+        'contact.email.placeholder': 'zhangsan@example.com',
+        'contact.email.help': '我将使用此邮箱回复您的消息',
+        'contact.subject.label': '主题',
+        'contact.subject.placeholder': '关于技术分析的问题',
+        'contact.message.label': '您的留言',
+        'contact.message.placeholder': '在此输入您的消息...',
+        'contact.message.help': '请尽可能详细地说明',
+        'contact.button': '发送消息',
+        'contact.button.loading': '发送中...',
+        'contact.success.title': '消息已发送！',
+        'contact.success.text': '感谢您的消息。我会尽快回复您！',
 
         // Footer
         'footer.copyright': '© 2026 股票分析仪表板 v1.0'

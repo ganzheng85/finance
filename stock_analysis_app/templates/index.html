@@ -63,6 +63,9 @@
             <button class="tab-button" onclick="switchTab('sector')" id="sector-tab-btn" data-i18n="tab.sector">
                 Sector Rotation
             </button>
+            <button class="tab-button" onclick="switchTab('contact')" id="contact-tab-btn" data-i18n="tab.contact">
+                Contact Author
+            </button>
         </div>
 
         <!-- Company Analysis Tab Content -->
@@ -197,6 +200,85 @@
         </main>
         </div>
         <!-- End Sector Analysis Tab -->
+
+        <!-- Contact Author Tab Content -->
+        <div id="contact-content" class="tab-content" style="display: none;">
+        <main class="main-content">
+            <div class="card">
+                <h2 data-i18n="contact.title">Contact Author</h2>
+                <p class="subtitle-text" data-i18n="contact.subtitle">
+                    Have questions or feedback? Send me a message and I'll get back to you!
+                </p>
+
+                <!-- Contact Form -->
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="contact-name" data-i18n="contact.name.label">Your Name</label>
+                        <input
+                            type="text"
+                            id="contact-name"
+                            name="name"
+                            placeholder="John Doe"
+                            data-i18n-placeholder="contact.name.placeholder"
+                            required
+                            autocomplete="name"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-email" data-i18n="contact.email.label">Your Email Address</label>
+                        <input
+                            type="email"
+                            id="contact-email"
+                            name="email"
+                            placeholder="john@example.com"
+                            data-i18n-placeholder="contact.email.placeholder"
+                            required
+                            autocomplete="email"
+                        >
+                        <small class="form-help" data-i18n="contact.email.help">I'll use this to respond to your message</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-subject" data-i18n="contact.subject.label">Subject</label>
+                        <input
+                            type="text"
+                            id="contact-subject"
+                            name="subject"
+                            placeholder="Question about technical analysis"
+                            data-i18n-placeholder="contact.subject.placeholder"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-message" data-i18n="contact.message.label">Your Message</label>
+                        <textarea
+                            id="contact-message"
+                            name="message"
+                            rows="6"
+                            placeholder="Type your message here..."
+                            data-i18n-placeholder="contact.message.placeholder"
+                            required
+                        ></textarea>
+                        <small class="form-help" data-i18n="contact.message.help">Please provide as much detail as possible</small>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="contactBtn">
+                        <span class="btn-text" data-i18n="contact.button">Send Message</span>
+                        <span class="btn-loading" style="display: none;">
+                            <span class="spinner"></span>
+                            <span data-i18n="contact.button.loading">Sending...</span>
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Success/Error Messages -->
+                <div id="contact-result" style="display: none; margin-top: 1.5rem;"></div>
+            </div>
+        </main>
+        </div>
+        <!-- End Contact Author Tab -->
 
         <!-- Footer -->
         <footer class="footer">
@@ -400,6 +482,89 @@
             html += '</div>';
             return html;
         }
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                subject: form.subject.value,
+                message: form.message.value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Show loading state
+            const submitBtn = document.getElementById('contactBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-flex';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                const resultDiv = document.getElementById('contact-result');
+
+                if (result.success) {
+                    // Success message
+                    const t = translations[currentLanguage];
+                    resultDiv.innerHTML = `
+                        <div class="alert success">
+                            <span class="alert-icon">✓</span>
+                            <div>
+                                <strong>${t['contact.success.title'] || 'Message Sent!'}</strong>
+                                <p>${t['contact.success.text'] || 'Thank you for your message. I will get back to you soon!'}</p>
+                            </div>
+                        </div>
+                    `;
+                    resultDiv.style.display = 'block';
+
+                    // Reset form
+                    form.reset();
+                } else {
+                    // Error message
+                    resultDiv.innerHTML = `
+                        <div class="alert error">
+                            <span class="alert-icon">✗</span>
+                            <div>
+                                <strong>Error</strong>
+                                <p>${result.error || 'Failed to send message. Please try again.'}</p>
+                            </div>
+                        </div>
+                    `;
+                    resultDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Contact form error:', error);
+                const resultDiv = document.getElementById('contact-result');
+                resultDiv.innerHTML = `
+                    <div class="alert error">
+                        <span class="alert-icon">✗</span>
+                        <div>
+                            <strong>Error</strong>
+                            <p>Failed to send message. Please try again later.</p>
+                        </div>
+                    </div>
+                `;
+                resultDiv.style.display = 'block';
+            } finally {
+                // Reset button state
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        });
     </script>
 </body>
 </html>
