@@ -14,6 +14,9 @@ df = pd.read_csv(csv_file)
 # Clean up column names
 df.columns = df.columns.str.strip()
 
+# Normalize ticker symbols to uppercase (fix case sensitivity bug)
+df['Stock / ETF Symbol'] = df['Stock / ETF Symbol'].str.strip().str.upper()
+
 # Clean numeric columns
 df['Quantity of Units'] = pd.to_numeric(df['Quantity of Units'].astype(str).str.replace(',', ''), errors='coerce')
 df['Amount per unit'] = pd.to_numeric(df['Amount per unit'].astype(str).str.replace(',', ''), errors='coerce')
@@ -25,8 +28,8 @@ df['Date'] = pd.to_datetime(df['Date (MM-DD-YYYY)'], format='%m-%d-%Y', errors='
 # Filter out CASH$ and Dividend transactions
 trades_df = df[(df['Transaction Type'].isin(['Buy', 'Sell'])) & (df['Stock / ETF Symbol'] != 'CASH$')].copy()
 
-# Sort by date to ensure chronological order
-trades_df = trades_df.sort_values('Date').reset_index(drop=True)
+# Sort by date to ensure chronological order (stable sort preserves original CSV order for same-day trades)
+trades_df = trades_df.sort_values('Date', kind='stable').reset_index(drop=True)
 
 print("Calculating Realized Profit/Loss using FIFO method...\n")
 

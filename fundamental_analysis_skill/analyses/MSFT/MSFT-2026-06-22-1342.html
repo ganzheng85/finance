@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Analysis Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px 50px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #003d7a;
+            font-size: 28px;
+            border-bottom: 3px solid #003d7a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #005a9c;
+            font-size: 22px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #0066b3;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            color: #444;
+            font-size: 16px;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin: 12px 0;
+            text-align: justify;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        th {
+            background-color: #003d7a;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #002855;
+        }
+
+        td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        strong {
+            color: #003d7a;
+            font-weight: 600;
+        }
+
+        em {
+            color: #555;
+            font-style: italic;
+        }
+
+        ul, ol {
+            margin: 12px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 25px 0;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #c7254e;
+        }
+
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        blockquote {
+            border-left: 4px solid #005a9c;
+            padding-left: 15px;
+            margin: 15px 0;
+            color: #555;
+            font-style: italic;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #003d7a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .print-button:hover {
+            background-color: #005a9c;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button no-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    <div class="container">
+        <h1 id="microsoft-corporation-fundamental-analysis">Microsoft Corporation Fundamental Analysis</h1>
+<p><strong>Ticker</strong>: MSFT | <strong>Exchange</strong>: N/A | <strong>Date</strong>: 2026-06-22 | <strong>Current Price</strong>: $370.2</p>
+<p><strong>Disclaimer</strong>: This report is for educational and research purposes only. It provides data summaries and analytical observations, not investment recommendations. All investment decisions should be made after consulting with a licensed financial advisor and conducting your own due diligence.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<p><strong>Executive Summary</strong></p>
+<ol>
+<li>Price Level Assessment: LOW</li>
+<li>Moat Analysis: Total Score [Requires Manual Analysis]</li>
+<li>Business Quality Metrics</li>
+<li>Management Quality Assessment</li>
+<li>Primary Issue Identification</li>
+<li>Management's Ability to Solve</li>
+<li>Risks and Catalysts</li>
+<li>Competitive Position Analysis</li>
+<li>Research Summary</li>
+<li>Research Conclusion</li>
+</ol>
+<p><strong>Appendix: Data Sources and Methodology</strong></p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Microsoft Corporation trades at LOW levels (7.5% of 52-week range).</p>
+<p><strong>Current Market Data:</strong><br />
+- Current Price: USD $370.2<br />
+- 52-Week Range: $355.51 - $551.05<br />
+- 6-Month Return: -23.2%<br />
+- Market Cap: $2.75T</p>
+<p><strong>Note</strong>: Complete fundamental analysis includes comprehensive research on competitive moat, management quality, strategic issues, and scenario analysis.</p>
+<hr />
+<h2 id="1-price-level-assessment-low">1. Price Level Assessment: LOW</h2>
+<h3 id="current-position">Current Position</h3>
+<ul>
+<li><strong>Current Price</strong>: USD $370.24</li>
+<li><strong>52-Week Range</strong>: $355.51 - $551.05</li>
+<li><strong>Position in Range</strong>: 7.5% (-32.8% from high, +4.1% from low)</li>
+<li><strong>Trading Volume</strong>: 26,189,106 (0.68x average)</li>
+</ul>
+<h3 id="valuation-metrics">Valuation Metrics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Current</th>
+<th>Assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P/E (Trailing)</td>
+<td>22.02</td>
+<td>Requires industry comparison</td>
+</tr>
+<tr>
+<td>P/E (Forward)</td>
+<td>19.14</td>
+<td>Requires analysis</td>
+</tr>
+<tr>
+<td>P/S</td>
+<td>8.64</td>
+<td>Requires sector context</td>
+</tr>
+<tr>
+<td>P/B</td>
+<td>6.64</td>
+<td>Requires business model analysis</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recent-price-trend-analysis-past-6-months">Recent Price Trend Analysis (Past 6 Months)</h3>
+<p><strong>6-Month Performance</strong>:<br />
+- 6-month change: <strong>-23.2%</strong></p>
+<p><strong>Analysis Required</strong>:<br />
+- Identify key events that moved the stock<br />
+- Analyze earnings reports and guidance changes<br />
+- Review strategic announcements and competitive dynamics<br />
+- Compare performance to sector/market</p>
+<hr />
+<h2 id="2-moat-analysis-total-score-requires-manual-analysis">2. Moat Analysis: Total Score [Requires Manual Analysis]</h2>
+<p><strong>This section requires manual research and analysis.</strong></p>
+<p>Evaluate competitive advantages across six dimensions:</p>
+<table>
+<thead>
+<tr>
+<th>Moat Type</th>
+<th>Score</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brand Power</td>
+<td>[0-3]</td>
+<td>Research required: pricing power, customer loyalty</td>
+</tr>
+<tr>
+<td>Network Effects</td>
+<td>[0-3]</td>
+<td>Research required: product improves with more users?</td>
+</tr>
+<tr>
+<td>Cost Advantages</td>
+<td>[0-3]</td>
+<td>Research required: scale benefits, proprietary processes</td>
+</tr>
+<tr>
+<td>Switching Costs</td>
+<td>[0-3]</td>
+<td>Research required: customer lock-in, integration depth</td>
+</tr>
+<tr>
+<td>Regulatory/IP</td>
+<td>[0-3]</td>
+<td>Research required: patents, licenses, barriers</td>
+</tr>
+<tr>
+<td>Data Moat</td>
+<td>[0-3]</td>
+<td>Research required: proprietary data that compounds</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Analysis Requirements</strong>:<br />
+1. Research company's competitive positioning<br />
+2. Score each moat type 0-3 (0=none, 1=weak, 2=moderate, 3=strong)<br />
+3. Provide specific evidence for each score<br />
+4. Calculate total moat score out of 18</p>
+<hr />
+<h2 id="3-business-quality-metrics">3. Business Quality Metrics</h2>
+<p><strong>This section requires financial statement analysis.</strong></p>
+<h3 id="data-needed-from-sec-filings">Data Needed (from SEC filings):</h3>
+<ul>
+<li>Gross Margin, Operating Margin, FCF Margin, ROE</li>
+<li>Revenue Growth (TTM and historical trends)</li>
+<li>Operating Leverage trends</li>
+<li>Capital Efficiency (Asset Turns, CapEx/Revenue)</li>
+<li>Cash Conversion metrics</li>
+</ul>
+<p><strong>Available Basic Data</strong>:<br />
+- Sector: Technology<br />
+- Industry: Software - Infrastructure<br />
+- Market Cap: $2.75T<br />
+- Beta: 1.103</p>
+<hr />
+<h2 id="4-management-quality-assessment">4. Management Quality Assessment</h2>
+<p><strong>Research Required</strong>:<br />
+- Capital allocation track record (M&amp;A, buybacks, dividends, R&amp;D)<br />
+- Execution capability (strategy implementation, past transitions)<br />
+- Strategic clarity (coherent vision, stakeholder communication)<br />
+- Insider ownership and alignment</p>
+<hr />
+<h2 id="5-primary-issue-identification">5. Primary Issue Identification</h2>
+<p><strong>Current Research Required</strong>:<br />
+- Revenue or growth challenges<br />
+- Margin pressures or cost issues<br />
+- Operational or strategic problems<br />
+- Financial concerns (debt, cash flow)<br />
+- External risks (regulatory, competitive, macro)</p>
+<p><strong>Research Sources</strong>:<br />
+- Latest earnings call transcripts<br />
+- Recent 10-K and 10-Q filings<br />
+- News and analyst reports<br />
+- Industry competitive analysis</p>
+<hr />
+<h2 id="6-managements-ability-to-solve">6. Management's Ability to Solve</h2>
+<p><strong>Assessment Framework</strong>: CAN SOLVE / UNCERTAIN / CANNOT SOLVE</p>
+<p>Evaluation Criteria:<br />
+- Historical track record navigating challenges<br />
+- Current solution path and action plan<br />
+- Resource allocation and execution speed<br />
+- Wildcards and unknown factors</p>
+<hr />
+<h2 id="7-risks-and-catalysts">7. Risks and Catalysts</h2>
+<p><strong>Analysis Required</strong>:</p>
+<p><strong>Key Risks</strong>:<br />
+- Company-specific execution risks<br />
+- Competitive and industry risks<br />
+- Macroeconomic and regulatory risks<br />
+- Valuation risk</p>
+<p><strong>Positive Catalysts</strong>:<br />
+- Near-term catalysts (0-6 months)<br />
+- Medium-term drivers (6-18 months)<br />
+- Long-term growth vectors (18+ months)</p>
+<hr />
+<h2 id="8-competitive-position-analysis">8. Competitive Position Analysis</h2>
+<p><strong>Industry Research Required</strong>:<br />
+- Primary competitors identification<br />
+- Market share and positioning<br />
+- Competitive advantages vs disadvantages<br />
+- Industry dynamics and trends</p>
+<hr />
+<h2 id="9-research-summary">9. Research Summary</h2>
+<p><strong>Scenario Analysis Framework</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Probability</th>
+<th>Price Target</th>
+<th>Return</th>
+<th>Key Assumptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bull Case</td>
+<td>XX%</td>
+<td>$XXX</td>
+<td>+XX%</td>
+<td>[Requires analysis]</td>
+</tr>
+<tr>
+<td>Base Case</td>
+<td>XX%</td>
+<td>$XXX</td>
+<td>+XX%</td>
+<td>[Requires analysis]</td>
+</tr>
+<tr>
+<td>Bear Case</td>
+<td>XX%</td>
+<td>$XXX</td>
+<td>-XX%</td>
+<td>[Requires analysis]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Metrics to Monitor</strong>:<br />
+1. [Define based on business model]<br />
+2. [Define based on growth drivers]<br />
+3. [Define based on risk factors]<br />
+4. [Define based on competitive position]<br />
+5. [Define based on financial health]</p>
+<hr />
+<h2 id="10-research-conclusion">10. Research Conclusion</h2>
+<p><strong>Synthesis Requirements:</strong><br />
+- Investment perspective (quality/value/growth assessment)<br />
+- Alignment with different investor philosophies<br />
+- Key questions requiring further research<br />
+- Overall recommendation framework</p>
+<hr />
+<p><strong>Last Data Update</strong>: 2026-06-22 13:43:23</p>
+<hr />
+<h2 id="appendix-data-sources-and-methodology">Appendix: Data Sources and Methodology</h2>
+<h3 id="data-sources">Data Sources</h3>
+<ul>
+<li>Price data: Yahoo Finance (fetched 2026-06-22)</li>
+<li>Financial statements: [Requires manual SEC filing review]</li>
+<li>Market data: Public market sources</li>
+<li>Competitive data: [Requires industry research]</li>
+</ul>
+<h3 id="methodology-notes">Methodology Notes</h3>
+<ul>
+<li>See <code>fundamental_analysis_skill/references/analysis-framework.md</code> for complete methodology</li>
+</ul>
+<h3 id="analysis-workflow">Analysis Workflow</h3>
+<ol>
+<li><strong>Research Phase</strong>:</li>
+<li>Read latest 10-K, 10-Q filings</li>
+<li>Review earnings call transcripts (last 4 quarters)</li>
+<li>Analyze competitive landscape</li>
+<li>
+<p>Identify key strategic issues</p>
+</li>
+<li>
+<p><strong>Analysis Phase</strong>:</p>
+</li>
+<li>Complete moat scorecard with evidence</li>
+<li>Calculate business quality metrics from financials</li>
+<li>Assess management track record</li>
+<li>
+<p>Build scenario models with probabilities</p>
+</li>
+<li>
+<p><strong>Validation Phase</strong>:</p>
+</li>
+<li>Run: <code>python scripts/validate_report_data.py MSFT --report &lt;this_file&gt;</code></li>
+<li>Verify all numeric data matches sources</li>
+<li>
+<p>Cross-check valuation calculations</p>
+</li>
+<li>
+<p><strong>Finalization</strong>:</p>
+</li>
+<li>Convert to HTML: <code>python ../utils/md_to_html.py &lt;this_file&gt;</code></li>
+<li>Create highlights summary (2-4 pages)</li>
+<li>Archive with proper naming: <code>MSFT-YYYY-MM-DD.md</code></li>
+</ol>
+<hr />
+<p><strong>Report Generated</strong>: 2026-06-22 13:42:51</p>
+<hr />
+<p><em>Complete fundamental analysis requires comprehensive research on competitive moat, management quality, strategic issues, and scenario modeling.</em></p>
+    </div>
+</body>
+</html>

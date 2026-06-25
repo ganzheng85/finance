@@ -318,7 +318,8 @@ Claude will run the unrealized P&L analysis and show current positions.
 - Distinguish between unrealized (paper) and realized (actual) gains
 - Account for transaction fees when available
 - Exclude non-trade transactions (dividends, transfers) from trade analysis
-- Handle ticker case sensitivity (normalize to uppercase)
+- **Ticker normalization:** All tickers normalized to UPPERCASE to prevent "SMH" and "smh" being treated as different stocks
+- **Stable sort:** Use `kind='stable'` when sorting by date to preserve original CSV order for same-day trades (critical for FIFO accuracy)
 
 ## Common Pitfalls to Avoid
 
