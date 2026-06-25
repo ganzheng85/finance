@@ -220,10 +220,19 @@ for ticker, buy_queue in buy_queues.items():
             'buy_lots': list(buy_queue)
         }
 
-print(f"\nCurrent holdings: {len(current_holdings)} tickers\n")
+# Note: This count will be updated after filtering
 holdings_list = []
+ignored_fractional = []
 
 for ticker, pos in current_holdings.items():
+    # Filter out fractional/minimal positions (<=2 shares)
+    if pos['quantity'] <= 2:
+        ignored_fractional.append({
+            'ticker': ticker,
+            'quantity': pos['quantity']
+        })
+        continue  # Skip this position
+
     avg_cost = pos['total_cost'] / pos['quantity'] if pos['quantity'] > 0 else 0
     current_price = current_prices[ticker]
     current_value = current_price * pos['quantity']
@@ -250,6 +259,7 @@ total_current_value = sum(h['current_value'] for h in holdings_list)
 total_unrealized_pnl = total_current_value - total_cost_basis
 total_pnl_pct = (total_unrealized_pnl / total_cost_basis * 100) if total_cost_basis > 0 else 0
 
+print(f"\nCurrent holdings: {len(holdings_list)} tickers (filtered out {len(ignored_fractional)} fractional positions)\n")
 print(f"{'Ticker':<8} {'Qty':>8} {'Avg Cost':>12} {'Current':>12} {'Value':>15} {'P&L':>15} {'%':>10}")
 print("-" * 90)
 for h in holdings_list:
@@ -261,3 +271,8 @@ print(f"\nPortfolio Summary:")
 print(f"  Total Cost Basis: ${total_cost_basis:,.2f}")
 print(f"  Current Value: ${total_current_value:,.2f}")
 print(f"  Unrealized P&L: ${total_unrealized_pnl:,.2f} ({total_pnl_pct:+.2f}%)")
+
+if ignored_fractional:
+    print(f"\nIgnored fractional positions (<=2 shares):")
+    for frac in ignored_fractional:
+        print(f"  {frac['ticker']}: {frac['quantity']:.2f} shares")

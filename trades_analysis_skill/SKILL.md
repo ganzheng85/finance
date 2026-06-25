@@ -49,6 +49,12 @@ Produces comprehensive trading performance analysis focusing on transaction hist
 ### 2. Unrealized P&L Analysis (Current Holdings)
 **What it measures**: Performance of positions you still own
 
+**Fractional Position Filtering**: Positions with ≤2 shares are automatically filtered out from current holdings analysis to exclude:
+- Stock split remnants
+- Dividend reinvestment fractional shares
+- Data rounding artifacts
+These fractional positions are noted but excluded from portfolio calculations.
+
 - **Current portfolio value** vs cost basis
 - **Unrealized P&L** (paper gains/losses)
 - **Best buy trades**: Biggest unrealized gains
