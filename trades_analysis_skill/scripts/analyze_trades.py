@@ -280,6 +280,48 @@ if ignored_fractional:
     for frac in ignored_fractional:
         print(f"  {frac['ticker']}: {frac['quantity']:.2f} shares")
 
+# Calculate Realized P&L for total return calculation
+print("\n" + "="*80)
+print("CALCULATING REALIZED P&L FOR PERFORMANCE COMPARISON")
+print("="*80)
+
+# Process all trades chronologically to calculate realized P&L
+realized_pnl_total = 0
+realized_buy_queue = defaultdict(deque)
+
+for idx, row in trades_df_sorted.iterrows():
+    ticker = row['Stock / ETF Symbol']
+    transaction_type = row['Transaction Type']
+    price = row['Amount per unit']
+    quantity = row['Quantity of Units']
+
+    if transaction_type == 'Buy':
+        realized_buy_queue[ticker].append({'price': price, 'quantity': quantity})
+    elif transaction_type == 'Sell':
+        # Match with oldest buys (FIFO)
+        remaining_sell_qty = quantity
+        while remaining_sell_qty > 0 and realized_buy_queue[ticker]:
+            oldest_buy = realized_buy_queue[ticker][0]
+            match_qty = min(remaining_sell_qty, oldest_buy['quantity'])
+
+            # Calculate realized P&L for this match
+            buy_cost = match_qty * oldest_buy['price']
+            sell_proceeds = match_qty * price
+            realized_pnl = sell_proceeds - buy_cost
+            realized_pnl_total += realized_pnl
+
+            # Reduce the oldest buy lot
+            oldest_buy['quantity'] -= match_qty
+            remaining_sell_qty -= match_qty
+
+            # Remove if fully sold
+            if oldest_buy['quantity'] <= 0:
+                realized_buy_queue[ticker].popleft()
+
+print(f"\nTotal Realized P&L (from closed positions): ${realized_pnl_total:,.2f}")
+print(f"Total Unrealized P&L (from current holdings): ${total_unrealized_pnl:,.2f}")
+print(f"Combined Total P&L: ${realized_pnl_total + total_unrealized_pnl:,.2f}")
+
 # S&P 500 Performance Comparison
 print("\n" + "="*80)
 print("PERFORMANCE vs S&P 500 BENCHMARK")
@@ -301,9 +343,11 @@ try:
         spy_end_price = spy_hist['Close'].iloc[-1]
         spy_return_pct = ((spy_end_price - spy_start_price) / spy_start_price) * 100
 
-        # Calculate portfolio return
-        # Portfolio return = (Current Value - Cost Basis) / Cost Basis * 100
-        portfolio_return_pct = total_pnl_pct
+        # Calculate TOTAL portfolio return (realized + unrealized)
+        # Total P&L = Realized P&L + Unrealized P&L
+        total_pnl = realized_pnl_total + total_unrealized_pnl
+        # Portfolio return = Total P&L / Cost Basis
+        portfolio_return_pct = (total_pnl / total_cost_basis) * 100
 
         # Calculate alpha (excess return vs benchmark)
         alpha = portfolio_return_pct - spy_return_pct
@@ -313,10 +357,13 @@ try:
         print(f"  End Price ({end_date.date()}): ${spy_end_price:.2f}")
         print(f"  SPY Return: {spy_return_pct:+.2f}%")
 
-        print(f"\nYour Portfolio Performance:")
-        print(f"  Portfolio Return: {portfolio_return_pct:+.2f}%")
+        print(f"\nYour Portfolio Performance (Realized + Unrealized):")
+        print(f"  Realized P&L: ${realized_pnl_total:+,.2f}")
+        print(f"  Unrealized P&L: ${total_unrealized_pnl:+,.2f}")
+        print(f"  Total P&L: ${total_pnl:+,.2f}")
         print(f"  Cost Basis: ${total_cost_basis:,.2f}")
-        print(f"  Current Value: ${total_current_value:,.2f}")
+        print(f"  Current Holdings Value: ${total_current_value:,.2f}")
+        print(f"  Total Portfolio Return: {portfolio_return_pct:+.2f}%")
 
         print(f"\nPerformance Comparison:")
         print(f"  Alpha (vs SPY): {alpha:+.2f}%")
@@ -330,11 +377,13 @@ try:
 
         # Calculate what the portfolio would be worth if invested in SPY
         spy_equivalent_value = total_cost_basis * (1 + spy_return_pct / 100)
-        value_difference = total_current_value - spy_equivalent_value
+        # Total portfolio value = current holdings + realized cash gains
+        total_portfolio_value = total_current_value + realized_pnl_total
+        value_difference = total_portfolio_value - spy_equivalent_value
 
         print(f"\nBenchmark Analysis:")
         print(f"  If ${total_cost_basis:,.2f} was invested in SPY: ${spy_equivalent_value:,.2f}")
-        print(f"  Actual Portfolio Value: ${total_current_value:,.2f}")
+        print(f"  Your Total Portfolio Value (Holdings + Realized Cash): ${total_portfolio_value:,.2f}")
         print(f"  Difference: ${value_difference:+,.2f}")
 
     else:
