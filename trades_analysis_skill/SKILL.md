@@ -83,7 +83,25 @@ Uses **FIFO (First In First Out)** methodology:
 
 **Output**: Historical trading performance
 
-### 4. Overall Trading Performance
+### 4. S&P 500 Performance Comparison
+**What it measures**: How your portfolio performed vs the S&P 500 benchmark
+
+Compares your portfolio performance against buying and holding SPY (S&P 500 ETF):
+
+- **SPY return**: S&P 500 performance over the analysis period
+- **Portfolio return**: Your unrealized P&L percentage
+- **Alpha**: Excess return vs benchmark (positive = outperformance)
+- **Benchmark value**: What your capital would be worth if invested in SPY
+- **Value difference**: Dollar amount gained or lost vs SPY strategy
+
+**Key Metrics**:
+- **Outperforming**: Alpha > 0% (beating the market)
+- **Underperforming**: Alpha < 0% (trailing the market)
+- **Matching**: Alpha ≈ 0% (market performance)
+
+**Output**: Clear performance comparison showing if active trading beat passive investing
+
+### 5. Overall Trading Performance
 Combines unrealized and realized analysis:
 
 - **Overall success rate**: Good trades vs bad trades
@@ -92,7 +110,7 @@ Combines unrealized and realized analysis:
 - **Top performers by ticker**: Which stocks worked best
 - **Areas of concern**: Repeated losses in specific tickers
 
-### 5. Trading Insights
+### 6. Trading Insights
 Identify patterns and lessons:
 - **Best decisions**: What trades worked and why
 - **Missed opportunities**: Sold too early, missed gains

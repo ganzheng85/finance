@@ -279,3 +279,66 @@ if ignored_fractional:
     print(f"\nIgnored fractional positions (<=2 shares):")
     for frac in ignored_fractional:
         print(f"  {frac['ticker']}: {frac['quantity']:.2f} shares")
+
+# S&P 500 Performance Comparison
+print("\n" + "="*80)
+print("PERFORMANCE vs S&P 500 BENCHMARK")
+print("="*80)
+
+# Get date range from trades
+start_date = df['Date'].min()
+end_date = df['Date'].max()
+
+print(f"\nAnalysis Period: {start_date.date()} to {end_date.date()}")
+
+try:
+    # Fetch SPY data for the period
+    spy = yf.Ticker('SPY')
+    spy_hist = spy.history(start=start_date, end=end_date + pd.Timedelta(days=1))
+
+    if not spy_hist.empty:
+        spy_start_price = spy_hist['Close'].iloc[0]
+        spy_end_price = spy_hist['Close'].iloc[-1]
+        spy_return_pct = ((spy_end_price - spy_start_price) / spy_start_price) * 100
+
+        # Calculate portfolio return
+        # Portfolio return = (Current Value - Cost Basis) / Cost Basis * 100
+        portfolio_return_pct = total_pnl_pct
+
+        # Calculate alpha (excess return vs benchmark)
+        alpha = portfolio_return_pct - spy_return_pct
+
+        print(f"\nS&P 500 (SPY) Performance:")
+        print(f"  Start Price ({start_date.date()}): ${spy_start_price:.2f}")
+        print(f"  End Price ({end_date.date()}): ${spy_end_price:.2f}")
+        print(f"  SPY Return: {spy_return_pct:+.2f}%")
+
+        print(f"\nYour Portfolio Performance:")
+        print(f"  Portfolio Return: {portfolio_return_pct:+.2f}%")
+        print(f"  Cost Basis: ${total_cost_basis:,.2f}")
+        print(f"  Current Value: ${total_current_value:,.2f}")
+
+        print(f"\nPerformance Comparison:")
+        print(f"  Alpha (vs SPY): {alpha:+.2f}%")
+
+        if alpha > 0:
+            print(f"  [OUTPERFORMING] Your portfolio beat the S&P 500 by {alpha:.2f}%")
+        elif alpha < 0:
+            print(f"  [UNDERPERFORMING] Your portfolio trails the S&P 500 by {abs(alpha):.2f}%")
+        else:
+            print(f"  [MATCHING] Your portfolio matches the S&P 500")
+
+        # Calculate what the portfolio would be worth if invested in SPY
+        spy_equivalent_value = total_cost_basis * (1 + spy_return_pct / 100)
+        value_difference = total_current_value - spy_equivalent_value
+
+        print(f"\nBenchmark Analysis:")
+        print(f"  If ${total_cost_basis:,.2f} was invested in SPY: ${spy_equivalent_value:,.2f}")
+        print(f"  Actual Portfolio Value: ${total_current_value:,.2f}")
+        print(f"  Difference: ${value_difference:+,.2f}")
+
+    else:
+        print("\nCould not fetch SPY data for comparison")
+
+except Exception as e:
+    print(f"\nError fetching S&P 500 data: {str(e)}")
