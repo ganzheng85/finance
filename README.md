@@ -7,11 +7,15 @@ A comprehensive suite of financial analysis tools and skills for stock analysis,
 ```
 finance/
 ├── stock_analysis_app/            # 🌟 Web application for generating analysis reports
-├── fundamental_analysis_skill/    # Fundamental stock analysis (moat, management, financials)
-├── technical_analysis/            # Technical indicators and chart analysis
-├── trades_analysis_skill/         # Portfolio trading performance analysis
+├── .claude/skills/
+│   ├── technical_analysis/        # Technical indicators and chart analysis
+│   ├── fundamental_analysis/      # Fundamental stock analysis (moat, management, financials)
+│   ├── trades_analysis/           # Portfolio trading performance analysis
+│   └── ercot_analysis/            # ERCOT electricity market analysis
+├── fundamental_analysis_skill/    # (legacy, being phased out)
+├── trades_analysis_skill/         # (legacy, being phased out)
 ├── dip_buying_skill/              # Systematic dip buying framework
-├── ercot_analysis_skill/          # ERCOT electricity market analysis
+├── ercot_analysis_skill/          # (legacy, being phased out)
 ├── utils/                         # Shared utilities (PDF conversion, etc.)
 ├── adhoc_analyses/                # One-off research and strategy analyses
 ├── change_log/                    # Repository change history and migration notes
@@ -90,7 +94,7 @@ python app.py
 
 **Triggers**: "technical analysis", "chart analysis", "RSI", "MACD"
 
-**Location**: `technical_analysis/`
+**Location**: `.claude/skills/technical_analysis/`
 
 ---
 
@@ -203,7 +207,7 @@ python ../utils/md_to_pdf.py "analyses/AAPL/AAPL-2026-06-18.md"
 ### Technical Analysis
 ```bash
 # Run technical analysis for a stock
-cd technical_analysis
+cd .claude/skills/technical_analysis
 python scripts/analyze_stock.py TSLA
 
 # Generate comprehensive chart

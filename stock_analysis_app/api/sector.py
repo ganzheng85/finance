@@ -43,8 +43,19 @@ def generate_sector_analysis():
 
         # Fetch FRESH sector data from Yahoo Finance (no caching)
         print("\n[1/5] Fetching latest market data from Yahoo Finance...")
-        df = fetch_sector_etfs(lookback_days=365)
-        print(f"      [OK] Fetched {len(df)} data points for 13 sectors + SPY")
+        try:
+            df = fetch_sector_etfs(lookback_days=365)
+            print(f"      [OK] Fetched {len(df)} data points for 13 sectors + SPY")
+        except Exception as e:
+            error_msg = "\nWARNING: Failed to fetch sector data from Yahoo Finance\n"
+            error_msg += f"Error details: {str(e)}\n"
+            error_msg += "Possible causes:\n"
+            error_msg += "  - Network connection issue\n"
+            error_msg += "  - Yahoo Finance API temporarily unavailable\n"
+            error_msg += "  - Rate limiting (too many requests)\n"
+            error_msg += "\nPlease check your internet connection and try again.\n"
+            print(error_msg)
+            raise Exception(error_msg)
 
         # Calculate metrics
         print("\n[2/5] Calculating relative strength vs SPY...")

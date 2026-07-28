@@ -1,0 +1,68 @@
+================================================================================
+FACTOR VALIDATION SUMMARY
+================================================================================
+Generated: 2026-06-28 14:33:47
+Period: 2024-06-01 to 2024-12-31
+
+INFORMATION COEFFICIENT (20-day forward returns)
+--------------------------------------------------------------------------------
+Factor               IC         P-value      Status                        
+--------------------------------------------------------------------------------
+rs_20d                 -0.085     0.0527 [X] NOT SIGNIFICANT           
+rs_60d                 -0.054     0.2205 [X] NOT SIGNIFICANT           
+momentum_score         -0.127     0.0037 [+] INVERSE (lower = better)  
+return_20d             -0.187     0.0000 [+] INVERSE (lower = better)  
+
+INTERPRETATION
+--------------------------------------------------------------------------------
+IC > 0.05 and p < 0.05: Predictive (higher factor = higher returns)
+IC < -0.05 and p < 0.05: Inverse (lower factor = higher returns)
+|IC| < 0.05 or p >= 0.05: Not significant (factor not working)
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+
+RS_20D:
+  IC: -0.085 (p=0.0527)
+  -> WEAK FACTOR - Consider removing
+
+RS_60D:
+  IC: -0.054 (p=0.2205)
+  -> WEAK FACTOR - Consider removing
+
+MOMENTUM_SCORE:
+  IC: -0.127 (p=0.0037)
+  -> STRONG FACTOR - Keep using!
+  -> WARNING: Inverse signal - consider inverting ranking
+
+RETURN_20D:
+  IC: -0.187 (p=0.0000)
+  -> STRONG FACTOR - Keep using!
+  -> WARNING: Inverse signal - consider inverting ranking
+
+RECOMMENDED WEIGHTS (based on absolute IC)
+--------------------------------------------------------------------------------
+  rs_20d                18.8%
+  rs_60d                11.9%
+  momentum_score        28.0%
+  return_20d            41.3%
+
+CURRENT WEIGHTS (equal)
+--------------------------------------------------------------------------------
+  rs_20d                25.0%
+  rs_60d                25.0%
+  momentum_score        25.0%
+  return_20d            25.0%
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Run this validation monthly to monitor factor health
+2. If IC becomes negative, consider inverting the factor
+3. If |IC| < 0.05, remove the factor from your strategy
+4. Adjust weights based on IC values to optimize performance
+
+For full details, run:
+  python validate_factors.py --start 2024-06-01 --end 2024-12-31

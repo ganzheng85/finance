@@ -60,12 +60,12 @@ def generate_markdown_report(rankings_df, quadrants, full_df):
     top_3 = rankings_df.head(3)
     bottom_3 = rankings_df.tail(3)
 
-    md.append(f"**Top 3 Sectors (Overweight):**")
+    md.append(f"**Top 3 Sectors (Strongest):**")
     for _, row in top_3.iterrows():
         md.append(f"- {row['sector_name']} ({row['ticker']}): Score {row['composite_score']:.1f}")
     md.append("")
 
-    md.append(f"**Bottom 3 Sectors (Avoid):**")
+    md.append(f"**Bottom 3 Sectors (Weakest):**")
     for _, row in bottom_3.iterrows():
         md.append(f"- {row['sector_name']} ({row['ticker']}): Score {row['composite_score']:.1f}")
     md.append("")
@@ -106,43 +106,23 @@ def generate_markdown_report(rankings_df, quadrants, full_df):
     md.append("---")
     md.append("")
 
-    # Rotation Map
+    # Rotation Map - Quadrant Table
     md.append("## Rotation Map (Quadrant Analysis)")
     md.append("")
-    md.append("### 🚀 Leading (Strong + Accelerating)")
-    if quadrants['leading']:
-        for ticker in quadrants['leading']:
-            sector_name = SECTOR_ETFS.get(ticker, ticker)
-            md.append(f"- **{ticker}** - {sector_name}")
-    else:
-        md.append("- *None*")
-    md.append("")
 
-    md.append("### ⚠️ Weakening (Strong + Decelerating)")
-    if quadrants['weakening']:
-        for ticker in quadrants['weakening']:
-            sector_name = SECTOR_ETFS.get(ticker, ticker)
-            md.append(f"- **{ticker}** - {sector_name}")
-    else:
-        md.append("- *None*")
-    md.append("")
+    # Helper to format quadrant sectors
+    def format_quadrant_sectors(sector_list):
+        if not sector_list:
+            return "*None*"
+        return ", ".join([f"**{ticker}**" for ticker in sector_list])
 
-    md.append("### 👀 Improving (Weak + Accelerating)")
-    if quadrants['improving']:
-        for ticker in quadrants['improving']:
-            sector_name = SECTOR_ETFS.get(ticker, ticker)
-            md.append(f"- **{ticker}** - {sector_name}")
-    else:
-        md.append("- *None*")
-    md.append("")
+    md.append("| Quadrant | Sectors | Interpretation |")
+    md.append("|----------|---------|----------------|")
+    md.append(f"| **Leading** (Strong + Accelerating) | {format_quadrant_sectors(quadrants['leading'])} | Strongest momentum - continue outperforming |")
+    md.append(f"| **Weakening** (Strong + Decelerating) | {format_quadrant_sectors(quadrants['weakening'])} | Still strong but losing momentum - monitor closely |")
+    md.append(f"| **Improving** (Weak + Accelerating) | {format_quadrant_sectors(quadrants['improving'])} | Gaining strength - potential early rotation |")
+    md.append(f"| **Lagging** (Weak + Decelerating) | {format_quadrant_sectors(quadrants['lagging'])} | Weakest performance - underperforming |")
 
-    md.append("### ❌ Lagging (Weak + Decelerating)")
-    if quadrants['lagging']:
-        for ticker in quadrants['lagging']:
-            sector_name = SECTOR_ETFS.get(ticker, ticker)
-            md.append(f"- **{ticker}** - {sector_name}")
-    else:
-        md.append("- *None*")
     md.append("")
     md.append("---")
     md.append("")
@@ -172,30 +152,30 @@ def generate_markdown_report(rankings_df, quadrants, full_df):
         md.append("")
 
         # Signal interpretation
-        if '🚀' in signal:
-            md.append("**Recommendation:** OVERWEIGHT - Strong outperformance on multiple timeframes")
-        elif '✅' in signal:
-            md.append("**Recommendation:** OVERWEIGHT - Consistent outperformance")
-        elif '👀' in signal:
-            md.append("**Recommendation:** WATCH - Early rotation signal, monitor for confirmation")
-        elif '⚠️' in signal:
-            md.append("**Recommendation:** REDUCE - Momentum fading, consider taking profits")
-        else:
-            md.append("**Recommendation:** AVOID - Underperforming, capital better deployed elsewhere")
+        if signal == 'Very Strong':
+            md.append("**Analysis:** Strong outperformance across multiple timeframes")
+        elif signal == 'Strong':
+            md.append("**Analysis:** Consistent outperformance vs benchmark")
+        elif 'Early Rotation' in signal:
+            md.append("**Analysis:** Recent strength emerging, potential early rotation signal")
+        elif 'Weakening' in signal:
+            md.append("**Analysis:** Recent underperformance despite prior strength, momentum fading")
+        else:  # Weak
+            md.append("**Analysis:** Underperforming benchmark across timeframes")
 
         md.append("")
 
     md.append("---")
     md.append("")
 
-    # Portfolio Recommendation
-    md.append("## Portfolio Recommendation")
+    # Sector Strength Distribution
+    md.append("## Sector Strength Distribution")
     md.append("")
 
     top_5 = rankings_df.head(5)
     total_score = top_5['composite_score'].sum()
 
-    md.append("### Suggested Allocation (Top 5 Sectors)")
+    md.append("### Top 5 Sectors (Relative Strength)")
     md.append("")
 
     for _, row in top_5.iterrows():
@@ -204,11 +184,11 @@ def generate_markdown_report(rankings_df, quadrants, full_df):
         score = row['composite_score']
         allocation = (score / total_score) * 100
 
-        md.append(f"- **{sector} ({ticker}):** {allocation:.1f}%")
+        md.append(f"- **{sector} ({ticker}):** {allocation:.1f}% (Score-weighted)")
 
     md.append("")
 
-    md.append("### Sectors to Avoid (Bottom 3)")
+    md.append("### Bottom 3 Sectors (Relative Weakness)")
     md.append("")
 
     bottom_3 = rankings_df.tail(3)
@@ -231,13 +211,17 @@ def generate_markdown_report(rankings_df, quadrants, full_df):
     md.append("- 25% - Relative Strength (60-day) vs SPY")
     md.append("- 25% - Recent Performance (20-day return)")
     md.append("")
-    md.append("**Signal Categories:**")
+    md.append("**Strength Categories:**")
     md.append("")
-    md.append("- 🚀 **STRONG BUY:** RS 20d > +2%, RS 60d > +3%, Momentum > +10%")
-    md.append("- ✅ **BUY:** RS 20d > +1%, RS 60d > +1%")
-    md.append("- 👀 **WATCH:** RS 20d positive but RS 60d negative (early rotation)")
-    md.append("- ⚠️ **WEAKENING:** RS 20d negative but RS 60d still positive (fading strength)")
-    md.append("- ❌ **AVOID:** Both RS 20d and RS 60d negative")
+    md.append("Signals are determined by composite score and rotation pattern:")
+    md.append("")
+    md.append("- **Very Strong:** Score ≥ 75, both RS 20d and RS 60d positive")
+    md.append("- **Strong:** Score ≥ 75, consistent outperformance")
+    md.append("- **Strong (Early Rotation):** Score ≥ 75, recent strength with prior weakness")
+    md.append("- **Medium:** Score 60-74, moderate strength")
+    md.append("- **Medium (Early Rotation):** Score 60-74, RS 20d positive but RS 60d negative")
+    md.append("- **Medium (Weakening):** Score 60-74, RS 20d negative but RS 60d positive")
+    md.append("- **Weak:** Score < 60, underperforming")
     md.append("")
     md.append("---")
     md.append("")

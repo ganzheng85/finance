@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Analysis Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px 50px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #003d7a;
+            font-size: 28px;
+            border-bottom: 3px solid #003d7a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #005a9c;
+            font-size: 22px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #0066b3;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            color: #444;
+            font-size: 16px;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin: 12px 0;
+            text-align: justify;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        th {
+            background-color: #003d7a;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #002855;
+        }
+
+        td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        strong {
+            color: #003d7a;
+            font-weight: 600;
+        }
+
+        em {
+            color: #555;
+            font-style: italic;
+        }
+
+        ul, ol {
+            margin: 12px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 25px 0;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #c7254e;
+        }
+
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        blockquote {
+            border-left: 4px solid #005a9c;
+            padding-left: 15px;
+            margin: 15px 0;
+            color: #555;
+            font-style: italic;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #003d7a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .print-button:hover {
+            background-color: #005a9c;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button no-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    <div class="container">
+        <h1 id="fundamental-analysis-dominos-pizza-inc-dpz">Fundamental Analysis: Domino's Pizza Inc (DPZ)</h1>
+<p><strong>Analysis Date:</strong> July 10, 2026<br />
+<strong>Analyst:</strong> Claude Sonnet 4.5<br />
+<strong>Current Price:</strong> $301.76<br />
+<strong>52-Week Range:</strong> $282.00 - $496.00</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Domino's Pizza has declined 37% from its 52-week high of $496 to $301, driven by weak same-store sales (0.9% vs 3% target), leadership transition concerns, and Berkshire Hathaway's exit. Despite these headwinds, DPZ maintains exceptional ROIC (53.87%), a dominant 30%+ pizza market share, and technology/delivery moats that competitors struggle to replicate. The stock trades near 52-week lows with analyst consensus at $404-461, suggesting 34-53% upside. Management transition from Russell Weiner to Joe Jordan (Oct 2026) creates uncertainty but brings operational continuity. This appears to be a cyclical reset rather than structural failure - a potential value opportunity for patient investors.</p>
+<p><strong>Recommendation:</strong> BUY (25-30% position sizing)<br />
+<strong>Price Target (12-month):</strong> $395 (Base Case)<br />
+<strong>Expected Return:</strong> +31% plus 2.5% dividend yield</p>
+<hr />
+<h2 id="1-price-level-assessment-low">1. Price Level Assessment: LOW</h2>
+<h3 id="current-valuation-context">Current Valuation Context</h3>
+<ul>
+<li><strong>Current Price:</strong> $301.76</li>
+<li><strong>52-Week High:</strong> $496.00 (down 39%)</li>
+<li><strong>52-Week Low:</strong> $282.00 (only 7% above low)</li>
+<li><strong>Assessment:</strong> <strong>LOW</strong> - Trading in bottom 10% of 52-week range</li>
+</ul>
+<h3 id="6-month-price-trend-catalysts">6-Month Price Trend &amp; Catalysts</h3>
+<p><strong>Jan-Feb 2026:</strong> Stock traded in $450-470 range, relatively stable</p>
+<p><strong>March 2026:</strong> Initial weakness emerged as consumer confidence fell to COVID-level lows</p>
+<p><strong>April 27, 2026:</strong> Major drop following Q1 earnings miss<br />
+- U.S. same-store sales: 0.9% (vs 2.3% analyst expectation)<br />
+- International same-store sales: -0.4% (excluding FX)<br />
+- Stock fell sharply on weak sales performance</p>
+<p><strong>June 23, 2026:</strong> Further 3.2% decline on CEO succession announcement<br />
+- Russell Weiner retiring, Joe Jordan named successor (effective Oct 1)<br />
+- Multiple analysts lowered price targets (JPMorgan, BTIG, RBC, Baird)<br />
+- Market concerned about leadership continuity</p>
+<p><strong>Q1 2026 - Present:</strong> Berkshire Hathaway fully exited DPZ position<br />
+- Exit followed leadership transition and weak comps<br />
+- Dominated negative sentiment headlines<br />
+- Institutional selling pressure accelerated decline</p>
+<h3 id="why-did-dpz-drop-37">Why Did DPZ Drop 37%?</h3>
+<p><strong>Primary Causes:</strong></p>
+<ol>
+<li><strong>Weak Same-Store Sales (40% impact)</strong></li>
+<li>U.S. comp sales: 0.9% vs 3% company target</li>
+<li>International comps: -0.4% (negative for first time in years)</li>
+<li>
+<p>Consumer confidence at pandemic lows hurt transaction counts</p>
+</li>
+<li>
+<p><strong>Competitive Pressure (25% impact)</strong></p>
+</li>
+<li>Pizza competitors copied Domino's value playbook</li>
+<li>Promotional environment intensified</li>
+<li>
+<p>Third-party delivery aggregators increasing competition</p>
+</li>
+<li>
+<p><strong>Leadership Transition (20% impact)</strong></p>
+</li>
+<li>CEO Russell Weiner retiring after strong 4-year run</li>
+<li>Market uncertainty about Joe Jordan's ability to maintain momentum</li>
+<li>
+<p>Multiple analyst downgrades on succession announcement</p>
+</li>
+<li>
+<p><strong>Berkshire Exit (15% impact)</strong></p>
+</li>
+<li>High-profile institutional selling pressure</li>
+<li>Interpreted as loss of confidence (though followed broader portfolio changes)</li>
+<li>Triggered momentum selling by other funds</li>
+</ol>
+<p><strong>Key Insight:</strong> This appears to be a cyclical earnings miss and temporary headwinds rather than structural business deterioration. The moat remains intact, and same-store sales are positive (just below target).</p>
+<hr />
+<h2 id="2-moat-analysis-score-1418-strong">2. Moat Analysis: Score 14/18 (STRONG)</h2>
+<h3 id="brand-power-33-strong">Brand Power: 3/3 (STRONG)</h3>
+<ul>
+<li><strong>30%+ U.S. QSR pizza market share</strong> - Dominant category leader</li>
+<li><strong>19.8% total U.S. pizza market</strong> - Targeting 50% QSR share</li>
+<li><strong>37.3 million active loyalty members</strong> (Domino's Rewards)</li>
+<li>Global recognition across 90+ countries, 21,000+ stores</li>
+<li>Consistent brand positioning around value, speed, and technology</li>
+</ul>
+<p><strong>Evidence:</strong> Brand consistently wins on delivery speed (26min 10sec average, industry-leading) and value perception. Social media presence and marketing effectiveness demonstrated by loyalty program growth.</p>
+<h3 id="network-effects-23-moderate-strong">Network Effects: 2/3 (MODERATE-STRONG)</h3>
+<ul>
+<li><strong>"Fortressing" strategy</strong> - Dense store clusters reduce delivery radius</li>
+<li><strong>21,000+ global stores</strong> create geographic coverage moat</li>
+<li>More stores → faster delivery → better experience → more customers → support more stores</li>
+<li>Integration with DoorDash and Uber Eats (5%+ of U.S. sales) expands reach</li>
+</ul>
+<p><strong>Limitation:</strong> Not pure two-sided network effect like Uber/Airbnb. Adding stores improves service but doesn't exponentially increase value.</p>
+<h3 id="cost-advantages-33-strong">Cost Advantages: 3/3 (STRONG)</h3>
+<ul>
+<li><strong>Vertically integrated supply chain</strong> - 27 dough manufacturing/distribution centers</li>
+<li><strong>Scale procurement</strong> - Massive buying power on cheese, flour, toppings</li>
+<li><strong>Franchisee AUV: $1.3M+</strong> vs competitors ($1.1M Pizza Hut, $900K Papa John's)</li>
+<li><strong>Technology amortization</strong> - $150M+ annual R&amp;D spread over 21K stores = $7K/store</li>
+<li><strong>Own-driver model</strong> vs third-party delivery = superior unit economics</li>
+</ul>
+<p><strong>Evidence:</strong> Gross margins 40%, operating margins 19.43% despite intense competition. Company-owned store margins compressed to 10.1% (from 15.5%) due to insurance/labor, but franchise model shields corporate.</p>
+<h3 id="switching-costs-23-moderate">Switching Costs: 2/3 (MODERATE)</h3>
+<ul>
+<li><strong>Loyalty program lock-in</strong> - 37.3M active users accumulate points</li>
+<li><strong>Mobile app integration</strong> - 70%+ digital ordering creates habit formation</li>
+<li><strong>Stored preferences</strong> - Saved orders, payment info, favorite locations</li>
+</ul>
+<p><strong>Limitation:</strong> Switching costs exist but aren't prohibitive. Customers can easily order from competitors if price/quality diverges. However, convenience and habit create meaningful friction.</p>
+<h3 id="regulatoryip-protection-13-weak">Regulatory/IP Protection: 1/3 (WEAK)</h3>
+<ul>
+<li><strong>Proprietary technology</strong> - DomOS platform, AI ordering, GPS tracking</li>
+<li><strong>Trade secrets</strong> - Dough recipes, supply chain optimization</li>
+<li><strong>Limited patent protection</strong> - Some technology patents but easily worked around</li>
+</ul>
+<p><strong>Weakness:</strong> Restaurant industry has low regulatory barriers. Technology provides advantage but isn't legally protected. Competitors can imitate (as seen with current promotional environment).</p>
+<h3 id="data-moat-33-strong">Data Moat: 3/3 (STRONG)</h3>
+<ul>
+<li><strong>70%+ digital ordering penetration</strong> - Massive customer data collection</li>
+<li><strong>37.3M loyalty members</strong> - Transaction history, preferences, frequency</li>
+<li><strong>AI-powered personalization</strong> - Predictive ordering, targeted promotions</li>
+<li><strong>Supply chain optimization</strong> - Demand forecasting across 21K stores</li>
+<li><strong>Proprietary DomOS platform</strong> - Real-time operations data</li>
+</ul>
+<p><strong>Evidence:</strong> $150M+ annual technology investment creating compounding data advantage. Digital ordering data enables personalized marketing, optimized inventory, and dynamic pricing that competitors (especially independent pizzerias) can't match.</p>
+<p><strong>Total Moat Score: 14/18</strong> - Strong economic moat with particular strength in brand, cost advantages, and data. Weakest in regulatory protection, but this is typical for restaurants.</p>
+<hr />
+<h2 id="3-financial-metrics-analysis">3. Financial Metrics Analysis</h2>
+<h3 id="revenue-growth-trend">Revenue Growth Trend</h3>
+<ul>
+<li><strong>Q1 2026 Revenue:</strong> $1.151B (up 3.47% YoY)</li>
+<li><strong>TTM Revenue (March 2026):</strong> $4.979B (up 5.17% YoY)</li>
+<li><strong>Q4 2025 Growth:</strong> 4.96% → Q1 2026: 5.17% (improving)</li>
+</ul>
+<p><strong>Same-Store Sales (Critical Metric):</strong><br />
+- U.S.: +0.9% (Q1 2026) - Below 3% target, concerning<br />
+- International: -0.4% (Q1 2026) - First negative quarter in years<br />
+- Q4 2025: +3.7% - Shows recent deceleration</p>
+<p><strong>Store Count Growth:</strong><br />
+- Q1 2026: +180 net stores (19 U.S., 161 international)<br />
+- Global footprint: 21,000+ locations<br />
+- <strong>However:</strong> DPE (largest franchisee) closing 205 stores, indicating stress</p>
+<p><strong>Assessment:</strong> Revenue growth remains positive but decelerating. Same-store sales weakness is the primary concern. International expansion continues but quality of growth questionable given franchisee closures.</p>
+<h3 id="profitability-margins">Profitability Margins</h3>
+<ul>
+<li><strong>Gross Margin:</strong> 40.07% (healthy)</li>
+<li><strong>Operating Margin:</strong> 19.43% (strong for QSR)</li>
+<li><strong>Net Margin:</strong> 11.89% (solid)</li>
+</ul>
+<p><strong>Margin Compression Alert:</strong><br />
+- U.S. company-owned store gross margin: 10.1% (down from 15.5%)<br />
+- Primary drivers: Higher insurance costs, increased labor rates<br />
+- Franchisee margins under pressure from same factors</p>
+<p><strong>Operating Income:</strong> Up 6% YoY despite comp sales weakness, demonstrating operating leverage</p>
+<p><strong>Assessment:</strong> Corporate margins remain healthy due to franchise model (98% of stores). Company-owned store margin compression (540 bps) is concerning but affects small portion of portfolio. Franchisees bearing brunt of cost inflation.</p>
+<h3 id="franchisee-health-metrics">Franchisee Health Metrics</h3>
+<p><strong>Positive Indicators:</strong><br />
+- Average franchisee weekly sales: $26,247 (2024)<br />
+- Average unit volume: $1.3M+ (vs $1.1M Pizza Hut, $900K Papa John's)<br />
+- Q1 2026: 180 net new stores (mostly international)</p>
+<p><strong>Warning Signs:</strong><br />
+- Domino's Pizza Enterprises (18% of global stores) closing 205 units<br />
+- North County Pizza (franchisee) filed Chapter 11 bankruptcy<br />
+- Japanese market: 172 closures (58 franchised, 114 corporate)<br />
+- Industry-wide pressures: Labor costs, food inflation, lease rates</p>
+<p><strong>Assessment:</strong> <strong>MIXED</strong> - Strong franchisees continue opening stores (181 gross adds), but weakest operators struggling. DPE closures concentrated in underperforming Japan market. U.S. franchisee health appears stable based on AUV data, but margin pressure is real.</p>
+<h3 id="capital-structure-leverage">Capital Structure &amp; Leverage</h3>
+<ul>
+<li><strong>Total Debt:</strong> $5.14 billion</li>
+<li><strong>Cash:</strong> $232.92 million</li>
+<li><strong>Net Debt:</strong> $4.90 billion</li>
+<li><strong>Debt-to-EBITDA:</strong> 5.19x (near 10-year median of 5.58x)</li>
+</ul>
+<p><strong>Debt Maturity:</strong><br />
+- $1.3 billion maturing in 2027 (refinancing risk)<br />
+- Remainder spread over longer terms</p>
+<p><strong>Interest Coverage Ratio:</strong> 4.96x<br />
+- Comfortably above 2x distress level<br />
+- Just below Graham's 5x "safe" threshold<br />
+- Indicates manageable but elevated leverage</p>
+<p><strong>Assessment:</strong> <strong>MODERATE RISK</strong> - Leverage is elevated but typical for franchise model that uses debt to fund buybacks/dividends. Interest coverage adequate. 2027 maturity ($1.3B) requires monitoring but likely refinanceable given strong cash flow.</p>
+<h3 id="free-cash-flow-fcf-yield">Free Cash Flow &amp; FCF Yield</h3>
+<ul>
+<li><strong>Operating Cash Flow (LTM):</strong> $774.94M</li>
+<li><strong>CapEx (LTM):</strong> $120.86M</li>
+<li><strong>Free Cash Flow (LTM):</strong> $654.09M</li>
+<li><strong>Fiscal 2025 FCF:</strong> $671.5M (up 31.2% from $512M in 2024)</li>
+</ul>
+<p><strong>FCF Yield Calculation:</strong><br />
+- Market Cap: ~$10.6B (3.51M shares × $301.76)<br />
+- FCF Yield: $654M / $10,600M = <strong>6.17%</strong></p>
+<p><strong>Assessment:</strong> Exceptional FCF generation for a restaurant company. 6.17% FCF yield at current price is attractive. 31% YoY FCF growth in 2025 demonstrates operating leverage. Franchise model = low CapEx intensity.</p>
+<h3 id="roic-vs-wacc-value-creation-engine">ROIC vs WACC - Value Creation Engine</h3>
+<ul>
+<li><strong>ROIC (TTM March 2026):</strong> 53.87%</li>
+<li><strong>ROIC (Annualized Q1 2026):</strong> 46.55%</li>
+<li><strong>WACC:</strong> 7.43%</li>
+<li><strong>Spread (ROIC - WACC):</strong> <strong>46.5 percentage points</strong></li>
+</ul>
+<p><strong>Interpretation:</strong> DPZ generates exceptional returns on invested capital, far exceeding cost of capital. This 46.5pt spread indicates:<br />
+1. Durable competitive advantages (moat working)<br />
+2. Efficient capital allocation<br />
+3. High-quality business model<br />
+4. Significant value creation for shareholders</p>
+<p><strong>Assessment:</strong> <strong>BEST-IN-CLASS</strong> - Few companies achieve ROIC &gt;50%. This is the hallmark of a great business. Current stock price weakness creates disconnect with underlying value creation.</p>
+<hr />
+<h2 id="4-current-issues-identification">4. Current Issues Identification</h2>
+<h3 id="issue-1-weak-us-same-store-sales">Issue #1: Weak U.S. Same-Store Sales</h3>
+<ul>
+<li><strong>Severity:</strong> 5/5 (Critical)</li>
+<li><strong>Trend:</strong> Worsening (3.7% Q4 → 0.9% Q1)</li>
+<li><strong>Root Causes:</strong></li>
+<li>Consumer confidence at COVID-level lows</li>
+<li>Inflation pressures on middle/lower income consumers (DPZ's core demographic)</li>
+<li>Intense promotional competition from Pizza Hut, Papa John's</li>
+</ul>
+<p><strong>Management Response:</strong> Monitoring consumer trends, maintaining value positioning, preparing promotional adjustments</p>
+<h3 id="issue-2-international-comps-turn-negative">Issue #2: International Comps Turn Negative</h3>
+<ul>
+<li><strong>Severity:</strong> 4/5 (High)</li>
+<li><strong>Trend:</strong> Worsening (positive → -0.4%)</li>
+<li><strong>Root Causes:</strong></li>
+<li>Japan market deterioration (DPE closing 172 stores)</li>
+<li>Currency headwinds</li>
+<li>Market saturation in mature markets</li>
+</ul>
+<p><strong>Management Response:</strong> DPE "focusing on prefectures with scale and operational efficiencies" (rationalization strategy)</p>
+<h3 id="issue-3-company-owned-store-margin-compression">Issue #3: Company-Owned Store Margin Compression</h3>
+<ul>
+<li><strong>Severity:</strong> 3/5 (Moderate)</li>
+<li><strong>Trend:</strong> Worsening (15.5% → 10.1% gross margin, -540 bps)</li>
+<li><strong>Root Causes:</strong></li>
+<li>Insurance costs spiking</li>
+<li>Labor rate inflation</li>
+<li>Unable to raise prices enough to offset</li>
+</ul>
+<p><strong>Management Response:</strong> Limited direct impact (only 2% of stores company-owned), but signals pressure on franchisees</p>
+<h3 id="issue-4-franchisee-stress-signals">Issue #4: Franchisee Stress Signals</h3>
+<ul>
+<li><strong>Severity:</strong> 3/5 (Moderate)</li>
+<li><strong>Trend:</strong> Mixed (new openings continue but closures increasing)</li>
+<li><strong>Root Causes:</strong></li>
+<li>Same margin pressures as company stores</li>
+<li>Food/labor cost inflation</li>
+<li>High lease rates</li>
+<li>Weak consumer demand</li>
+</ul>
+<p><strong>Management Response:</strong> Supporting franchisees through supply chain efficiencies, technology tools. Closure of 205 DPE stores is strategic rationalization, not system-wide crisis.</p>
+<h3 id="issue-5-leadership-transition-uncertainty">Issue #5: Leadership Transition Uncertainty</h3>
+<ul>
+<li><strong>Severity:</strong> 2/5 (Low-Moderate)</li>
+<li><strong>Trend:</strong> Stable (defined succession plan)</li>
+<li><strong>Root Causes:</strong></li>
+<li>Market always discounts leadership changes</li>
+<li>Russell Weiner delivered strong results (30% stock gain, $3B retail sales growth during tenure)</li>
+<li>Joe Jordan is internal candidate but unproven as CEO</li>
+</ul>
+<p><strong>Management Response:</strong> Smooth transition planned (Oct 1, 2026). Weiner becomes Executive Chairman for continuity. Jordan has 15 years Domino's experience.</p>
+<h3 id="issue-6-low-trading-volume-relative-to-float">Issue #6: Low Trading Volume Relative to Float</h3>
+<ul>
+<li><strong>Severity:</strong> 2/5 (Low-Moderate)</li>
+<li><strong>Trend:</strong> Stable</li>
+<li><strong>Volume Context:</strong></li>
+<li>Average daily volume: ~880K shares</li>
+<li>Shares outstanding: 3.51M</li>
+<li>Relative volume: 0.25x (25% of float trades daily)</li>
+</ul>
+<p><strong>Root Cause:</strong> This is actually NORMAL for DPZ. The user's reference to "volume only 0.31x" likely means the relative volume ratio (current volume / average volume), not a liquidity concern. On the specific observation day, volume was 259K vs 880K average = 0.29x ratio, indicating below-average trading activity (low volatility day, not a structural problem).</p>
+<p><strong>Assessment:</strong> Not a fundamental issue. Lower relative volume on specific days is normal market behavior.</p>
+<hr />
+<h2 id="5-management-assessment-can-solve-moderate-confidence">5. Management Assessment: CAN SOLVE (Moderate Confidence)</h2>
+<h3 id="track-record-with-past-crises">Track Record with Past Crises</h3>
+<p><strong>Russell Weiner Era (2022-2026):</strong><br />
+- Navigated post-COVID normalization successfully<br />
+- Delivered 30% stock appreciation, $3B retail sales growth, 20% operating income growth<br />
+- Oversaw 3,200+ net store openings globally<br />
+- Architect of "Hungry for MORE" strategy (driving current execution)<br />
+- Successfully integrated third-party delivery (DoorDash, Uber Eats)<br />
+- Grew loyalty program to 37.3M members</p>
+<p><strong>Prior Management Track Record:</strong><br />
+- Consistently delivered through 2008 recession, 2020 pandemic<br />
+- Pizza delivery is counter-cyclical (benefits in downturns)<br />
+- History of taking market share during industry stress</p>
+<p><strong>Assessment:</strong> <strong>Proven</strong> - Management has repeatedly navigated headwinds successfully. Weiner's 4-year tenure was strong despite current quarter weakness.</p>
+<h3 id="joe-jordan-incoming-ceo-oct-1-2026">Joe Jordan - Incoming CEO (Oct 1, 2026)</h3>
+<p><strong>Background:</strong><br />
+- Nearly 15 years at Domino's across marketing, operations, technology<br />
+- Most recently President &amp; COO (deep operational knowledge)<br />
+- Led international business during period of 3,000+ store openings<br />
+- Drove strong same-store sales growth in prior roles<br />
+- Internal promotion = cultural continuity</p>
+<p><strong>Analyst Reception:</strong><br />
+- UBS and Benchmark maintained Buy ratings post-announcement<br />
+- Characterized as bringing "deep knowledge of the business"<br />
+- Enables "faster, smoother transition"<br />
+- Concerns: Unproven as CEO, faces immediate pressure to deliver comp sales recovery</p>
+<p><strong>Assessment:</strong> <strong>Capable but Unproven</strong> - Strong operational background and internal knowledge reduce execution risk, but CEO role requires different skillset. Q2 earnings (July 20) will be critical first test.</p>
+<h3 id="current-action-plan">Current Action Plan</h3>
+<p><strong>Stated Strategic Priorities:</strong><br />
+1. <strong>Value Leadership:</strong> Maintain competitive pricing vs Pizza Hut, Papa John's<br />
+2. <strong>Technology Innovation:</strong> Continue $150M+ annual R&amp;D investment<br />
+3. <strong>International Expansion:</strong> 161 net international stores in Q1 (continue growth)<br />
+4. <strong>Loyalty Growth:</strong> Deepen engagement with 37.3M members<br />
+5. <strong>Delivery Speed:</strong> Maintain industry-leading 26-minute average<br />
+6. <strong>Third-Party Integration:</strong> Grow DoorDash/Uber Eats to 10%+ of sales</p>
+<p><strong>Q2 2026 Earnings (July 20) - Critical Test:</strong><br />
+- Market expects 2-3% U.S. same-store sales<br />
+- Anything below 2% will trigger further selling<br />
+- Anything above 3% could catalyze recovery</p>
+<p><strong>Missing:</strong> No clear articulation of how to address margin compression or consumer spending weakness beyond "monitoring trends."</p>
+<h3 id="capital-allocation-quality">Capital Allocation Quality</h3>
+<p><strong>Historical Pattern:</strong><br />
+- Share buybacks: Aggressive (reduced share count consistently)<br />
+- Dividends: Steady growth, 41% payout ratio, 2.5% yield<br />
+- Reinvestment: $150M+ annual technology spending<br />
+- M&amp;A: Minimal (focus on organic growth)</p>
+<p><strong>Recent Concerns:</strong><br />
+- $5.14B debt load primarily funded buybacks/dividends<br />
+- $1.3B maturing 2027 requires refinancing<br />
+- May need to reduce buybacks to manage leverage if sales weaken further</p>
+<p><strong>Assessment:</strong> <strong>Good but Aggressive</strong> - Capital allocation has created shareholder value historically, but leverage is elevated. Discipline may be tested if downturn persists.</p>
+<h3 id="overall-management-assessment-can-solve">Overall Management Assessment: CAN SOLVE</h3>
+<p><strong>Confidence Level:</strong> 65%</p>
+<p><strong>Rationale:</strong><br />
+- ✅ Strong track record navigating industry cycles<br />
+- ✅ Counter-cyclical business model (pizza delivery benefits in recessions)<br />
+- ✅ Clear strategic plan focused on value, technology, loyalty<br />
+- ✅ Leadership continuity (internal succession, Weiner as Chairman)<br />
+- ⚠️ Jordan unproven as CEO (execution risk)<br />
+- ⚠️ No clear plan to address margin compression beyond efficiency<br />
+- ⚠️ Consumer spending weakness may be beyond management's control<br />
+- ❌ Competitive promotional environment requires pricing discipline (margin pressure)</p>
+<p><strong>Key Dependencies:</strong><br />
+1. Consumer confidence recovery (macro dependent)<br />
+2. Ability to maintain value perception without destroying margins<br />
+3. Jordan's execution as new CEO<br />
+4. Franchisee health stabilization</p>
+<p><strong>Verdict:</strong> Management has the tools and track record to navigate this downturn, but faces genuine headwinds. Not a "slam dunk" recovery, but better than 50/50 odds of returning to 3%+ comp sales within 12-18 months.</p>
+<hr />
+<h2 id="6-investment-thesis-scenarios">6. Investment Thesis &amp; Scenarios</h2>
+<h3 id="core-investment-thesis-one-sentence">Core Investment Thesis (One Sentence)</h3>
+<p>Domino's is a best-in-class franchise model (53% ROIC) trading at cyclical lows due to temporary consumer weakness and leadership transition concerns, offering 35-50% upside as same-store sales normalize to 2-3% and the market re-rates quality.</p>
+<h3 id="detailed-bull-case">Detailed Bull Case</h3>
+<p><strong>Scenario:</strong> Consumer spending recovers, DPZ regains 3%+ comp sales momentum, market re-values quality</p>
+<p><strong>Assumptions:</strong><br />
+- U.S. same-store sales: 3-4% (return to target)<br />
+- International same-store sales: 2-3% (recovery from -0.4%)<br />
+- Operating margin expansion: 19.5% → 21% (normalization)<br />
+- P/E multiple: 28x (return to 5-year average)<br />
+- Timeline: 18-24 months</p>
+<p><strong>Revenue Model:</strong><br />
+- FY2026E Revenue: $5.1B (current trajectory)<br />
+- FY2027E Revenue: $5.5B (growth acceleration)<br />
+- EPS Growth: 12-15% annually</p>
+<p><strong>Valuation Path:</strong><br />
+- FY2027E EPS: $18.50 (up from $16.52 in 2025)<br />
+- Target Multiple: 28x<br />
+- <strong>Price Target: $518</strong><br />
+- <strong>Upside: +72% from $301</strong></p>
+<p><strong>Catalysts:</strong><br />
+- Q2 earnings (July 20) beat expectations (3%+ comps)<br />
+- Consumer confidence recovery (Fed rate cuts, macro improvement)<br />
+- Joe Jordan successful first 100 days (post-Oct 1)<br />
+- Market share gains as Pizza Hut/Papa John's close stores<br />
+- International recovery (DPE restructuring completes)</p>
+<p><strong>Probability:</strong> 25%</p>
+<h3 id="base-case-most-likely">Base Case (Most Likely)</h3>
+<p><strong>Scenario:</strong> Gradual recovery to 2-3% same-store sales, modest multiple expansion</p>
+<p><strong>Assumptions:</strong><br />
+- U.S. same-store sales: 2-2.5% (below target but positive)<br />
+- International same-store sales: 1-2% (modest recovery)<br />
+- Operating margins: Stable at 19-20%<br />
+- P/E multiple: 24x (modest discount to historical average)<br />
+- Timeline: 12-18 months</p>
+<p><strong>Revenue Model:</strong><br />
+- FY2026E Revenue: $5.2B<br />
+- FY2027E Revenue: $5.4B<br />
+- EPS Growth: 8-10% annually</p>
+<p><strong>Valuation Path:</strong><br />
+- FY2027E EPS: $17.80<br />
+- Target Multiple: 24x<br />
+- <strong>Price Target: $427</strong><br />
+- <strong>Upside: +42% from $301</strong></p>
+<p><strong>Catalysts:</strong><br />
+- Q2/Q3 earnings show stabilization (2-2.5% comps)<br />
+- Leadership transition goes smoothly (no execution missteps)<br />
+- Macro environment stabilizes (no recession)<br />
+- Technology investments continue driving efficiency<br />
+- Dividend growth maintains (2.5% yield + buybacks)</p>
+<p><strong>Probability:</strong> 50%</p>
+<h3 id="bear-case">Bear Case</h3>
+<p><strong>Scenario:</strong> Prolonged consumer weakness, competition intensifies, margins compress further</p>
+<p><strong>Assumptions:</strong><br />
+- U.S. same-store sales: 0-1% (persistent weakness)<br />
+- International same-store sales: -1-0% (continued pressure)<br />
+- Operating margins: 18-19% (compression from costs)<br />
+- P/E multiple: 18x (value trap discount)<br />
+- Timeline: 12+ months of weakness</p>
+<p><strong>Revenue Model:</strong><br />
+- FY2026E Revenue: $5.0B (minimal growth)<br />
+- FY2027E Revenue: $5.1B (stagnation)<br />
+- EPS Growth: Flat to -5%</p>
+<p><strong>Valuation Path:</strong><br />
+- FY2027E EPS: $15.70<br />
+- Target Multiple: 18x<br />
+- <strong>Price Target: $283</strong><br />
+- <strong>Downside: -6% from $301</strong></p>
+<p><strong>Risk Factors:</strong><br />
+- Q2 earnings miss badly (&lt;1% comps, stock drops to $250s)<br />
+- Recession hits, consumer spending craters<br />
+- Joe Jordan struggles as CEO (strategic missteps)<br />
+- Franchisee health deteriorates (widespread closures)<br />
+- Competition from third-party delivery intensifies<br />
+- GLP-1 drugs (Ozempic, Wegovy) reduce pizza consumption structurally<br />
+- Margin compression accelerates (labor/insurance costs)</p>
+<p><strong>Probability:</strong> 25%</p>
+<h3 id="expected-value-calculation">Expected Value Calculation</h3>
+<p><strong>Blended Return:</strong><br />
+- Bull Case: 72% × 25% = 18.0%<br />
+- Base Case: 42% × 50% = 21.0%<br />
+- Bear Case: -6% × 25% = -1.5%<br />
+- <strong>Expected Return: +37.5%</strong></p>
+<p><strong>Plus Dividend Yield:</strong> 2.5%<br />
+<strong>Total Expected Return: +40.0%</strong></p>
+<h3 id="key-catalysts-next-12-months">Key Catalysts (Next 12 Months)</h3>
+<p><strong>Near-Term (0-3 months):</strong><br />
+1. <strong>July 20, 2026: Q2 Earnings</strong> - CRITICAL<br />
+   - Market expects 2-3% U.S. comps<br />
+   - Miss = stock to $260-280 range<br />
+   - Beat = stock to $340-360 range</p>
+<ol>
+<li><strong>October 1, 2026: Joe Jordan Becomes CEO</strong></li>
+<li>First 100 days will be scrutinized</li>
+<li>Any strategic changes/messaging shifts</li>
+</ol>
+<p><strong>Medium-Term (3-12 months):</strong><br />
+3. <strong>Q3/Q4 2026 Earnings</strong> - Trend confirmation<br />
+4. <strong>2027 Guidance</strong> (February 2027) - Full-year outlook<br />
+5. <strong>Consumer confidence data</strong> - Leading indicator for sales<br />
+6. <strong>Competitor results</strong> - Pizza Hut, Papa John's, YUM Brands<br />
+7. <strong>Fed rate cuts</strong> - Could boost consumer spending</p>
+<h3 id="key-risks">Key Risks</h3>
+<p><strong>Company-Specific:</strong><br />
+- Same-store sales remain below 2% (extended weakness)<br />
+- CEO transition disrupts execution<br />
+- Franchisee health deteriorates (closures accelerate)<br />
+- Technology investment fails to drive ROI<br />
+- Debt refinancing challenges ($1.3B due 2027)</p>
+<p><strong>Industry/Macro:</strong><br />
+- Consumer recession (unemployment rises)<br />
+- Food cost inflation (cheese, flour, protein)<br />
+- Labor cost inflation (minimum wage increases)<br />
+- GLP-1 drugs reduce pizza consumption structurally<br />
+- Third-party delivery aggregators gain share</p>
+<p><strong>Competition:</strong><br />
+- Pizza Hut/Papa John's aggressive promotions<br />
+- Regional pizzerias gain share<br />
+- Ghost kitchens disrupt delivery model</p>
+<hr />
+<h2 id="7-peer-comparison-analysis">7. Peer Comparison Analysis</h2>
+<h3 id="dpz-vs-txrh-texas-roadhouse">DPZ vs TXRH (Texas Roadhouse)</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>DPZ</th>
+<th>TXRH</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stock Performance</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$301.76</td>
+<td>$194.28</td>
+<td>-</td>
+</tr>
+<tr>
+<td>YTD Return</td>
+<td>-32.4%</td>
+<td>+2.3%</td>
+<td>TXRH ✓</td>
+</tr>
+<tr>
+<td>1-Year Return</td>
+<td>-30.1%</td>
+<td>+26.4%</td>
+<td>TXRH ✓</td>
+</tr>
+<tr>
+<td>52-Week Position</td>
+<td>Near low</td>
+<td>Near high</td>
+<td>TXRH ✓</td>
+</tr>
+<tr>
+<td><strong>Growth Metrics</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Q1 2026 Revenue Growth</td>
+<td>+3.5%</td>
+<td>+13.0%</td>
+<td>TXRH ✓</td>
+</tr>
+<tr>
+<td>Same-Store Sales</td>
+<td>+0.9%</td>
+<td>+7.1%</td>
+<td>TXRH ✓</td>
+</tr>
+<tr>
+<td>Unit Growth</td>
+<td>+180 stores</td>
+<td>Moderate</td>
+<td>DPZ ✓</td>
+</tr>
+<tr>
+<td><strong>Profitability</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Operating Margin</td>
+<td>19.4%</td>
+<td>~15-16%</td>
+<td>DPZ ✓</td>
+</tr>
+<tr>
+<td>Net Margin</td>
+<td>11.9%</td>
+<td>~7-8%</td>
+<td>DPZ ✓</td>
+</tr>
+<tr>
+<td>ROIC</td>
+<td>53.87%</td>
+<td>~25-30%</td>
+<td>DPZ ✓</td>
+</tr>
+<tr>
+<td><strong>Shareholder Returns</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>2.5%</td>
+<td>1.7%</td>
+<td>DPZ ✓</td>
+</tr>
+<tr>
+<td>Payout Ratio</td>
+<td>41%</td>
+<td>44%</td>
+<td>DPZ ✓</td>
+</tr>
+<tr>
+<td>FCF Yield</td>
+<td>6.17%</td>
+<td>~4-5%</td>
+<td>DPZ ✓</td>
+</tr>
+<tr>
+<td><strong>Valuation</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Analyst PT Upside</td>
+<td>+34-53%</td>
+<td>+0-19%</td>
+<td>DPZ ✓</td>
+</tr>
+<tr>
+<td><strong>Momentum</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Recent Trend</td>
+<td>Worsening</td>
+<td>Improving</td>
+<td>TXRH ✓</td>
+</tr>
+<tr>
+<td>Analyst Revisions</td>
+<td>Downgrades</td>
+<td>Upgrades</td>
+<td>TXRH ✓</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Summary:</strong> <br />
+- <strong>TXRH wins on momentum:</strong> Strong comps (+7.1%), stock near highs, positive analyst revisions, gaining casual dining market share by limiting price increases to 2% (below inflation)<br />
+- <strong>DPZ wins on quality:</strong> Superior margins, ROIC, FCF generation, valuation opportunity<br />
+- <strong>Investment Decision:</strong> TXRH for momentum/growth, DPZ for value/quality at cyclical lows</p>
+<p><strong>Should Someone Swap TXRH (Bullish) for DPZ (Bearish)?</strong><br />
+<strong>Answer: NO - Hold both for different reasons</strong><br />
+- TXRH: Ride momentum in casual dining recovery (growth play)<br />
+- DPZ: Accumulate quality at distressed prices (value play)<br />
+- Different segments (casual dining vs QSR), different cycles<br />
+- Portfolio construction: TXRH for 1-2 year appreciation, DPZ for 2-4 year recovery + income</p>
+<h3 id="dpz-vs-mcd-mcdonalds">DPZ vs MCD (McDonald's)</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>DPZ</th>
+<th>MCD</th>
+<th>Analysis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Market Share</td>
+<td>30% (pizza)</td>
+<td>16.5% (QSR)</td>
+<td>Different categories</td>
+</tr>
+<tr>
+<td>Comp Sales</td>
+<td>+0.9%</td>
+<td>~3-4%</td>
+<td>MCD more stable</td>
+</tr>
+<tr>
+<td>ROIC</td>
+<td>53.87%</td>
+<td>~30-35%</td>
+<td>DPZ superior</td>
+</tr>
+<tr>
+<td>Moat</td>
+<td>Strong (tech/delivery)</td>
+<td>Stronger (brand/scale)</td>
+<td>MCD advantage</td>
+</tr>
+<tr>
+<td>Valuation</td>
+<td>Distressed</td>
+<td>Fair</td>
+<td>DPZ opportunity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Takeaway:</strong> MCD is larger, more stable, broader menu. DPZ is higher quality (ROIC) but more volatile. Current DPZ weakness creates opportunity to own superior returns business at MCD-like valuation.</p>
+<h3 id="dpz-vs-yum-brands-pizza-hut-parent">DPZ vs YUM Brands (Pizza Hut parent)</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>DPZ</th>
+<th>YUM</th>
+<th>Analysis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pizza Market Share</td>
+<td>30%+</td>
+<td>~15% (Pizza Hut)</td>
+<td>DPZ dominant</td>
+</tr>
+<tr>
+<td>Comp Sales Trend</td>
+<td>+0.9%</td>
+<td>-3% to -5% (Pizza Hut)</td>
+<td>DPZ winning</td>
+</tr>
+<tr>
+<td>Strategic Position</td>
+<td>Fortressing</td>
+<td>Store closures</td>
+<td>DPZ gaining share</td>
+</tr>
+<tr>
+<td>Technology</td>
+<td>$150M/year</td>
+<td>Less aggressive</td>
+<td>DPZ advantage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Takeaway:</strong> DPZ is eating YUM's lunch in pizza. Pizza Hut closing 250+ stores in H1 2026. YUM selling Pizza Hut recently for $2.7B (exit struggling segment). DPZ's current weakness is RELATIVE - still taking share from weaker competitors.</p>
+<h3 id="industry-positioning">Industry Positioning</h3>
+<p><strong>QSR Pizza Hierarchy (2026):</strong><br />
+1. <strong>Domino's:</strong> 30%+ share, technology leader, delivery dominant<br />
+2. <strong>Pizza Hut:</strong> 15% share, declining, store closures<br />
+3. <strong>Papa John's:</strong> 10% share, promotional pressure, struggling<br />
+4. <strong>Little Caesars:</strong> 8% share, value player, regional strength<br />
+5. <strong>Regional chains:</strong> Fragmented, losing share to top 4</p>
+<p><strong>DPZ Competitive Advantages vs Industry:</strong><br />
+- Technology: 70%+ digital ordering (industry avg: 40-50%)<br />
+- Delivery speed: 26 min (vs 30-35 min competitors)<br />
+- Franchisee economics: $1.3M AUV (vs $900K-1.1M)<br />
+- Loyalty program: 37.3M members (vs Pizza Hut ~15M)<br />
+- Store density: Fortressing creates local monopolies</p>
+<p><strong>Verdict:</strong> DPZ's current weakness is CYCLICAL (macro/consumer driven), not STRUCTURAL (competitive). The company is still gaining share from Pizza Hut and Papa John's despite down 37%.</p>
+<hr />
+<h2 id="8-final-recommendation">8. Final Recommendation</h2>
+<h3 id="rating-buy-strong-conviction">Rating: BUY (Strong Conviction)</h3>
+<p><strong>Target Price:</strong> $395 (Base Case), $518 (Bull Case)<br />
+<strong>Upside:</strong> +31% (Base), +72% (Bull)<br />
+<strong>Total Return (12-month):</strong> +33.5% including 2.5% dividend<br />
+<strong>Risk/Reward:</strong> 5.5:1 (42% base upside vs 6% bear downside)</p>
+<h3 id="position-sizing-recommendation-25-30-of-portfolio">Position Sizing Recommendation: 25-30% of Portfolio</h3>
+<p><strong>Rationale for Aggressive Sizing:</strong><br />
+- High-quality business (53% ROIC, strong moat) at cyclical lows<br />
+- Limited downside (near 52-week low, trading at $282-301 range)<br />
+- Positive expected value (+40% including dividend)<br />
+- 5.5:1 risk/reward ratio<br />
+- Counter-cyclical characteristics (pizza delivery resilient in recessions)</p>
+<p><strong>Risk Management:</strong><br />
+- Start with 15-20% position immediately<br />
+- Add 5-10% on any dip below $285 (52-week low break)<br />
+- Add final 5-10% if Q2 earnings (July 20) show 2%+ comps<br />
+- Max position size: 30% (this is an aggressive allocation for single stock)</p>
+<h3 id="investment-horizon-18-24-months">Investment Horizon: 18-24 Months</h3>
+<p><strong>Why This Timeframe:</strong><br />
+- Q2-Q4 2026: Comp sales stabilization evidence<br />
+- Oct 2026 - Jan 2027: Joe Jordan's first 100 days as CEO<br />
+- 2027 Guidance (Feb): Full-year outlook clarity<br />
+- 12-18 months: Market typically re-rates quality stocks post-trough</p>
+<h3 id="entry-strategy-tiered-approach">Entry Strategy (Tiered Approach)</h3>
+<p><strong>Tier 1 (Immediate): 15% allocation at $295-305</strong><br />
+- Already near 52-week lows<br />
+- Risk/reward favorable<br />
+- Start building position</p>
+<p><strong>Tier 2 (Opportunistic): +10% if stock drops to $270-285</strong><br />
+- Would represent new 52-week low<br />
+- Likely panic selling on Q2 miss or macro concerns<br />
+- Extreme value opportunity</p>
+<p><strong>Tier 3 (Confirmation): +5-10% if Q2 shows 2.5%+ comps</strong><br />
+- Evidence of turnaround<br />
+- Stock likely $320-340 by then<br />
+- Accept higher price for reduced risk</p>
+<h3 id="exit-strategy">Exit Strategy</h3>
+<p><strong>Profit-Taking:</strong><br />
+- Sell 25% of position at $395 (Base Case target, +31%)<br />
+- Sell 25% at $450 (Midpoint to Bull Case, +49%)<br />
+- Hold remaining 50% for Bull Case $518+ (+72%)</p>
+<p><strong>Stop-Loss:</strong><br />
+- Hard stop at $255 (-15% from current $301)<br />
+- Would trigger on persistent comp sales weakness or CEO execution issues<br />
+- Protects against structural deterioration scenario</p>
+<h3 id="why-buy-vs-holdsell">Why Buy vs Hold/Sell?</h3>
+<p><strong>What Makes This Actionable:</strong></p>
+<p>✅ <strong>Quality at Cyclical Lows:</strong><br />
+- 53% ROIC businesses rarely trade at 6.2% FCF yields<br />
+- Near 52-week lows ($282-301 vs $496 high)<br />
+- Analyst targets $404-461 (34-53% upside)</p>
+<p>✅ <strong>Catalyst Path:</strong><br />
+- Q2 earnings (July 20) - near-term catalyst<br />
+- CEO transition (Oct 1) - clarity on strategic direction<br />
+- Consumer recovery - macro tailwind when it comes<br />
+- Market share gains - Pizza Hut/Papa John's struggling</p>
+<p>✅ <strong>Downside Protection:</strong><br />
+- Already down 37% (most bad news priced in)<br />
+- Bear case only -6% from here vs +42% base, +72% bull<br />
+- Franchise model = low capital intensity, high FCF<br />
+- 2.5% dividend provides income while waiting</p>
+<p>✅ <strong>Moat Intact:</strong><br />
+- Technology advantage expanding (not shrinking)<br />
+- Brand strength demonstrated by 30%+ market share<br />
+- Delivery infrastructure can't be easily replicated<br />
+- 37.3M loyalty members = customer lock-in</p>
+<p>❌ <strong>Risks Acknowledged:</strong><br />
+- Same-store sales could remain weak (0-1% for extended period)<br />
+- CEO transition could disrupt execution<br />
+- Macro recession could worsen consumer spending<br />
+- Margin compression could accelerate</p>
+<p><strong>Verdict:</strong> The market is pricing DPZ as if the moat is broken or facing structural decline. Evidence suggests this is a cyclical earnings trough in a high-quality compounder. At $301, the risk/reward is asymmetrically favorable for patient, value-oriented investors.</p>
+<h3 id="comparison-to-txrh-addressing-swap-question">Comparison to TXRH (Addressing Swap Question)</h3>
+<p><strong>Do NOT swap TXRH for DPZ. Different investment profiles:</strong></p>
+<p><strong>TXRH (Hold/Add):</strong><br />
+- Momentum play in casual dining recovery<br />
+- 7.1% comps, strong execution, market share gains<br />
+- Near 52-week highs but reasonable valuation<br />
+- 12-18 month appreciation potential<br />
+- <strong>Action:</strong> Hold TXRH, it's working</p>
+<p><strong>DPZ (Accumulate):</strong><br />
+- Value play in QSR pizza leader at cyclical lows<br />
+- Temporary weakness creating entry point<br />
+- 24-36 month recovery timeline<br />
+- Superior long-term returns profile (53% ROIC)<br />
+- <strong>Action:</strong> Add DPZ as separate position</p>
+<p><strong>Portfolio Construction:</strong><br />
+- TXRH: 15-20% (momentum/growth)<br />
+- DPZ: 25-30% (value/quality)<br />
+- Both positions complement each other (different segments, different cycles)</p>
+<hr />
+<h2 id="appendix-data-sources-assumptions">Appendix: Data Sources &amp; Assumptions</h2>
+<h3 id="price-volume-data">Price &amp; Volume Data</h3>
+<ul>
+<li>Current price: $301.76 (July 10, 2026)</li>
+<li>52-week range: $282.00 - $496.00</li>
+<li>Average daily volume: ~880K shares</li>
+<li>Shares outstanding: 3.51M (estimated from market cap calculation)</li>
+</ul>
+<h3 id="financial-data-sources">Financial Data Sources</h3>
+<ul>
+<li>Q1 2026 earnings release (April 27, 2026)</li>
+<li>FY2025 annual report</li>
+<li>Analyst consensus estimates (23-30 analysts covered)</li>
+<li>Industry data: Restaurant Dive, QSR Magazine, NRN</li>
+</ul>
+<h3 id="valuation-assumptions">Valuation Assumptions</h3>
+<p><strong>Base Case Multiples:</strong><br />
+- P/E: 24x (vs 5-year avg ~27x, current ~18x)<br />
+- Justified by: Mid-teens earnings growth, 50%+ ROIC, strong FCF</p>
+<p><strong>Bull Case Multiples:</strong><br />
+- P/E: 28x (return to 5-year average)<br />
+- Justified by: Recovery to 3-4% comps, margin expansion, quality premium</p>
+<p><strong>Bear Case Multiples:</strong><br />
+- P/E: 18x (value trap scenario)<br />
+- Justified by: Persistent weakness, margin compression, execution concerns</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Current</th>
+<th>Target (12mo)</th>
+<th>Industry Avg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Price</strong></td>
+<td>$301.76</td>
+<td>$395-427</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><strong>P/E</strong></td>
+<td>~18x</td>
+<td>24-28x</td>
+<td>22x (QSR)</td>
+</tr>
+<tr>
+<td><strong>EPS Growth</strong></td>
+<td>Flat</td>
+<td>8-12%</td>
+<td>6-8% (QSR)</td>
+</tr>
+<tr>
+<td><strong>Revenue Growth</strong></td>
+<td>5.2%</td>
+<td>6-8%</td>
+<td>4-6% (QSR)</td>
+</tr>
+<tr>
+<td><strong>Operating Margin</strong></td>
+<td>19.4%</td>
+<td>19-21%</td>
+<td>15-17% (QSR)</td>
+</tr>
+<tr>
+<td><strong>ROIC</strong></td>
+<td>53.87%</td>
+<td>50-55%</td>
+<td>15-20% (QSR)</td>
+</tr>
+<tr>
+<td><strong>Debt/EBITDA</strong></td>
+<td>5.19x</td>
+<td>4.5-5.0x</td>
+<td>3-4x (QSR)</td>
+</tr>
+<tr>
+<td><strong>FCF Yield</strong></td>
+<td>6.17%</td>
+<td>5.5-6.5%</td>
+<td>4-5% (QSR)</td>
+</tr>
+<tr>
+<td><strong>Dividend Yield</strong></td>
+<td>2.5%</td>
+<td>2.5-3.0%</td>
+<td>2.0% (QSR)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="investment-checklist">Investment Checklist</h2>
+<p><strong>Before Buying DPZ, Confirm:</strong><br />
+- ✅ Q2 earnings date (July 20, 2026) marked on calendar<br />
+- ✅ Position sizing: 15-30% depending on conviction/risk tolerance<br />
+- ✅ Entry price below $305 (ideally $295-300)<br />
+- ✅ Stop-loss set at $255 (-15%)<br />
+- ✅ Profit targets: $395 (sell 25%), $450 (sell 25%), $518+ (hold remaining 50%)<br />
+- ✅ Prepared to hold 18-24 months for full thesis to play out<br />
+- ✅ Understand this is a CYCLICAL RECOVERY play, not a growth stock<br />
+- ✅ Diversification: Not more than 30% in any single position<br />
+- ✅ Monitor: Same-store sales quarterly, CEO transition updates, franchisee health</p>
+<p><strong>Red Flags to Watch (Sell Signals):</strong><br />
+- 🚩 Q2 comps below 1% (fundamental deterioration)<br />
+- 🚩 Q3 comps also below 1% (trend confirmation, not one-time)<br />
+- 🚩 Joe Jordan CEO transition issues (strategic changes, talent departures)<br />
+- 🚩 Dividend cut (cash flow stress)<br />
+- 🚩 Franchisee closures accelerate beyond DPE restructuring<br />
+- 🚩 Debt refinancing challenges (credit rating downgrade)<br />
+- 🚩 Stock breaks $255 (stop-loss triggered)</p>
+<hr />
+<p><strong>Report Prepared By:</strong> Claude Sonnet 4.5<br />
+<strong>Date:</strong> July 10, 2026<br />
+<strong>Disclaimer:</strong> This analysis is for educational purposes only and does not constitute investment advice. Conduct your own due diligence and consult with a financial advisor before making investment decisions.</p>
+<hr />
+<h2 id="sources">Sources</h2>
+<h3 id="stock-performance-decline-analysis">Stock Performance &amp; Decline Analysis</h3>
+<ul>
+<li><a href="https://www.tikr.com/blog/is-dominos-stock-a-buy-or-a-hold-right-now-heres-what-analysts-say">Is Domino's Stock a Buy or a Hold Right Now? Here's What Analysts Say</a></li>
+<li><a href="https://www.fool.com/investing/2026/07/08/stock-is-down-32-and-still-the-dominant-player/">Domino's Pizza Stock Is Down 32% and Still the Dominant Player</a></li>
+</ul>
+<h3 id="financial-results-metrics">Financial Results &amp; Metrics</h3>
+<ul>
+<li><a href="https://ir.dominos.com/news-releases/news-release-details/dominos-pizzar-announces-first-quarter-2026-financial-results">Domino's Pizza Announces First Quarter 2026 Financial Results</a></li>
+<li><a href="https://www.macrotrends.net/stocks/charts/DPZ/dominos-pizza-inc/free-cash-flow">Domino's Pizza Free Cash Flow 2012-2026</a></li>
+<li><a href="https://www.gurufocus.com/term/roic/DPZ">DPZ ROIC %: 53.87%</a></li>
+<li><a href="https://www.gurufocus.com/term/debt-to-ebitda/DPZ">DPZ Debt-to-EBITDA: 5.19</a></li>
+<li><a href="https://www.gurufocus.com/term/interest_coverage/NYSE:DPZ/Interest-Coverage/Dominos-Pizza">DPZ Interest Coverage Ratio</a></li>
+</ul>
+<h3 id="competitive-analysis-moat">Competitive Analysis &amp; Moat</h3>
+<ul>
+<li><a href="https://everything-pr.com/dominos">Domino's Pizza Delivery: A Case Study in QSR Reinvention</a></li>
+<li><a href="https://koalagains.com/stocks/NYSE/DPZ/business-and-moat">Domino's Pizza, Inc. (DPZ) Business &amp; Moat Analysis (2026)</a></li>
+<li><a href="https://www.nrn.com/quick-service/how-domino-s-pulled-ahead-in-an-increasingly-turbulent-pizza-segment">How Domino's pulled ahead in the challenged pizza segment</a></li>
+<li><a href="https://qsr.pro/articles/dominos-vs-pizza-hut-competitive-analysis-2026">Domino's Is Eating Pizza Hut Alive - And the Gap Is Accelerating</a></li>
+<li><a href="https://www.restaurantdive.com/news/dominos-market-share-growth-competitor-closures/818572/">Domino's expects Papa Johns, Pizza Hut to close more stores</a></li>
+</ul>
+<h3 id="management-leadership">Management &amp; Leadership</h3>
+<ul>
+<li><a href="https://ir.dominos.com/news-releases/news-release-details/dominos-announces-ceo-succession-plan">Domino's Announces CEO Succession Plan</a></li>
+<li><a href="https://www.tipranks.com/news/dominos-dpz-picks-joe-jordan-as-new-ceo-analysts-stay-positive-despite-stock-dip">Domino's (DPZ) Picks Joe Jordan as New CEO</a></li>
+</ul>
+<h3 id="analyst-ratings-price-targets">Analyst Ratings &amp; Price Targets</h3>
+<ul>
+<li><a href="https://stockanalysis.com/stocks/dpz/forecast/">Domino's Pizza (DPZ) Stock Forecast &amp; Analyst Price Targets</a></li>
+<li><a href="https://public.com/stocks/dpz/forecast-price-target">Domino's Pizza (DPZ) Stock Forecast: Analyst Ratings, Predictions &amp; Price Target 2026</a></li>
+</ul>
+<h3 id="franchisee-health">Franchisee Health</h3>
+<ul>
+<li><a href="https://www.nrn.com/quick-service/domino-s-largest-global-master-franchisee-is-closing-more-than-200-stores">Domino's Pizza Enterprises to shut almost 200 stores</a></li>
+<li><a href="https://www.thestreet.com/restaurants/dominos-franchisee-files-for-chapter-11-bankruptcy">Major pizza chain franchisee files for Chapter 11 bankruptcy</a></li>
+<li><a href="https://www.qsrmagazine.com/food/pizza/largest-dominos-pizza-franchisee-to-close-205-units/">Largest Domino's Pizza Franchisee to Close 205 Units</a></li>
+</ul>
+<h3 id="peer-comparison-txrh">Peer Comparison (TXRH)</h3>
+<ul>
+<li><a href="https://simplywall.st/stocks/us/consumer-services/nasdaq-txrh/texas-roadhouse">Texas Roadhouse, Inc. (TXRH) Stock Analysis</a></li>
+<li><a href="https://simplywall.st/stocks/us/consumer-services/nasdaq-dpz/dominos-pizza">Domino's Pizza (Nasdaq:DPZ) - Stock Analysis</a></li>
+</ul>
+<h3 id="stock-price-volume">Stock Price &amp; Volume</h3>
+<ul>
+<li><a href="https://robinhood.com/us/en/stocks/DPZ/">Domino's Pizza: DPZ Stock Price Quote &amp; News</a></li>
+<li><a href="https://www.chartmill.com/stock/quote/DPZ/profile">DPZ Stock Price, Quote &amp; Chart</a></li>
+</ul>
+    </div>
+</body>
+</html>

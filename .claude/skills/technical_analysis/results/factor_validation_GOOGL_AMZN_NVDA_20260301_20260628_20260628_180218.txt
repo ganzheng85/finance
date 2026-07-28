@@ -1,0 +1,87 @@
+================================================================================
+TECHNICAL FACTOR VALIDATION SUMMARY
+================================================================================
+Generated: 2026-06-28 18:02:18
+Tickers: GOOGL, AMZN, NVDA
+Period: 2026-03-01 to 2026-06-28
+
+INFORMATION COEFFICIENT (20-day forward returns)
+--------------------------------------------------------------------------------
+Factor                         IC           P-value      Status                        
+--------------------------------------------------------------------------------
+momentum_score                 N/A          N/A          INSUFFICIENT DATA             
+dist_sma_200                   N/A          N/A          INSUFFICIENT DATA             
+sma_dist_20_50                 -0.1874      0.2457       NOT SIGNIFICANT               
+bb_width                       -0.0686      0.4383       NOT SIGNIFICANT               
+rsi_14                         -0.4852      0.0000       INVERSE (lower = better)      
+
+INTERPRETATION
+--------------------------------------------------------------------------------
+IC > 0.05 and p < 0.05: Predictive (higher factor = higher returns)
+IC < -0.05 and p < 0.05: Inverse (lower factor = higher returns)
+|IC| < 0.05 or p >= 0.05: Not significant (factor not working)
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+
+MOMENTUM_SCORE:
+  IC: N/A
+  -> INSUFFICIENT DATA
+
+DIST_SMA_200:
+  IC: N/A
+  -> INSUFFICIENT DATA
+
+SMA_DIST_20_50:
+  IC: -0.1874 (p=0.2457)
+  -> WEAK FACTOR - Consider removing
+
+BB_WIDTH:
+  IC: -0.0686 (p=0.4383)
+  -> WEAK FACTOR - Consider removing
+
+RSI_14:
+  IC: -0.4852 (p=0.0000)
+  -> STRONG FACTOR - Keep using!
+  -> WARNING: Inverse signal - Lower values = Better returns
+
+================================================================================
+MULTI-HORIZON ANALYSIS (5, 10, 20 days)
+================================================================================
+
+momentum_score:
+  5d: IC=  N/A (p=N/A) - INSUFFICIENT DATA
+  10d: IC=  N/A (p=N/A) - INSUFFICIENT DATA
+  20d: IC=  N/A (p=N/A) - INSUFFICIENT DATA
+
+dist_sma_200:
+  5d: IC=  N/A (p=N/A) - INSUFFICIENT DATA
+  10d: IC=  N/A (p=N/A) - INSUFFICIENT DATA
+  20d: IC=  N/A (p=N/A) - INSUFFICIENT DATA
+
+sma_dist_20_50:
+  5d: IC=+0.1162 (p=0.2894) - NOT SIGNIFICANT
+  10d: IC=-0.0145 (p=0.9052) - NOT SIGNIFICANT
+  20d: IC=-0.1874 (p=0.2457) - NOT SIGNIFICANT
+
+bb_width:
+  5d: IC=+0.1144 (p=0.1310) - NOT SIGNIFICANT
+  10d: IC=+0.1526 (p=0.0530) - NOT SIGNIFICANT
+  20d: IC=-0.0686 (p=0.4383) - NOT SIGNIFICANT
+
+rsi_14:
+  5d: IC=+0.0388 (p=0.5959) - NOT SIGNIFICANT
+  10d: IC=-0.0988 (p=0.1930) - NOT SIGNIFICANT
+  20d: IC=-0.4852 (p=0.0000) - INVERSE (lower = better)
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Run this validation monthly to monitor factor health
+2. If IC is consistently negative, consider inverting the factor in your strategy
+3. If |IC| < 0.05, remove the factor from your strategy
+4. Test different factor parameters (e.g., RSI-9 vs RSI-14 vs RSI-21)
+5. Combine multiple factors with high IC for better predictions
+

@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sector Rotation Risk Management Analysis - Crash Periods</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        .summary {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .period {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .period h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        .positive {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .negative {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .neutral {
+            color: #95a5a6;
+        }
+        .winner {
+            background-color: #d5f4e6;
+            font-weight: bold;
+        }
+        .recommendation {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .key-finding {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .metric {
+            display: inline-block;
+            margin: 10px 20px 10px 0;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        .metric-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sector Rotation Risk Management Analysis</h1>
+    <p><strong>Report Generated:</strong> 2026-06-27 12:36:49</p>
+
+    <div class="summary">
+        <h2>Executive Summary</h2>
+        <p>This analysis tests whether stop losses improve Top 3 Sector Rotation strategy performance during market crashes.</p>
+
+        <h3>Strategies Tested</h3>
+        <ul>
+            <li><strong>Base:</strong> Always invested in top 3 ranked sectors (33.33% each)</li>
+            <li><strong>15% Trailing Stop:</strong> Go 50% cash if portfolio drops -15% from peak</li>
+            <li><strong>25% Hard Stop:</strong> Go 100% cash if portfolio drops -25% from peak</li>
+            <li><strong>Market Regime:</strong> Go 50% cash when SPY below 200-day moving average</li>
+        </ul>
+
+        <h3>Test Periods</h3>
+        <ul>
+            <li><strong>2020 COVID Crash:</strong> SPY dropped -34% in 1 month</li>
+            <li><strong>2022 Bear Market:</strong> SPY dropped -25% over 9 months</li>
+            <li><strong>2025-2026 Bull Period:</strong> Recent 6-month bull market</li>
+        </ul>
+    </div>
+
+    <div class="period">
+        <h3>2020 COVID Crash</h3>
+        <p><strong>Period:</strong> 2020-01-01 to 2020-05-31</p>
+        <p><strong>Context:</strong> SPY dropped -34% in 1 month</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Strategy</th>
+                    <th>Final Value</th>
+                    <th>Total Return</th>
+                    <th>Max Drawdown</th>
+                    <th>Alpha vs SPY</th>
+                    <th>Sharpe Ratio</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class="">
+                    <td>Base</td>
+                    <td>$80,502.88</td>
+                    <td class="negative">-19.50%</td>
+                    <td class="negative">-36.31%</td>
+                    <td class="negative">-14.44%</td>
+                    <td>-0.44</td>
+                </tr>
+
+                <tr class="">
+                    <td>Trailing 15</td>
+                    <td>$80,471.29</td>
+                    <td class="negative">-19.53%</td>
+                    <td class="negative">-30.06%</td>
+                    <td class="negative">-14.47%</td>
+                    <td>-0.60</td>
+                </tr>
+
+                <tr class="">
+                    <td>Hard 25</td>
+                    <td>$66,349.06</td>
+                    <td class="negative">-33.65%</td>
+                    <td class="negative">-36.38%</td>
+                    <td class="negative">-28.60%</td>
+                    <td>-0.82</td>
+                </tr>
+
+                <tr class="winner">
+                    <td>Market Regime</td>
+                    <td>$85,787.89</td>
+                    <td class="negative">-14.21%</td>
+                    <td class="negative">-25.44%</td>
+                    <td class="negative">-9.16%</td>
+                    <td>-0.52</td>
+                </tr>
+
+                <tr class="">
+                    <td>SPY</td>
+                    <td>$94,944.18</td>
+                    <td class="negative">-5.06%</td>
+                    <td class="negative">-31.83%</td>
+                    <td class="neutral">+0.00%</td>
+                    <td>-0.12</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="key-finding">
+            <strong>Key Finding:</strong> Market Regime performed best with -14.21% return vs SPY's -5.06%
+        </div>
+    </div>
+
+    <div class="period">
+        <h3>2022 Bear Market</h3>
+        <p><strong>Period:</strong> 2022-01-01 to 2022-10-31</p>
+        <p><strong>Context:</strong> SPY dropped -25% over 9 months</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Strategy</th>
+                    <th>Final Value</th>
+                    <th>Total Return</th>
+                    <th>Max Drawdown</th>
+                    <th>Alpha vs SPY</th>
+                    <th>Sharpe Ratio</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class="">
+                    <td>Base</td>
+                    <td>$95,274.01</td>
+                    <td class="negative">-4.73%</td>
+                    <td class="negative">-21.26%</td>
+                    <td class="positive">+10.84%</td>
+                    <td>-0.11</td>
+                </tr>
+
+                <tr class="">
+                    <td>Trailing 15</td>
+                    <td>$91,178.79</td>
+                    <td class="negative">-8.82%</td>
+                    <td class="negative">-19.09%</td>
+                    <td class="positive">+6.75%</td>
+                    <td>-0.24</td>
+                </tr>
+
+                <tr class="">
+                    <td>Hard 25</td>
+                    <td>$95,274.01</td>
+                    <td class="negative">-4.73%</td>
+                    <td class="negative">-21.26%</td>
+                    <td class="positive">+10.84%</td>
+                    <td>-0.11</td>
+                </tr>
+
+                <tr class="winner">
+                    <td>Market Regime</td>
+                    <td>$99,008.94</td>
+                    <td class="negative">-0.99%</td>
+                    <td class="negative">-11.52%</td>
+                    <td class="positive">+14.58%</td>
+                    <td>-0.04</td>
+                </tr>
+
+                <tr class="">
+                    <td>SPY</td>
+                    <td>$84,430.92</td>
+                    <td class="negative">-15.57%</td>
+                    <td class="negative">-22.48%</td>
+                    <td class="neutral">+0.00%</td>
+                    <td>-0.36</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="key-finding">
+            <strong>Key Finding:</strong> Market Regime performed best with -0.99% return vs SPY's -15.57%
+        </div>
+    </div>
+
+    <div class="period">
+        <h3>2025-2026 Bull Period</h3>
+        <p><strong>Period:</strong> 2025-12-01 to 2026-06-30</p>
+        <p><strong>Context:</strong> Recent 6-month bull market</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Strategy</th>
+                    <th>Final Value</th>
+                    <th>Total Return</th>
+                    <th>Max Drawdown</th>
+                    <th>Alpha vs SPY</th>
+                    <th>Sharpe Ratio</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class="winner">
+                    <td>Base</td>
+                    <td>$120,857.58</td>
+                    <td class="positive">+20.86%</td>
+                    <td class="negative">-5.25%</td>
+                    <td class="positive">+13.66%</td>
+                    <td>1.05</td>
+                </tr>
+
+                <tr class="">
+                    <td>Trailing 15</td>
+                    <td>$120,857.58</td>
+                    <td class="positive">+20.86%</td>
+                    <td class="negative">-5.25%</td>
+                    <td class="positive">+13.66%</td>
+                    <td>1.05</td>
+                </tr>
+
+                <tr class="">
+                    <td>Hard 25</td>
+                    <td>$120,857.58</td>
+                    <td class="positive">+20.86%</td>
+                    <td class="negative">-5.25%</td>
+                    <td class="positive">+13.66%</td>
+                    <td>1.05</td>
+                </tr>
+
+                <tr class="">
+                    <td>Market Regime</td>
+                    <td>$119,814.48</td>
+                    <td class="positive">+19.81%</td>
+                    <td class="negative">-5.25%</td>
+                    <td class="positive">+12.62%</td>
+                    <td>1.00</td>
+                </tr>
+
+                <tr class="">
+                    <td>SPY</td>
+                    <td>$107,195.62</td>
+                    <td class="positive">+7.20%</td>
+                    <td class="negative">-8.39%</td>
+                    <td class="neutral">+0.00%</td>
+                    <td>0.48</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="key-finding">
+            <strong>Key Finding:</strong> Base performed best with +20.86% return vs SPY's +7.20%
+        </div>
+    </div>
+
+    <div class="summary">
+        <h2>Overall Recommendation</h2>
+
+        <div class="recommendation">
+            <h3>Winner: Market Regime</h3>
+            <p>Won in 2 out of 3 test periods.</p>
+        </div>
+
+        <h3>Summary by Period</h3>
+        <ul>
+
+            <li><strong>2020 COVID Crash:</strong> Market Regime won with -14.21% (SPY: -5.06%)</li>
+
+            <li><strong>2022 Bear Market:</strong> Market Regime won with -0.99% (SPY: -15.57%)</li>
+
+            <li><strong>2025-2026 Bull Period:</strong> Base won with +20.86% (SPY: +7.20%)</li>
+
+        </ul>
+
+        <h3>Final Verdict</h3>
+        <p>Based on these crash period tests, the recommendation is:</p>
+        <ul>
+            <li>If stops helped during crashes: Use them</li>
+            <li>If stops hurt performance: Skip them and stay fully invested</li>
+            <li>Consider risk tolerance: stops reduce drawdowns but may sacrifice returns</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p><strong>Disclaimer:</strong> Past performance does not guarantee future results. This analysis is for educational purposes only.</p>
+        <p>Report generated on 2026-06-27 12:36:49</p>
+    </div>
+</body>
+</html>

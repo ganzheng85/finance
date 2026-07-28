@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
         resultsCard.style.display = 'none';
 
         try {
+            // Get current language (set by language selector)
+            const language = window.currentLanguage || 'en';
+
             // Call API
             const response = await fetch('/api/analyze', {
                 method: 'POST',
@@ -42,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     ticker: ticker,
-                    report_types: reportTypes
+                    report_types: reportTypes,
+                    language: language
                 })
             });
 

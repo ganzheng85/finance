@@ -1,0 +1,31 @@
+SECTOR ROTATION STRATEGY COMPARISON
+================================================================================
+
+Period: 2025-12-31 to 2026-06-25
+Duration: 176 days
+
+
+Top 3:
+  Final Value: $127,336.61
+  Total Return: 27.34%
+  Annualized: 65.12%
+  Sharpe Ratio: 1.60
+  Max Drawdown: -5.57%
+  Total Trades: 159
+  Transaction Costs: $6,059.50
+
+Top 5:
+  Final Value: $114,920.72
+  Total Return: 14.92%
+  Annualized: 33.46%
+  Sharpe Ratio: 1.05
+  Max Drawdown: -6.34%
+  Total Trades: 265
+  Transaction Costs: $5,824.79
+
+SPY:
+  Final Value: $108,253.50
+  Total Return: 8.25%
+  Annualized: 17.89%
+  Sharpe Ratio: 0.62
+  Max Drawdown: -8.39%

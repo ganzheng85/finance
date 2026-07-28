@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 Make sure the following skills are available in the parent directory:
 - `fundamental_analysis_skill/`
-- `technical_analysis/`
+- `.claude/skills/technical_analysis/`
 
 ## Usage
 

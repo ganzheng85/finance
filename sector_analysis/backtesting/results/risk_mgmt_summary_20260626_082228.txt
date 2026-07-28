@@ -1,0 +1,54 @@
+RISK MANAGEMENT STRATEGY COMPARISON
+================================================================================
+
+Period: 2025-12-31 to 2026-06-25
+Duration: 176 days
+
+
+Base:
+  Final Value: $127,336.62
+  Total Return: 27.34%
+  Annualized: 65.12%
+  Sharpe Ratio: 1.60
+  Max Drawdown: -5.57%
+  Volatility: 40.74%
+  Total Trades: 159
+  Transaction Costs: $6,059.50
+
+Trailing 15:
+  Final Value: $127,336.62
+  Total Return: 27.34%
+  Annualized: 65.12%
+  Sharpe Ratio: 1.60
+  Max Drawdown: -5.57%
+  Volatility: 40.74%
+  Total Trades: 159
+  Transaction Costs: $6,059.50
+
+Hard 25:
+  Final Value: $127,336.62
+  Total Return: 27.34%
+  Annualized: 65.12%
+  Sharpe Ratio: 1.60
+  Max Drawdown: -5.57%
+  Volatility: 40.74%
+  Total Trades: 159
+  Transaction Costs: $6,059.50
+
+Market Regime:
+  Final Value: $126,237.61
+  Total Return: 26.24%
+  Annualized: 62.18%
+  Sharpe Ratio: 1.53
+  Max Drawdown: -5.57%
+  Volatility: 40.59%
+  Total Trades: 159
+  Transaction Costs: $5,707.63
+
+SPY:
+  Final Value: $108,253.50
+  Total Return: 8.25%
+  Annualized: 17.89%
+  Sharpe Ratio: 0.62
+  Max Drawdown: -8.39%
+  Volatility: 28.91%

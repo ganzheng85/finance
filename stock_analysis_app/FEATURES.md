@@ -85,7 +85,7 @@ app.py                    # Main Flask application
 ```
 api/
 ├── fundamental.py        # Calls fundamental_analysis_skill scripts
-├── technical.py          # Calls technical_analysis scripts  
+├── technical.py          # Calls .claude/skills/technical_analysis scripts  
 └── action_plan.py        # NEW - Generates action plan from data
 ```
 
@@ -105,7 +105,7 @@ static/
 4. **Frontend sends POST to /api/analyze**
 5. **Backend spawns analysis processes**:
    - Fundamental: Runs `fundamental_analysis_skill/scripts/price_analysis.py`
-   - Technical: Runs `technical_analysis/scripts/analyze_stock.py`
+   - Technical: Runs `.claude/skills/technical_analysis/scripts/analyze_stock.py`
    - Action Plan: Fetches data and generates plan using TechnicalFactors
 6. **Backend copies reports to `reports/` folder**
 7. **Backend returns report URLs**

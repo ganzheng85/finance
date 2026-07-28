@@ -46,15 +46,35 @@ def generate_fundamental_report(ticker: str) -> dict:
     analyses_dir = fundamental_skill / 'analyses' / ticker.upper()
 
     # Run the report structure generator
-    result = subprocess.run(
-        [sys.executable, str(script_path), ticker.upper(), '--output-dir', str(analyses_dir)],
-        cwd=str(fundamental_skill),
-        capture_output=True,
-        text=True
-    )
+    try:
+        result = subprocess.run(
+            [sys.executable, str(script_path), ticker.upper(), '--output-dir', str(analyses_dir)],
+            cwd=str(fundamental_skill),
+            capture_output=True,
+            text=True
+        )
 
-    if result.returncode != 0:
-        raise Exception(f"Report generation failed: {result.stderr}")
+        if result.returncode != 0:
+            error_msg = f"WARNING: Fundamental report generation failed for {ticker}\n"
+
+            # Check if it's a Yahoo Finance data fetch error
+            if 'No data found' in result.stderr or 'No data available' in result.stderr or 'yfinance' in result.stderr.lower():
+                error_msg += f"\nYahoo Finance data fetch failed for ticker '{ticker}'.\n"
+                error_msg += "Possible causes:\n"
+                error_msg += "  - Invalid ticker symbol\n"
+                error_msg += "  - Stock may be delisted or suspended\n"
+                error_msg += "  - Network connection issue\n"
+                error_msg += "  - Yahoo Finance API temporarily unavailable\n"
+            else:
+                error_msg += f"\nError details: {result.stderr}\n"
+
+            print(error_msg)
+            raise Exception(error_msg)
+    except subprocess.SubprocessError as e:
+        error_msg = f"WARNING: Failed to run fundamental analysis script\n"
+        error_msg += f"Error: {str(e)}\n"
+        print(error_msg)
+        raise Exception(error_msg)
 
     # Look for generated report
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')

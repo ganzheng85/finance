@@ -24,6 +24,7 @@ SECTOR_ETFS = {
     'XLC': 'Communication Services',
     'MAGS': 'Magnificent 7',
     'SMH': 'Semiconductors',
+    'IGV': 'Software',
     'SPY': 'S&P 500 Benchmark'
 }
 
@@ -86,11 +87,24 @@ def fetch_sector_etfs(lookback_days=365):
             print(f"  [OK] {len(df)} days fetched")
 
         except Exception as e:
-            print(f"  [ERROR] Failed to fetch {ticker}: {str(e)}")
+            print(f"  [ERROR] Failed to fetch {ticker} ({name})")
+            print(f"          Error: {str(e)}")
+            print(f"          This ETF will be skipped, continuing with others...")
             continue
 
     if not all_data:
-        raise Exception("No sector data could be fetched")
+        error_msg = "\n" + "="*60 + "\n"
+        error_msg += "WARNING: Failed to fetch ANY sector data from Yahoo Finance\n"
+        error_msg += "="*60 + "\n"
+        error_msg += "Possible causes:\n"
+        error_msg += "  - Network connection is down\n"
+        error_msg += "  - Yahoo Finance API is temporarily unavailable\n"
+        error_msg += "  - Firewall blocking access to Yahoo Finance\n"
+        error_msg += "  - Rate limiting (too many requests)\n"
+        error_msg += "\nPlease check your internet connection and try again.\n"
+        error_msg += "="*60 + "\n"
+        print(error_msg)
+        raise Exception("No sector data could be fetched - Yahoo Finance connection failed")
 
     # Combine all dataframes
     combined_df = pd.concat(all_data, ignore_index=True)
@@ -101,7 +115,8 @@ def fetch_sector_etfs(lookback_days=365):
     # Sort by ticker and date
     combined_df = combined_df.sort_values(['ticker', 'date']).reset_index(drop=True)
 
-    print(f"\n[OK] Fetched data for {len(SECTOR_ETFS)} ETFs (11 sectors + 2 special + SPY)")
+    sector_count = len([k for k in SECTOR_ETFS.keys() if k != 'SPY'])
+    print(f"\n[OK] Fetched data for {len(SECTOR_ETFS)} ETFs ({sector_count} sectors + SPY)")
     print(f"  Total rows: {len(combined_df)}")
     print(f"  Date range: {combined_df['date'].min().date()} to {combined_df['date'].max().date()}")
 

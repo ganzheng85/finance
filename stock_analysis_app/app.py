@@ -44,12 +44,17 @@ def analyze():
         data = request.get_json()
         ticker = data.get('ticker', '').upper().strip()
         report_types = data.get('report_types', [])
+        lang = data.get('language', 'en')  # Default to English
 
         if not ticker:
             return jsonify({'error': 'Ticker symbol is required'}), 400
 
         if not report_types:
             return jsonify({'error': 'At least one report type must be selected'}), 400
+
+        # Validate language
+        if lang not in ['en', 'zh']:
+            lang = 'en'
 
         results = {
             'ticker': ticker,
@@ -80,14 +85,15 @@ def analyze():
 
         if 'technical' in report_types:
             try:
-                report = generate_technical_report(ticker)
+                report = generate_technical_report(ticker, lang=lang)
                 result_item = {
                     'type': 'technical',
                     'status': 'success',
                     'path': report['path'],
                     'chart_path': report.get('chart_path'),
                     'url': f'/api/report/{report["filename"]}',
-                    'chart_url': f'/api/report/{report.get("chart_filename")}' if report.get('chart_filename') else None
+                    'chart_url': f'/api/report/{report.get("chart_filename")}' if report.get('chart_filename') else None,
+                    'language': lang
                 }
                 if report.get('html_filename'):
                     result_item['html_url'] = f'/api/report/{report["html_filename"]}'

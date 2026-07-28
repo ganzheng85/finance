@@ -1,0 +1,173 @@
+================================================================================
+SECTOR METRICS EXPLAINED - VISUAL EXAMPLES FROM YOUR ACTUAL DATA
+================================================================================
+
+Example 1: SMH (Semiconductors) - STRONG BUY
+--------------------------------------------------------------------------------
+Score: 88.5 (Rank #1)
+
+RS (20d): +4.85%
+  ├─> What this means: SMH beat SPY by 4.85% in the last month
+  ├─> Translation: If SPY went up 2%, SMH went up 6.85%
+  └─> Signal: Money is flowing INTO semiconductors ✅
+
+RS (60d): +49.44%
+  ├─> What this means: SMH beat SPY by 49.44% in the last 3 months
+  ├─> Translation: If SPY went up 10%, SMH went up 59.44%
+  └─> Signal: This has been a STRONG sector for 3 months ✅
+
+Momentum: +136.80%
+  ├─> What this means: SMH is up 136.80% over the past 6 months
+  ├─> Translation: If you invested $100K, you'd have $236.8K now
+  └─> Signal: Rocket ship trend! 🚀 ✅
+
+OVERALL: All 3 metrics positive → STRONG BUY ✅
+
+
+Example 2: XLI (Industrials) - EARLY ROTATION (Watch/Buy)
+--------------------------------------------------------------------------------
+Score: 82.7 (Rank #2)
+
+RS (20d): +5.70%
+  ├─> What this means: XLI beat SPY by 5.70% in the last month
+  ├─> Translation: Getting stronger RECENTLY
+  └─> Signal: Money just started flowing in ✅
+
+RS (60d): -2.46%
+  ├─> What this means: XLI lost to SPY by 2.46% over the last 3 months
+  ├─> Translation: Was WEAK before, but now getting strong
+  └─> Signal: Early rotation - catching it EARLY! 👀
+
+Momentum: +22.60%
+  ├─> What this means: XLI is up 22.60% over past 6 months
+  ├─> Translation: Decent upward trend
+  └─> Signal: Positive overall direction ✅
+
+OVERALL: Recent strength + past weakness = EARLY ROTATION 👀
+This is GOOD! You're catching it before everyone else.
+
+
+Example 3: XLC (Communications) - AVOID
+--------------------------------------------------------------------------------
+Score: 13.5 (Rank #13 - LAST PLACE)
+
+RS (20d): -5.50%
+  ├─> What this means: XLC lost to SPY by 5.50% in the last month
+  ├─> Translation: If SPY went up 2%, XLC went DOWN 3.50%
+  └─> Signal: Money is flowing OUT ❌
+
+RS (60d): -16.14%
+  ├─> What this means: XLC lost to SPY by 16.14% over 3 months
+  ├─> Translation: Been weak for a while
+  └─> Signal: Established LOSER ❌
+
+Momentum: -14.16%
+  ├─> What this means: XLC is DOWN 14.16% over past 6 months
+  ├─> Translation: If you invested $100K, you'd have $85.84K now
+  └─> Signal: Falling trend ❌
+
+OVERALL: All 3 metrics negative → AVOID ❌
+
+
+================================================================================
+SIDE-BY-SIDE COMPARISON
+================================================================================
+
+                    SMH (BEST)      XLI (GOOD)      XLC (WORST)
+                    ----------      ----------      -----------
+Score               88.5 ✅         82.7 👀         13.5 ❌
+RS (20d)            +4.85% ✅       +5.70% ✅       -5.50% ❌
+RS (60d)            +49.44% ✅      -2.46% 👀       -16.14% ❌
+Momentum            +136.80% ✅     +22.60% ✅      -14.16% ❌
+Decision            BUY NOW         BUY (Early)     AVOID
+
+Legend:
+✅ = Strong/Positive
+👀 = Watch/Mixed (early rotation)
+❌ = Weak/Negative
+
+
+================================================================================
+THE PATTERN TO LOOK FOR
+================================================================================
+
+BEST SECTORS (Buy immediately):
+├─> RS (20d): Positive AND big (above +2%)
+├─> RS (60d): Positive AND big (above +5%)
+├─> Momentum: Positive AND big (above +20%)
+└─> Score: Above 80
+    Example: SMH (88.5), XLK (65.4)
+
+GOOD SECTORS (Early rotation - also buy):
+├─> RS (20d): Positive (money flowing in NOW)
+├─> RS (60d): Negative (was weak before)
+├─> Momentum: Positive (overall trend up)
+└─> Score: 70-85
+    Example: XLI (82.7), XLF (75.0), XLV (69.2)
+    Why buy? You're catching the rotation EARLY!
+
+AVOID SECTORS:
+├─> RS (20d): Negative (money flowing out)
+├─> RS (60d): Negative (been weak)
+├─> Momentum: Negative or low
+└─> Score: Below 50
+    Example: XLC (13.5), MAGS (28.8), XLY (32.7)
+
+
+================================================================================
+QUICK MENTAL MODEL
+================================================================================
+
+Think of sectors like students in a class:
+
+RS (20d) = Last month's test score
+  - Who did well on the most RECENT test?
+  - Shows who's "hot" right now
+
+RS (60d) = Semester average
+  - Who's been doing well all semester?
+  - Shows who's consistently strong
+
+Momentum = Year-to-date average
+  - Who's been trending up all year?
+  - Shows overall direction
+
+Score = Final Grade
+  - Combines everything
+  - A+ students (80+) = Buy
+  - F students (below 40) = Avoid
+
+
+================================================================================
+PRACTICAL EXAMPLE: Your Weekly Decision
+================================================================================
+
+It's Friday, you run sector-analysis and see:
+
+Rank 1: SMH - Score 88.5
+Rank 2: XLI - Score 82.7
+Rank 3: XLF - Score 75.0
+...
+Rank 13: XLC - Score 13.5
+
+Your decision:
+1. Buy top 3: SMH, XLI, XLF ✅
+2. Avoid bottom 3: XLY, MAGS, XLC ❌
+
+You DON'T need to analyze RS/Momentum yourself!
+The Score already did that for you.
+
+Just follow the rankings!
+
+
+================================================================================
+ONE-SENTENCE SUMMARY
+================================================================================
+
+RS (20d)  = "Is it beating the market THIS MONTH?"
+RS (60d)  = "Has it been beating the market for 3 MONTHS?"
+Momentum  = "Is it going UP or DOWN over 6 MONTHS?"
+Score     = "Overall grade - higher is better"
+
+
+================================================================================

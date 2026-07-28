@@ -16,7 +16,7 @@ downloads/
 eggs/
 .eggs/
 lib64/
-# Note: Removed lib/ to allow project lib/ folders (technical_analysis/lib, etc.)
+# Note: Removed lib/ to allow project lib/ folders (.claude/skills/technical_analysis/lib, etc.)
 parts/
 sdist/
 var/
@@ -49,9 +49,9 @@ stock_analysis_app/reports/*.png
 
 # Contact Messages (user data - do not commit)
 stock_analysis_app/messages/
-technical_analysis/analyses/*.md
-technical_analysis/analyses/*.html
-technical_analysis/analyses/*.png
+.claude/skills/technical_analysis/analyses/*.md
+.claude/skills/technical_analysis/analyses/*.html
+.claude/skills/technical_analysis/analyses/*.png
 fundamental_analysis_skill/analyses/*.md
 fundamental_analysis_skill/analyses/*.html
 sector_analysis/analyses/*.md

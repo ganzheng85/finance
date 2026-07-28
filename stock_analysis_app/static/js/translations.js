@@ -34,6 +34,10 @@ const translations = {
         'company.ticker.placeholder': 'e.g., AAPL, TSLA, MSFT',
         'company.ticker.help': 'Enter a valid stock ticker symbol',
         'company.reportType.label': 'Select Report Types',
+        'company.reportLanguage.label': 'Report Language:',
+        'company.reportLanguage.hint': '(Change using language selector above)',
+        'company.reportLanguage.english': 'English',
+        'company.reportLanguage.chinese': 'Chinese (中文)',
         'company.fundamental.title': 'Fundamental Research',
         'company.fundamental.desc': 'Company data, competitive metrics, financial indicators',
         'company.fundamental.sample': '📄 View Sample Report (MSFT)',
@@ -123,6 +127,10 @@ const translations = {
         'company.ticker.placeholder': '例如：AAPL, TSLA, MSFT',
         'company.ticker.help': '请输入有效的股票代码',
         'company.reportType.label': '选择报告类型',
+        'company.reportLanguage.label': '报告语言：',
+        'company.reportLanguage.hint': '（使用上方语言选择器更改）',
+        'company.reportLanguage.english': 'English',
+        'company.reportLanguage.chinese': '中文',
         'company.fundamental.title': '基本面研究',
         'company.fundamental.desc': '公司数据、竞争指标、财务指标',
         'company.fundamental.sample': '📄 查看示例报告 (MSFT)',
@@ -182,8 +190,12 @@ const translations = {
 // Language management
 let currentLanguage = localStorage.getItem('language') || 'en';
 
+// Expose to window for access from other scripts
+window.currentLanguage = currentLanguage;
+
 function setLanguage(lang) {
     currentLanguage = lang;
+    window.currentLanguage = lang;  // Update global reference
     localStorage.setItem('language', lang);
     updatePageLanguage();
     updateLanguageButtons();
@@ -205,6 +217,13 @@ function updatePageLanguage() {
             element.placeholder = translations[currentLanguage][key];
         }
     });
+
+    // Update report language display
+    const reportLangDisplay = document.getElementById('report-language-display');
+    if (reportLangDisplay) {
+        const langKey = currentLanguage === 'zh' ? 'company.reportLanguage.chinese' : 'company.reportLanguage.english';
+        reportLangDisplay.textContent = translations[currentLanguage][langKey];
+    }
 
     // Update HTML lang attribute
     document.documentElement.lang = currentLanguage;

@@ -13,31 +13,54 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'utils'))
 from md_to_html import convert_md_to_html
 
 
-def generate_technical_report(ticker: str) -> dict:
+def generate_technical_report(ticker: str, lang: str = 'en') -> dict:
     """
     Generate technical analysis report for a stock
 
     Args:
         ticker: Stock ticker symbol
+        lang: Language code ('en' or 'zh'), default 'en'
 
     Returns:
         dict with report path and metadata
     """
     # Path to technical analysis skill
     project_root = Path(__file__).parent.parent.parent
-    technical_skill = project_root / 'technical_analysis'
+    technical_skill = project_root / '.claude' / 'skills' / 'technical_analysis'
     script_path = technical_skill / 'scripts' / 'analyze_stock.py'
 
     # Run the analysis script
-    result = subprocess.run(
-        [sys.executable, str(script_path), ticker],
-        cwd=str(technical_skill),
-        capture_output=True,
-        text=True
-    )
+    try:
+        # Build command with language parameter
+        cmd = [sys.executable, str(script_path), ticker, '--lang', lang]
+        result = subprocess.run(
+            cmd,
+            cwd=str(technical_skill),
+            capture_output=True,
+            text=True
+        )
 
-    if result.returncode != 0:
-        raise Exception(f"Technical analysis failed: {result.stderr}")
+        if result.returncode != 0:
+            error_msg = f"WARNING: Technical analysis failed for {ticker}\n"
+
+            # Check if it's a Yahoo Finance data fetch error
+            if 'No data found' in result.stderr or 'No data available' in result.stderr:
+                error_msg += f"\nYahoo Finance data fetch failed for ticker '{ticker}'.\n"
+                error_msg += "Possible causes:\n"
+                error_msg += "  - Invalid ticker symbol\n"
+                error_msg += "  - Stock may be delisted or suspended\n"
+                error_msg += "  - Network connection issue\n"
+                error_msg += "  - Yahoo Finance API temporarily unavailable\n"
+            else:
+                error_msg += f"\nError details: {result.stderr}\n"
+
+            print(error_msg)
+            raise Exception(error_msg)
+    except subprocess.SubprocessError as e:
+        error_msg = f"WARNING: Failed to run technical analysis script\n"
+        error_msg += f"Error: {str(e)}\n"
+        print(error_msg)
+        raise Exception(error_msg)
 
     # Look for generated report
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')

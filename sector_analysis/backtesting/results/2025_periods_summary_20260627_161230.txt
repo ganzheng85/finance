@@ -1,0 +1,54 @@
+2025 SECTOR ROTATION BACKTEST SUMMARY
+================================================================================
+
+2025 First Half (January - June 2025)
+--------------------------------------------------------------------------------
+
+Top 3:
+  Final Value: $89,625.86
+  Total Return: -10.37%
+  Annualized: -23.83%
+  Sharpe Ratio: -0.54
+  Max Drawdown: -18.02%
+
+Top 5:
+  Final Value: $93,077.18
+  Total Return: -6.92%
+  Annualized: -16.33%
+  Sharpe Ratio: -0.42
+  Max Drawdown: -14.93%
+
+SPY:
+  Final Value: $99,867.04
+  Total Return: -0.13%
+  Annualized: -0.33%
+  Sharpe Ratio: -0.01
+  Max Drawdown: -16.88%
+
+
+2025 Second Half (June - December 2025)
+--------------------------------------------------------------------------------
+
+Top 3:
+  Final Value: $113,477.56
+  Total Return: 13.48%
+  Annualized: 24.99%
+  Sharpe Ratio: 0.87
+  Max Drawdown: -7.63%
+
+Top 5:
+  Final Value: $111,317.08
+  Total Return: 11.32%
+  Annualized: 20.83%
+  Sharpe Ratio: 0.75
+  Max Drawdown: -5.81%
+
+SPY:
+  Final Value: $115,664.61
+  Total Return: 15.66%
+  Annualized: 29.28%
+  Sharpe Ratio: 1.32
+  Max Drawdown: -3.38%
+
+
+Overall Winner: SPY

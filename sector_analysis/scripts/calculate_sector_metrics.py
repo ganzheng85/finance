@@ -107,9 +107,11 @@ def rank_sectors(sector_df):
     print("RANKING SECTORS")
     print(f"{'='*60}")
 
-    # Get most recent date
+    # Get most recent date for each ticker (handles different update times)
     latest_date = sector_df['date'].max()
-    latest_data = sector_df[sector_df['date'] == latest_date].copy()
+
+    # Get most recent data for each ticker
+    latest_data = sector_df.loc[sector_df.groupby('ticker')['date'].idxmax()].copy()
 
     # Calculate composite score (simplified for MVP)
     # Score = 40% RS + 40% Momentum + 20% Recent strength
@@ -123,37 +125,54 @@ def rank_sectors(sector_df):
         0.25 * latest_data['return_20d'].rank(pct=True) * 100
     )
 
+    # Filter out sectors with insufficient data (NaN composite scores)
+    valid_data = latest_data[latest_data['composite_score'].notna()].copy()
+
+    if len(valid_data) < len(latest_data):
+        dropped = len(latest_data) - len(valid_data)
+        dropped_tickers = latest_data[latest_data['composite_score'].isna()]['ticker'].tolist()
+        print(f"[WARNING] Dropped {dropped} sectors with insufficient data: {', '.join(dropped_tickers)}")
+
     # Overall rank
-    latest_data['rank'] = latest_data['composite_score'].rank(ascending=False, method='first').astype(int)
+    valid_data['rank'] = valid_data['composite_score'].rank(ascending=False, method='first').astype(int)
 
     # Sort by rank
-    latest_data = latest_data.sort_values('rank')
+    valid_data = valid_data.sort_values('rank')
 
     # Categorize signal
-    latest_data['signal'] = latest_data.apply(categorize_signal, axis=1)
+    valid_data['signal'] = valid_data.apply(categorize_signal, axis=1)
 
-    print(f"[OK] Ranked {len(latest_data)} sectors")
+    print(f"[OK] Ranked {len(valid_data)} sectors")
 
-    return latest_data
+    return valid_data
 
 
 def categorize_signal(row):
-    """Categorize sector signal based on metrics"""
-    rs_20 = row.get('rs_20d', 0) * 100  # Convert to percentage
+    """Categorize sector strength based on composite score"""
+    score = row.get('composite_score', 0)
+    rs_20 = row.get('rs_20d', 0) * 100
     rs_60 = row.get('rs_60d', 0) * 100
-    momentum = row.get('momentum_score', 0) * 100
 
-    # Strong outperformance
-    if rs_20 > 2 and rs_60 > 3 and momentum > 10:
-        return '🚀 STRONG BUY'
-    elif rs_20 > 1 and rs_60 > 1:
-        return '✅ BUY'
-    elif rs_20 > 0 and rs_60 < 0:
-        return '👀 WATCH (Early Rotation)'
-    elif rs_20 < 0 and rs_60 > 0:
-        return '⚠️ WEAKENING'
+    # Primary categorization by score (consistent with ranking)
+    if score >= 75:
+        # Top tier - check if truly dominant or early rotation
+        if rs_20 > 1 and rs_60 > 1:
+            return 'Very Strong'
+        elif rs_20 > 0 and rs_60 < 0:
+            return 'Strong (Early Rotation)'
+        else:
+            return 'Strong'
+    elif score >= 60:
+        # Above average
+        if rs_20 > 0 and rs_60 < 0:
+            return 'Medium (Early Rotation)'
+        elif rs_20 < 0 and rs_60 > 0:
+            return 'Medium (Weakening)'
+        else:
+            return 'Medium'
     else:
-        return '❌ AVOID'
+        # Below average
+        return 'Weak'
 
 
 def identify_rotation_quadrants(sector_df):

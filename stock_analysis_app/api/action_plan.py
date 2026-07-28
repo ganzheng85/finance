@@ -35,13 +35,31 @@ def generate_action_plan(ticker: str) -> dict:
     """
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
 
-    # Fetch stock data
-    stock = yf.Ticker(ticker)
-    info = stock.info
-    hist = stock.history(period='1y')
+    # Fetch stock data with error handling
+    try:
+        stock = yf.Ticker(ticker)
+        info = stock.info
+        hist = stock.history(period='1y')
+    except Exception as e:
+        error_msg = f"WARNING: Failed to fetch data from Yahoo Finance for {ticker}\n"
+        error_msg += f"Error details: {str(e)}\n"
+        error_msg += "Possible causes:\n"
+        error_msg += "  - Network connection issue\n"
+        error_msg += "  - Invalid ticker symbol\n"
+        error_msg += "  - Yahoo Finance API temporarily unavailable\n"
+        error_msg += f"  - Ticker {ticker} may be delisted or not found\n"
+        print(error_msg)
+        raise Exception(error_msg)
 
     if hist.empty:
-        raise Exception(f"No data available for {ticker}")
+        error_msg = f"WARNING: No historical data available for {ticker}\n"
+        error_msg += "This could mean:\n"
+        error_msg += f"  - Ticker symbol '{ticker}' is invalid or not recognized by Yahoo Finance\n"
+        error_msg += "  - Stock may be delisted or suspended from trading\n"
+        error_msg += "  - IPO is too recent (less than 1 year of data)\n"
+        error_msg += "\nPlease verify the ticker symbol and try again.\n"
+        print(error_msg)
+        raise Exception(error_msg)
 
     # Get current price
     current_price = hist['Close'].iloc[-1]
