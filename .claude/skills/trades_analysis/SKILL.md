@@ -338,6 +338,7 @@ Claude will run the unrealized P&L analysis and show current positions.
 - Exclude non-trade transactions (dividends, transfers) from trade analysis
 - **Ticker normalization:** All tickers normalized to UPPERCASE to prevent "SMH" and "smh" being treated as different stocks
 - **Stable sort:** Use `kind='stable'` when sorting by date to preserve original CSV order for same-day trades (critical for FIFO accuracy)
+- **CRITICAL - Remaining lots filter:** "Top 10 Best/Worst Buy Trades" must ONLY show the specific buy lots that remain after FIFO matching. Do NOT show all historical buy transactions for a ticker - only the actual lots still held. For example, if you bought ORCL 8 times but sold it all and then re-bought, only show the new purchase lot, not the old ones. Build the analysis from `buy_queues` (remaining lots after FIFO) not from original transaction history.
 
 ## Common Pitfalls to Avoid
 

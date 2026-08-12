@@ -100,7 +100,17 @@ class TrendAnalyzer:
                 bearish_signals.append(f"Price {-dist_50*100:.1f}% below SMA(50)")
                 score -= 1
 
-        # 2. SMA alignment (Golden/Death Cross)
+        # 1b. Price vs EMA 20
+        if 'dist_ema_20' in self.df.columns and pd.notna(self.latest['dist_ema_20']):
+            dist_ema_20 = self.latest['dist_ema_20']
+            if dist_ema_20 > 0.02:
+                bullish_signals.append(f"Price {dist_ema_20*100:.1f}% above EMA(20)")
+                score += 2
+            elif dist_ema_20 < -0.02:
+                bearish_signals.append(f"Price {-dist_ema_20*100:.1f}% below EMA(20)")
+                score -= 2
+
+        # 2. SMA alignment (Golden/Death Cross) - 20 vs 50
         if 'sma_dist_20_50' in self.df.columns and pd.notna(self.latest['sma_dist_20_50']):
             sma_dist = self.latest['sma_dist_20_50']
             if sma_dist > 0.02:
@@ -109,6 +119,48 @@ class TrendAnalyzer:
             elif sma_dist < -0.02:
                 bearish_signals.append(f"SMA(20) {-sma_dist*100:.1f}% below SMA(50) (Death Cross)")
                 score -= 2
+
+        # 2b. Major Golden/Death Cross - 50 vs 200
+        if 'sma_dist_50_200' in self.df.columns and pd.notna(self.latest['sma_dist_50_200']):
+            sma_dist_50_200 = self.latest['sma_dist_50_200']
+            if sma_dist_50_200 > 0.02:
+                bullish_signals.append(f"SMA(50) {sma_dist_50_200*100:.1f}% above SMA(200) (MAJOR Golden Cross)")
+                score += 3
+            elif sma_dist_50_200 < -0.02:
+                bearish_signals.append(f"SMA(50) {-sma_dist_50_200*100:.1f}% below SMA(200) (MAJOR Death Cross)")
+                score -= 3
+
+        # 2c. Check 20 EMA vs 50 SMA alignment
+        if 'dist_ema_20' in self.df.columns and pd.notna(self.latest['dist_ema_20']):
+            dist_ema_20 = self.latest['dist_ema_20']
+            # Calculate EMA 20 value from distance
+            price = self.latest['adjusted_close']
+            ema_20 = price / (1 + dist_ema_20)
+
+            # Get SMA 50 value
+            if 'dist_sma_50' in self.df.columns and pd.notna(self.latest['dist_sma_50']):
+                sma_50 = price / (1 + self.latest['dist_sma_50'])
+                ema_sma_diff = (ema_20 / sma_50) - 1
+
+                if ema_sma_diff > 0.02:
+                    bullish_signals.append(f"EMA(20) {ema_sma_diff*100:.1f}% above SMA(50)")
+                    score += 1
+                elif ema_sma_diff < -0.02:
+                    bearish_signals.append(f"EMA(20) {-ema_sma_diff*100:.1f}% below SMA(50)")
+                    score -= 1
+
+        # 2d. Check if 50 SMA is rising (trend direction)
+        if 'sma_50_rising' in self.df.columns and pd.notna(self.latest['sma_50_rising']):
+            if self.latest['sma_50_rising']:
+                if 'sma_50_slope' in self.df.columns and pd.notna(self.latest['sma_50_slope']):
+                    slope_pct = self.latest['sma_50_slope'] * 100
+                    bullish_signals.append(f"SMA(50) rising ({slope_pct:+.2f}% over 5 days)")
+                    score += 2
+            else:
+                if 'sma_50_slope' in self.df.columns and pd.notna(self.latest['sma_50_slope']):
+                    slope_pct = self.latest['sma_50_slope'] * 100
+                    bearish_signals.append(f"SMA(50) falling ({slope_pct:+.2f}% over 5 days)")
+                    score -= 2
 
         # 3. Momentum
         if 'momentum_score' in self.df.columns and pd.notna(self.latest['momentum_score']):
@@ -415,6 +467,26 @@ class TrendAnalyzer:
         # Get trend analysis
         trend = self.analyze_trend_direction()
 
+        # Check for specific bullish trend filter: Price > 20 EMA > 50 SMA + 50 SMA rising
+        bullish_filter_met = self._check_bullish_trend_filter()
+        if bullish_filter_met['all_conditions_met']:
+            signals.append({
+                'action': 'BULLISH TREND FILTER CONFIRMED',
+                'confidence': 'HIGH',
+                'reason': 'All bullish trend conditions met: Price > EMA(20) > SMA(50) + SMA(50) rising',
+                'details': bullish_filter_met['details']
+            })
+
+        # Check for major golden cross: SMA(50) > SMA(200)
+        major_golden_cross = self._check_major_golden_cross()
+        if major_golden_cross['is_golden_cross']:
+            signals.append({
+                'action': 'MAJOR GOLDEN CROSS PATTERN',
+                'confidence': 'HIGH',
+                'reason': 'SMA(50) above SMA(200) indicates strong long-term uptrend',
+                'details': major_golden_cross['details']
+            })
+
         # Strong bullish setup indicator
         if trend['direction'] == 'BULLISH' and trend['strength'] >= 7:
             signals.append({
@@ -481,6 +553,112 @@ class TrendAnalyzer:
             })
 
         return signals
+
+    def _check_bullish_trend_filter(self) -> Dict:
+        """
+        Check for specific bullish trend filter conditions:
+        1. Price > EMA(20)
+        2. EMA(20) > SMA(50)
+        3. SMA(50) rising
+
+        Returns
+        -------
+        dict
+            {
+                'all_conditions_met': bool,
+                'conditions': dict of individual checks,
+                'details': list of details
+            }
+        """
+        conditions = {
+            'price_above_ema20': False,
+            'ema20_above_sma50': False,
+            'sma50_rising': False
+        }
+        details = []
+
+        price = self.latest['adjusted_close']
+
+        # Check 1: Price > EMA(20)
+        if 'dist_ema_20' in self.df.columns and pd.notna(self.latest['dist_ema_20']):
+            dist_ema_20 = self.latest['dist_ema_20']
+            ema_20 = price / (1 + dist_ema_20)
+
+            if price > ema_20:
+                conditions['price_above_ema20'] = True
+                details.append(f"[YES] Price (${price:.2f}) > EMA(20) (${ema_20:.2f}) [{dist_ema_20*100:+.2f}%]")
+            else:
+                details.append(f"[NO] Price (${price:.2f}) < EMA(20) (${ema_20:.2f}) [{dist_ema_20*100:+.2f}%]")
+
+            # Check 2: EMA(20) > SMA(50)
+            if 'dist_sma_50' in self.df.columns and pd.notna(self.latest['dist_sma_50']):
+                dist_sma_50 = self.latest['dist_sma_50']
+                sma_50 = price / (1 + dist_sma_50)
+
+                if ema_20 > sma_50:
+                    conditions['ema20_above_sma50'] = True
+                    diff_pct = ((ema_20 / sma_50) - 1) * 100
+                    details.append(f"[YES] EMA(20) (${ema_20:.2f}) > SMA(50) (${sma_50:.2f}) [{diff_pct:+.2f}%]")
+                else:
+                    diff_pct = ((ema_20 / sma_50) - 1) * 100
+                    details.append(f"[NO] EMA(20) (${ema_20:.2f}) < SMA(50) (${sma_50:.2f}) [{diff_pct:+.2f}%]")
+
+        # Check 3: SMA(50) rising
+        if 'sma_50_rising' in self.df.columns and pd.notna(self.latest['sma_50_rising']):
+            if self.latest['sma_50_rising']:
+                conditions['sma50_rising'] = True
+                if 'sma_50_slope' in self.df.columns and pd.notna(self.latest['sma_50_slope']):
+                    slope_pct = self.latest['sma_50_slope'] * 100
+                    details.append(f"[YES] SMA(50) rising [{slope_pct:+.2f}% over 5 days]")
+                else:
+                    details.append("[YES] SMA(50) rising")
+            else:
+                if 'sma_50_slope' in self.df.columns and pd.notna(self.latest['sma_50_slope']):
+                    slope_pct = self.latest['sma_50_slope'] * 100
+                    details.append(f"[NO] SMA(50) falling [{slope_pct:+.2f}% over 5 days]")
+                else:
+                    details.append("[NO] SMA(50) falling")
+
+        all_met = all(conditions.values())
+
+        return {
+            'all_conditions_met': all_met,
+            'conditions': conditions,
+            'details': details
+        }
+
+    def _check_major_golden_cross(self) -> Dict:
+        """
+        Check for major golden cross: SMA(50) > SMA(200).
+
+        Returns
+        -------
+        dict
+            {
+                'is_golden_cross': bool,
+                'is_death_cross': bool,
+                'details': list of details
+            }
+        """
+        details = []
+        is_golden = False
+        is_death = False
+
+        if 'sma_dist_50_200' in self.df.columns and pd.notna(self.latest['sma_dist_50_200']):
+            sma_dist = self.latest['sma_dist_50_200']
+
+            if sma_dist > 0:
+                is_golden = True
+                details.append(f"[YES] SMA(50) is {sma_dist*100:.2f}% above SMA(200) - GOLDEN CROSS")
+            else:
+                is_death = True
+                details.append(f"[NO] SMA(50) is {-sma_dist*100:.2f}% below SMA(200) - DEATH CROSS")
+
+        return {
+            'is_golden_cross': is_golden,
+            'is_death_cross': is_death,
+            'details': details
+        }
 
     def generate_report(self) -> str:
         """

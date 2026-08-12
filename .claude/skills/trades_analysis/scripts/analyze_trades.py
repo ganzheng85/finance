@@ -69,114 +69,8 @@ print(f"\nSuccessfully fetched prices for {len(current_prices)}/{len(tickers)} t
 if failed_tickers:
     print(f"Failed tickers: {failed_tickers}\n")
 
-# Analyze trades
-print("\n" + "="*80)
-print("TRADE ANALYSIS")
-print("="*80)
-
-buy_trades = []
-sell_trades = []
-
-for idx, row in trades_df.iterrows():
-    ticker = row['Stock / ETF Symbol']
-    transaction_type = row['Transaction Type']
-    price = row['Amount per unit']
-    quantity = row['Quantity of Units']
-    date = row['Date']
-
-    if ticker not in current_prices:
-        continue
-
-    current_price = current_prices[ticker]
-
-    if transaction_type == 'Buy':
-        # For buys, good if current price > buy price (unrealized gain)
-        pct_change = ((current_price - price) / price) * 100
-        is_good = pct_change > 0
-        buy_trades.append({
-            'ticker': ticker,
-            'date': date,
-            'buy_price': price,
-            'current_price': current_price,
-            'quantity': quantity,
-            'pct_change': pct_change,
-            'is_good': is_good
-        })
-
-    elif transaction_type == 'Sell':
-        # For sells, good if current price < sell price (sold high)
-        pct_change = ((price - current_price) / current_price) * 100
-        is_good = pct_change > 0
-        sell_trades.append({
-            'ticker': ticker,
-            'date': date,
-            'sell_price': price,
-            'current_price': current_price,
-            'quantity': quantity,
-            'pct_change': pct_change,
-            'is_good': is_good
-        })
-
-# Summary statistics
-print("\nSUMMARY STATISTICS")
-print("-" * 80)
-
-total_buy_trades = len(buy_trades)
-good_buy_trades = sum(1 for t in buy_trades if t['is_good'])
-bad_buy_trades = total_buy_trades - good_buy_trades
-
-total_sell_trades = len(sell_trades)
-good_sell_trades = sum(1 for t in sell_trades if t['is_good'])
-bad_sell_trades = total_sell_trades - good_sell_trades
-
-print(f"\nBUY TRADES (currently held positions):")
-print(f"  Total: {total_buy_trades}")
-print(f"  Good (in profit): {good_buy_trades} ({good_buy_trades/total_buy_trades*100:.1f}%)")
-print(f"  Bad (in loss): {bad_buy_trades} ({bad_buy_trades/total_buy_trades*100:.1f}%)")
-
-print(f"\nSELL TRADES (sold positions):")
-print(f"  Total: {total_sell_trades}")
-print(f"  Good (sold higher than current): {good_sell_trades} ({good_sell_trades/total_sell_trades*100:.1f}%)")
-print(f"  Bad (sold lower than current): {bad_sell_trades} ({bad_sell_trades/total_sell_trades*100:.1f}%)")
-
-print(f"\nOVERALL:")
-total_trades = total_buy_trades + total_sell_trades
-good_trades = good_buy_trades + good_sell_trades
-bad_trades = bad_buy_trades + bad_sell_trades
-print(f"  Total trades analyzed: {total_trades}")
-print(f"  Good trades: {good_trades} ({good_trades/total_trades*100:.1f}%)")
-print(f"  Bad trades: {bad_trades} ({bad_trades/total_trades*100:.1f}%)")
-
-# Top 10 best and worst trades
-print("\n" + "="*80)
-print("TOP 10 BEST BUY TRADES (biggest unrealized gains)")
-print("="*80)
-best_buys = sorted(buy_trades, key=lambda x: x['pct_change'], reverse=True)[:10]
-for i, trade in enumerate(best_buys, 1):
-    print(f"{i:2d}. {trade['ticker']:6s} | Bought: ${trade['buy_price']:8.2f} | Now: ${trade['current_price']:8.2f} | Gain: {trade['pct_change']:+6.2f}%")
-
-print("\n" + "="*80)
-print("TOP 10 WORST BUY TRADES (biggest unrealized losses)")
-print("="*80)
-worst_buys = sorted(buy_trades, key=lambda x: x['pct_change'])[:10]
-for i, trade in enumerate(worst_buys, 1):
-    print(f"{i:2d}. {trade['ticker']:6s} | Bought: ${trade['buy_price']:8.2f} | Now: ${trade['current_price']:8.2f} | Loss: {trade['pct_change']:+6.2f}%")
-
-print("\n" + "="*80)
-print("TOP 10 BEST SELL TRADES (sold at good prices vs current)")
-print("="*80)
-best_sells = sorted(sell_trades, key=lambda x: x['pct_change'], reverse=True)[:10]
-for i, trade in enumerate(best_sells, 1):
-    print(f"{i:2d}. {trade['ticker']:6s} | Sold: ${trade['sell_price']:8.2f} | Now: ${trade['current_price']:8.2f} | Avoided: {trade['pct_change']:+6.2f}%")
-
-print("\n" + "="*80)
-print("TOP 10 WORST SELL TRADES (sold too early)")
-print("="*80)
-worst_sells = sorted(sell_trades, key=lambda x: x['pct_change'])[:10]
-for i, trade in enumerate(worst_sells, 1):
-    print(f"{i:2d}. {trade['ticker']:6s} | Sold: ${trade['sell_price']:8.2f} | Now: ${trade['current_price']:8.2f} | Missed: {trade['pct_change']:+6.2f}%")
-
 # Net position analysis using FIFO (First In First Out) methodology
+# CRITICAL: Calculate current holdings FIRST before analyzing trades
 print("\n" + "="*80)
 print("CURRENT PORTFOLIO POSITIONS (Net holdings - FIFO cost basis)")
 print("="*80)
@@ -279,6 +173,143 @@ if ignored_fractional:
     print(f"\nIgnored fractional positions (<=2 shares):")
     for frac in ignored_fractional:
         print(f"  {frac['ticker']}: {frac['quantity']:.2f} shares")
+
+# Analyze individual trades (ONLY for stocks currently held)
+print("\n" + "="*80)
+print("TRADE ANALYSIS (Individual Transaction Performance)")
+print("="*80)
+
+# Create set of currently held tickers (excluding fractional positions)
+currently_held_tickers = set(h['ticker'] for h in holdings_list)
+print(f"\nAnalyzing trades for {len(currently_held_tickers)} currently held tickers")
+
+# CRITICAL: Build a list of ACTUAL remaining buy lots after FIFO matching
+# This prevents showing old buy transactions that were already sold
+remaining_buy_lots = []
+for ticker in currently_held_tickers:
+    if ticker in buy_queues and buy_queues[ticker]:
+        current_price = current_prices[ticker]
+        for lot in buy_queues[ticker]:
+            pct_change = ((current_price - lot['price']) / lot['price']) * 100
+            remaining_buy_lots.append({
+                'ticker': ticker,
+                'buy_price': lot['price'],
+                'current_price': current_price,
+                'quantity': lot['quantity'],
+                'pct_change': pct_change,
+                'is_good': pct_change > 0
+            })
+
+print(f"Found {len(remaining_buy_lots)} individual buy lots still held after FIFO matching\n")
+
+buy_trades = []
+sell_trades = []
+
+for idx, row in trades_df.iterrows():
+    ticker = row['Stock / ETF Symbol']
+    transaction_type = row['Transaction Type']
+    price = row['Amount per unit']
+    quantity = row['Quantity of Units']
+    date = row['Date']
+
+    if ticker not in current_prices:
+        continue
+
+    current_price = current_prices[ticker]
+
+    if transaction_type == 'Buy':
+        # For buys, good if current price > buy price (unrealized gain)
+        pct_change = ((current_price - price) / price) * 100
+        is_good = pct_change > 0
+        trade_info = {
+            'ticker': ticker,
+            'date': date,
+            'buy_price': price,
+            'current_price': current_price,
+            'quantity': quantity,
+            'pct_change': pct_change,
+            'is_good': is_good
+        }
+        buy_trades.append(trade_info)
+
+    elif transaction_type == 'Sell':
+        # For sells, good if current price < sell price (sold high)
+        pct_change = ((price - current_price) / current_price) * 100
+        is_good = pct_change > 0
+        sell_trades.append({
+            'ticker': ticker,
+            'date': date,
+            'sell_price': price,
+            'current_price': current_price,
+            'quantity': quantity,
+            'pct_change': pct_change,
+            'is_good': is_good
+        })
+
+# Summary statistics
+print("\nSUMMARY STATISTICS")
+print("-" * 80)
+
+total_buy_trades = len(buy_trades)
+total_remaining_lots = len(remaining_buy_lots)
+good_remaining_lots = sum(1 for t in remaining_buy_lots if t['is_good'])
+bad_remaining_lots = total_remaining_lots - good_remaining_lots
+
+total_sell_trades = len(sell_trades)
+good_sell_trades = sum(1 for t in sell_trades if t['is_good'])
+bad_sell_trades = total_sell_trades - good_sell_trades
+
+print(f"\nBUY TRADES (remaining lots after FIFO matching only):")
+print(f"  Total buy transactions (all history): {total_buy_trades}")
+print(f"  Remaining buy lots after FIFO: {total_remaining_lots}")
+print(f"  Currently profitable lots: {good_remaining_lots} ({good_remaining_lots/total_remaining_lots*100:.1f}%)" if total_remaining_lots > 0 else "  Currently profitable: 0 (0.0%)")
+print(f"  Currently unprofitable lots: {bad_remaining_lots} ({bad_remaining_lots/total_remaining_lots*100:.1f}%)" if total_remaining_lots > 0 else "  Currently unprofitable: 0 (0.0%)")
+
+print(f"\nSELL TRADES (all sold positions):")
+print(f"  Total: {total_sell_trades}")
+print(f"  Good timing (sold higher than current): {good_sell_trades} ({good_sell_trades/total_sell_trades*100:.1f}%)" if total_sell_trades > 0 else "  Good timing: 0 (0.0%)")
+print(f"  Poor timing (sold lower than current): {bad_sell_trades} ({bad_sell_trades/total_sell_trades*100:.1f}%)" if total_sell_trades > 0 else "  Poor timing: 0 (0.0%)")
+
+# Top 10 best and worst trades (ONLY remaining lots after FIFO)
+print("\n" + "="*80)
+print("TOP 10 BEST BUY TRADES (biggest unrealized gains - remaining lots only)")
+print("="*80)
+if remaining_buy_lots:
+    best_buys = sorted(remaining_buy_lots, key=lambda x: x['pct_change'], reverse=True)[:10]
+    for i, trade in enumerate(best_buys, 1):
+        print(f"{i:2d}. {trade['ticker']:6s} | Bought: ${trade['buy_price']:8.2f} | Now: ${trade['current_price']:8.2f} | Gain: {trade['pct_change']:+6.2f}%")
+else:
+    print("No remaining buy lots to analyze")
+
+print("\n" + "="*80)
+print("TOP 10 WORST BUY TRADES (biggest unrealized losses - remaining lots only)")
+print("="*80)
+if remaining_buy_lots:
+    worst_buys = sorted(remaining_buy_lots, key=lambda x: x['pct_change'])[:10]
+    for i, trade in enumerate(worst_buys, 1):
+        print(f"{i:2d}. {trade['ticker']:6s} | Bought: ${trade['buy_price']:8.2f} | Now: ${trade['current_price']:8.2f} | Loss: {trade['pct_change']:+6.2f}%")
+else:
+    print("No remaining buy lots to analyze")
+
+print("\n" + "="*80)
+print("TOP 10 BEST SELL TRADES (sold at good prices vs current)")
+print("="*80)
+if sell_trades:
+    best_sells = sorted(sell_trades, key=lambda x: x['pct_change'], reverse=True)[:10]
+    for i, trade in enumerate(best_sells, 1):
+        print(f"{i:2d}. {trade['ticker']:6s} | Sold: ${trade['sell_price']:8.2f} | Now: ${trade['current_price']:8.2f} | Avoided: {trade['pct_change']:+6.2f}%")
+else:
+    print("No sell trades to analyze")
+
+print("\n" + "="*80)
+print("TOP 10 WORST SELL TRADES (sold too early)")
+print("="*80)
+if sell_trades:
+    worst_sells = sorted(sell_trades, key=lambda x: x['pct_change'])[:10]
+    for i, trade in enumerate(worst_sells, 1):
+        print(f"{i:2d}. {trade['ticker']:6s} | Sold: ${trade['sell_price']:8.2f} | Now: ${trade['current_price']:8.2f} | Missed: {trade['pct_change']:+6.2f}%")
+else:
+    print("No sell trades to analyze")
 
 # Calculate Realized P&L for total return calculation
 print("\n" + "="*80)

@@ -78,6 +78,16 @@ class TechnicalFactors:
         self.df = calculate_sma_distance(self.df, short_window=short_window, long_window=long_window)
         return self.df
 
+    def distance_from_ema(self, window: int = 20) -> pd.DataFrame:
+        """Distance from Exponential Moving Average."""
+        self.df = calculate_distance_from_ema(self.df, window=window, keep_ema=True)
+        return self.df
+
+    def sma_slope(self, window: int = 50, slope_period: int = 5) -> pd.DataFrame:
+        """Calculate SMA slope to detect rising/falling trend."""
+        self.df = calculate_sma_slope(self.df, window=window, slope_period=slope_period)
+        return self.df
+
     def relative_volume(self, window: int = 30, keep_baseline: bool = False,
                        use_ema: bool = False, by_weekday: bool = False,
                        winsor: Optional[float] = None, zscore: bool = False) -> pd.DataFrame:
@@ -189,8 +199,17 @@ class TechnicalFactors:
         for window in [5, 10, 20, 50, 200]:
             self.df = calculate_distance_from_sma(self.df, window=window, keep_sma=True)
 
+        print("Computing EMA 20 and distance from EMA...")
+        self.distance_from_ema(window=20)
+
         print("Computing SMA distance (20 vs 50)...")
         self.sma_distance(**params.get('sma_distance', {}))
+
+        print("Computing SMA distance (50 vs 200)...")
+        self.sma_distance(short_window=50, long_window=200)
+
+        print("Computing SMA 50 slope...")
+        self.sma_slope(window=50, slope_period=5)
 
         print("Computing RSI...")
         self.rsi(**params.get('rsi', {}))
@@ -402,6 +421,76 @@ def calculate_sma_distance(df: pd.DataFrame,
     sma_distance = sma_distance.replace([np.inf, -np.inf], np.nan)
 
     df[f'sma_dist_{short_window}_{long_window}'] = sma_distance
+
+    return df
+
+def calculate_distance_from_ema(df, window=20, keep_ema=True, price_col='adjusted_close'):
+    """
+    Calculates how far the current price is from the Exponential Moving Average (EMA).
+    A positive value means the price is above the EMA.
+
+    Parameters
+    ----------
+    df : DataFrame with ['symbol', 'date', price_col]
+    window : int, EMA period (default 20)
+    keep_ema : bool, if True keep the EMA column for plotting
+    price_col : str, price column name
+
+    Returns
+    -------
+    DataFrame with added columns:
+        - f'ema_{window}': the EMA values (if keep_ema=True)
+        - f'dist_ema_{window}': percentage distance from EMA
+    """
+    df = df.sort_values(['symbol', 'date']).copy()
+    ema_col_name = f'ema_{window}'
+
+    # Calculate EMA using pandas ewm
+    df[ema_col_name] = df.groupby('symbol')[price_col].transform(
+        lambda x: x.ewm(span=window, adjust=False, min_periods=window).mean()
+    )
+
+    # Calculate the percentage difference
+    df[f'dist_ema_{window}'] = (df[price_col] / df[ema_col_name]) - 1
+
+    # Keep the EMA column for plotting
+    if not keep_ema:
+        df = df.drop(columns=[ema_col_name])
+
+    return df
+
+def calculate_sma_slope(df, window=50, slope_period=5, price_col='adjusted_close'):
+    """
+    Calculate the slope of an SMA to detect if it's rising or falling.
+
+    Parameters
+    ----------
+    df : DataFrame with ['symbol', 'date', price_col]
+    window : int, SMA period to analyze (default 50)
+    slope_period : int, number of periods to measure slope over (default 5)
+    price_col : str, price column name
+
+    Returns
+    -------
+    DataFrame with added columns:
+        - f'sma_{window}_slope': percentage change in SMA over slope_period
+        - f'sma_{window}_rising': boolean flag (True if slope > 0)
+    """
+    df = df.sort_values(['symbol', 'date']).copy()
+    sma_col_name = f'sma_{window}'
+
+    # Calculate SMA if it doesn't exist
+    if sma_col_name not in df.columns:
+        df[sma_col_name] = df.groupby('symbol')[price_col].transform(
+            lambda x: x.rolling(window=window, min_periods=window).mean()
+        )
+
+    # Calculate slope as percentage change over slope_period
+    sma_shifted = df.groupby('symbol')[sma_col_name].shift(slope_period)
+    slope = (df[sma_col_name] / sma_shifted) - 1
+
+    df[f'sma_{window}_slope'] = slope
+    df[f'sma_{window}_rising'] = slope > 0
 
     return df
 

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Analysis Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px 50px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #003d7a;
+            font-size: 28px;
+            border-bottom: 3px solid #003d7a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #005a9c;
+            font-size: 22px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #0066b3;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            color: #444;
+            font-size: 16px;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin: 12px 0;
+            text-align: justify;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        th {
+            background-color: #003d7a;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #002855;
+        }
+
+        td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        strong {
+            color: #003d7a;
+            font-weight: 600;
+        }
+
+        em {
+            color: #555;
+            font-style: italic;
+        }
+
+        ul, ol {
+            margin: 12px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 25px 0;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #c7254e;
+        }
+
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        blockquote {
+            border-left: 4px solid #005a9c;
+            padding-left: 15px;
+            margin: 15px 0;
+            color: #555;
+            font-style: italic;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #003d7a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .print-button:hover {
+            background-color: #005a9c;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button no-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    <div class="container">
+        <h1 id="sector-rotation-analysis">Sector Rotation Analysis</h1>
+<p><strong>Generated:</strong> 2026-06-27 15:10:36<br />
+<strong>Analysis Date:</strong> 2026-06-26<br />
+<strong>Benchmark:</strong> S&amp;P 500 (SPY)</p>
+<blockquote>
+<p><strong>Purpose:</strong> Track institutional money flow across market sectors</p>
+</blockquote>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p><strong>Top 3 Sectors (Strongest):</strong><br />
+- Industrials (XLI): Score 83.9<br />
+- Semiconductors (SMH): Score 82.1<br />
+- Healthcare (XLV): Score 80.4</p>
+<p><strong>Bottom 3 Sectors (Weakest):</strong><br />
+- Consumer Discretionary (XLY): Score 30.4<br />
+- Magnificent 7 (MAGS): Score 23.2<br />
+- Communication Services (XLC): Score 12.5</p>
+<p><strong>Market Rotation Status:</strong> DEFENSIVE MARKET (Few leaders)</p>
+<hr />
+<h2 id="sector-rankings">Sector Rankings</h2>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Sector</th>
+<th>Ticker</th>
+<th>Score</th>
+<th>RS (20d)</th>
+<th>RS (60d)</th>
+<th>Momentum</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Industrials</td>
+<td>XLI</td>
+<td>83.9</td>
+<td>+7.66%</td>
+<td>-0.07%</td>
+<td>+22.54%</td>
+<td>Medium (Early Rotation)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Semiconductors</td>
+<td>SMH</td>
+<td>82.1</td>
+<td>+5.11%</td>
+<td>+47.14%</td>
+<td>+132.11%</td>
+<td>Very Strong</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Healthcare</td>
+<td>XLV</td>
+<td>80.4</td>
+<td>+9.88%</td>
+<td>-2.54%</td>
+<td>+15.35%</td>
+<td>Medium (Early Rotation)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Real Estate</td>
+<td>XLRE</td>
+<td>73.2</td>
+<td>+5.91%</td>
+<td>-0.61%</td>
+<td>+16.39%</td>
+<td>Medium (Early Rotation)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Financials</td>
+<td>XLF</td>
+<td>71.4</td>
+<td>+8.00%</td>
+<td>-3.50%</td>
+<td>+4.36%</td>
+<td>Medium (Early Rotation)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Technology</td>
+<td>XLK</td>
+<td>67.9</td>
+<td>+0.19%</td>
+<td>+24.06%</td>
+<td>+57.46%</td>
+<td>Weak</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Utilities</td>
+<td>XLU</td>
+<td>53.6</td>
+<td>+6.53%</td>
+<td>-11.83%</td>
+<td>+4.01%</td>
+<td>Medium (Early Rotation)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Consumer Staples</td>
+<td>XLP</td>
+<td>50.0</td>
+<td>+4.17%</td>
+<td>-8.34%</td>
+<td>+7.85%</td>
+<td>Medium (Early Rotation)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Materials</td>
+<td>XLB</td>
+<td>48.2</td>
+<td>+3.99%</td>
+<td>-8.73%</td>
+<td>+15.67%</td>
+<td>Medium (Early Rotation)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Energy</td>
+<td>XLE</td>
+<td>41.1</td>
+<td>-1.63%</td>
+<td>-23.86%</td>
+<td>+24.57%</td>
+<td>Weak</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Software</td>
+<td>IGV</td>
+<td>32.1</td>
+<td>-4.66%</td>
+<td>-2.18%</td>
+<td>-13.90%</td>
+<td>Weak</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Consumer Discretionary</td>
+<td>XLY</td>
+<td>30.4</td>
+<td>-2.97%</td>
+<td>-7.23%</td>
+<td>-3.42%</td>
+<td>Weak</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Magnificent 7</td>
+<td>MAGS</td>
+<td>23.2</td>
+<td>-9.94%</td>
+<td>-6.07%</td>
+<td>-2.77%</td>
+<td>Weak</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Communication Services</td>
+<td>XLC</td>
+<td>12.5</td>
+<td>-5.61%</td>
+<td>-16.35%</td>
+<td>-14.33%</td>
+<td>Weak</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="rotation-map-quadrant-analysis">Rotation Map (Quadrant Analysis)</h2>
+<pre><code>                    RELATIVE STRENGTH
+
+                 Weak  │  Strong
+              ─────────┼─────────
+              │        │        │
+   Accelerating│ Improving│ Leading │
+              │        │        │
+MOMENTUM      ├─────────┼─────────┤
+              │        │        │
+  Decelerating│ Lagging │Weakening│
+              │        │        │
+              └─────────┴─────────┘
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Quadrant</th>
+<th>Sectors</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Leading</strong> (Strong + Accelerating)</td>
+<td><em>None</em></td>
+<td>Strongest momentum - continue outperforming</td>
+</tr>
+<tr>
+<td><strong>Weakening</strong> (Strong + Decelerating)</td>
+<td><strong>SMH</strong>, <strong>XLK</strong></td>
+<td>Still strong but losing momentum - monitor closely</td>
+</tr>
+<tr>
+<td><strong>Improving</strong> (Weak + Accelerating)</td>
+<td><strong>XLB</strong>, <strong>XLC</strong>, <strong>XLE</strong>, <strong>XLF</strong>, <strong>XLI</strong>, <strong>XLP</strong>, <strong>XLRE</strong>, <strong>XLU</strong>, <strong>XLV</strong>, <strong>XLY</strong></td>
+<td>Gaining strength - potential early rotation</td>
+</tr>
+<tr>
+<td><strong>Lagging</strong> (Weak + Decelerating)</td>
+<td><strong>IGV</strong>, <strong>MAGS</strong></td>
+<td>Weakest performance - underperforming</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="detailed-sector-analysis">Detailed Sector Analysis</h2>
+<h3 id="1-industrials-xli-medium-early-rotation">1. Industrials (XLI) - Medium (Early Rotation)</h3>
+<ul>
+<li><strong>Composite Score:</strong> 83.9</li>
+<li><strong>Current Price:</strong> $181.20</li>
+<li><strong>Relative Strength (20-day):</strong> +7.66%</li>
+<li><strong>Relative Strength (60-day):</strong> -0.07%</li>
+<li><strong>Momentum (3M+6M):</strong> +22.54%</li>
+</ul>
+<p><strong>Analysis:</strong> Recent strength emerging, potential early rotation signal</p>
+<h3 id="2-semiconductors-smh-very-strong">2. Semiconductors (SMH) - Very Strong</h3>
+<ul>
+<li><strong>Composite Score:</strong> 82.1</li>
+<li><strong>Current Price:</strong> $611.61</li>
+<li><strong>Relative Strength (20-day):</strong> +5.11%</li>
+<li><strong>Relative Strength (60-day):</strong> +47.14%</li>
+<li><strong>Momentum (3M+6M):</strong> +132.11%</li>
+</ul>
+<p><strong>Analysis:</strong> Strong outperformance across multiple timeframes</p>
+<h3 id="3-healthcare-xlv-medium-early-rotation">3. Healthcare (XLV) - Medium (Early Rotation)</h3>
+<ul>
+<li><strong>Composite Score:</strong> 80.4</li>
+<li><strong>Current Price:</strong> $160.34</li>
+<li><strong>Relative Strength (20-day):</strong> +9.88%</li>
+<li><strong>Relative Strength (60-day):</strong> -2.54%</li>
+<li><strong>Momentum (3M+6M):</strong> +15.35%</li>
+</ul>
+<p><strong>Analysis:</strong> Recent strength emerging, potential early rotation signal</p>
+<h3 id="4-real-estate-xlre-medium-early-rotation">4. Real Estate (XLRE) - Medium (Early Rotation)</h3>
+<ul>
+<li><strong>Composite Score:</strong> 73.2</li>
+<li><strong>Current Price:</strong> $45.24</li>
+<li><strong>Relative Strength (20-day):</strong> +5.91%</li>
+<li><strong>Relative Strength (60-day):</strong> -0.61%</li>
+<li><strong>Momentum (3M+6M):</strong> +16.39%</li>
+</ul>
+<p><strong>Analysis:</strong> Recent strength emerging, potential early rotation signal</p>
+<h3 id="5-financials-xlf-medium-early-rotation">5. Financials (XLF) - Medium (Early Rotation)</h3>
+<ul>
+<li><strong>Composite Score:</strong> 71.4</li>
+<li><strong>Current Price:</strong> $53.57</li>
+<li><strong>Relative Strength (20-day):</strong> +8.00%</li>
+<li><strong>Relative Strength (60-day):</strong> -3.50%</li>
+<li><strong>Momentum (3M+6M):</strong> +4.36%</li>
+</ul>
+<p><strong>Analysis:</strong> Recent strength emerging, potential early rotation signal</p>
+<h3 id="6-technology-xlk-weak">6. Technology (XLK) - Weak</h3>
+<ul>
+<li><strong>Composite Score:</strong> 67.9</li>
+<li><strong>Current Price:</strong> $181.11</li>
+<li><strong>Relative Strength (20-day):</strong> +0.19%</li>
+<li><strong>Relative Strength (60-day):</strong> +24.06%</li>
+<li><strong>Momentum (3M+6M):</strong> +57.46%</li>
+</ul>
+<p><strong>Analysis:</strong> Underperforming benchmark across timeframes</p>
+<h3 id="7-utilities-xlu-medium-early-rotation">7. Utilities (XLU) - Medium (Early Rotation)</h3>
+<ul>
+<li><strong>Composite Score:</strong> 53.6</li>
+<li><strong>Current Price:</strong> $nan</li>
+<li><strong>Relative Strength (20-day):</strong> +6.53%</li>
+<li><strong>Relative Strength (60-day):</strong> -11.83%</li>
+<li><strong>Momentum (3M+6M):</strong> +4.01%</li>
+</ul>
+<p><strong>Analysis:</strong> Recent strength emerging, potential early rotation signal</p>
+<h3 id="8-consumer-staples-xlp-medium-early-rotation">8. Consumer Staples (XLP) - Medium (Early Rotation)</h3>
+<ul>
+<li><strong>Composite Score:</strong> 50.0</li>
+<li><strong>Current Price:</strong> $84.71</li>
+<li><strong>Relative Strength (20-day):</strong> +4.17%</li>
+<li><strong>Relative Strength (60-day):</strong> -8.34%</li>
+<li><strong>Momentum (3M+6M):</strong> +7.85%</li>
+</ul>
+<p><strong>Analysis:</strong> Recent strength emerging, potential early rotation signal</p>
+<h3 id="9-materials-xlb-medium-early-rotation">9. Materials (XLB) - Medium (Early Rotation)</h3>
+<ul>
+<li><strong>Composite Score:</strong> 48.2</li>
+<li><strong>Current Price:</strong> $51.60</li>
+<li><strong>Relative Strength (20-day):</strong> +3.99%</li>
+<li><strong>Relative Strength (60-day):</strong> -8.73%</li>
+<li><strong>Momentum (3M+6M):</strong> +15.67%</li>
+</ul>
+<p><strong>Analysis:</strong> Recent strength emerging, potential early rotation signal</p>
+<h3 id="10-energy-xle-weak">10. Energy (XLE) - Weak</h3>
+<ul>
+<li><strong>Composite Score:</strong> 41.1</li>
+<li><strong>Current Price:</strong> $53.84</li>
+<li><strong>Relative Strength (20-day):</strong> -1.63%</li>
+<li><strong>Relative Strength (60-day):</strong> -23.86%</li>
+<li><strong>Momentum (3M+6M):</strong> +24.57%</li>
+</ul>
+<p><strong>Analysis:</strong> Underperforming benchmark across timeframes</p>
+<h3 id="11-software-igv-weak">11. Software (IGV) - Weak</h3>
+<ul>
+<li><strong>Composite Score:</strong> 32.1</li>
+<li><strong>Current Price:</strong> $88.20</li>
+<li><strong>Relative Strength (20-day):</strong> -4.66%</li>
+<li><strong>Relative Strength (60-day):</strong> -2.18%</li>
+<li><strong>Momentum (3M+6M):</strong> -13.90%</li>
+</ul>
+<p><strong>Analysis:</strong> Underperforming benchmark across timeframes</p>
+<h3 id="12-consumer-discretionary-xly-weak">12. Consumer Discretionary (XLY) - Weak</h3>
+<ul>
+<li><strong>Composite Score:</strong> 30.4</li>
+<li><strong>Current Price:</strong> $114.37</li>
+<li><strong>Relative Strength (20-day):</strong> -2.97%</li>
+<li><strong>Relative Strength (60-day):</strong> -7.23%</li>
+<li><strong>Momentum (3M+6M):</strong> -3.42%</li>
+</ul>
+<p><strong>Analysis:</strong> Underperforming benchmark across timeframes</p>
+<h3 id="13-magnificent-7-mags-weak">13. Magnificent 7 (MAGS) - Weak</h3>
+<ul>
+<li><strong>Composite Score:</strong> 23.2</li>
+<li><strong>Current Price:</strong> $61.60</li>
+<li><strong>Relative Strength (20-day):</strong> -9.94%</li>
+<li><strong>Relative Strength (60-day):</strong> -6.07%</li>
+<li><strong>Momentum (3M+6M):</strong> -2.77%</li>
+</ul>
+<p><strong>Analysis:</strong> Underperforming benchmark across timeframes</p>
+<h3 id="14-communication-services-xlc-weak">14. Communication Services (XLC) - Weak</h3>
+<ul>
+<li><strong>Composite Score:</strong> 12.5</li>
+<li><strong>Current Price:</strong> $106.18</li>
+<li><strong>Relative Strength (20-day):</strong> -5.61%</li>
+<li><strong>Relative Strength (60-day):</strong> -16.35%</li>
+<li><strong>Momentum (3M+6M):</strong> -14.33%</li>
+</ul>
+<p><strong>Analysis:</strong> Underperforming benchmark across timeframes</p>
+<hr />
+<h2 id="sector-strength-distribution">Sector Strength Distribution</h2>
+<h3 id="top-5-sectors-relative-strength">Top 5 Sectors (Relative Strength)</h3>
+<ul>
+<li><strong>Industrials (XLI):</strong> 21.5% (Score-weighted)</li>
+<li><strong>Semiconductors (SMH):</strong> 21.0% (Score-weighted)</li>
+<li><strong>Healthcare (XLV):</strong> 20.5% (Score-weighted)</li>
+<li><strong>Real Estate (XLRE):</strong> 18.7% (Score-weighted)</li>
+<li><strong>Financials (XLF):</strong> 18.3% (Score-weighted)</li>
+</ul>
+<h3 id="bottom-3-sectors-relative-weakness">Bottom 3 Sectors (Relative Weakness)</h3>
+<ul>
+<li>Consumer Discretionary (XLY)</li>
+<li>Magnificent 7 (MAGS)</li>
+<li>Communication Services (XLC)</li>
+</ul>
+<hr />
+<h2 id="methodology">Methodology</h2>
+<p><strong>Composite Score Components:</strong></p>
+<ul>
+<li>25% - Relative Strength (20-day) vs SPY</li>
+<li>25% - Momentum Score (3M + 6M returns)</li>
+<li>25% - Relative Strength (60-day) vs SPY</li>
+<li>25% - Recent Performance (20-day return)</li>
+</ul>
+<p><strong>Strength Categories:</strong></p>
+<ul>
+<li><strong>Very Strong:</strong> RS 20d &gt; +2%, RS 60d &gt; +3%, Momentum &gt; +10%</li>
+<li><strong>Strong:</strong> RS 20d &gt; +1%, RS 60d &gt; +1%</li>
+<li><strong>Medium (Early Rotation):</strong> RS 20d positive but RS 60d negative</li>
+<li><strong>Medium (Weakening):</strong> RS 20d negative but RS 60d still positive</li>
+<li><strong>Weak:</strong> Both RS 20d and RS 60d negative</li>
+</ul>
+<hr />
+<h2 id="important-disclaimer">Important Disclaimer</h2>
+<p><strong>RESEARCH TOOL - NOT INVESTMENT ADVICE</strong></p>
+<p>This sector rotation analysis is provided as a research tool for tracking capital flows across market sectors. <br />
+It is for educational purposes only and does not constitute investment advice or personalized recommendations.</p>
+<p><strong>Key Points:</strong><br />
+- This analysis tracks where capital is currently moving, not where it will move<br />
+- Past sector performance does not guarantee future results<br />
+- Sector rotation strategies carry risk of loss<br />
+- Always consult with licensed financial professionals before making investment decisions</p>
+<p><strong>Report Generated:</strong> 2026-06-27 15:10:36</p>
+    </div>
+</body>
+</html>
